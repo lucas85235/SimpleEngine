@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(SimpleEngine LANGUAGES CXX)
+project(SimpleEngineProject LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Fetch GLFW without extras
+# Fetch GLFW (no examples/tests)
 include(FetchContent)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
@@ -22,24 +22,5 @@ FetchContent_MakeAvailable(glfw)
 
 find_package(OpenGL REQUIRED)
 
-add_executable(SimpleEngine
-  src/main.cpp
-  src/App.cpp
-  src/Window.cpp
-  src/Renderer.cpp
-)
-
-target_include_directories(SimpleEngine PRIVATE include)
-
-target_link_libraries(SimpleEngine
-  PRIVATE
-    glfw
-    OpenGL::GL
-)
-
-# Warnings (optional)
-if (MSVC)
-  target_compile_options(SimpleEngine PRIVATE /W4 /permissive-)
-else()
-  target_compile_options(SimpleEngine PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+add_subdirectory(engine)
+add_subdirectory(apps/sandbox)
