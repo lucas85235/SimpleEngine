@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Baixar e integrar o GLFW (sem exemplos/testes)
+# Fetch GLFW without extras
 include(FetchContent)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
@@ -20,15 +20,26 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(glfw)
 
-# OpenGL (linka libGL no Linux, framework no macOS, opengl32 no Windows)
 find_package(OpenGL REQUIRED)
 
 add_executable(SimpleEngine
-  main.cpp
+  src/main.cpp
+  src/App.cpp
+  src/Window.cpp
+  src/Renderer.cpp
 )
+
+target_include_directories(SimpleEngine PRIVATE include)
 
 target_link_libraries(SimpleEngine
   PRIVATE
     glfw
     OpenGL::GL
 )
+
+# Warnings (optional)
+if (MSVC)
+  target_compile_options(SimpleEngine PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(SimpleEngine PRIVATE -Wall -Wextra -Wpedantic)
+endif()
