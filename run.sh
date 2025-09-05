@@ -15,4 +15,4 @@ cmake -S . -B $BUILD_DIR
 cmake --build $BUILD_DIR
 
 # Executa o binário
-./$BUILD_DIR/SimpleEngine
+./$BUILD_DIR/apps/sandbox/sandbox

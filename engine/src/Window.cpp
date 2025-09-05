@@ -1,13 +1,12 @@
-#include "Window.h"
+#include <SimpleEngine/Window.h>
 #include <stdexcept>
 #include <cstdio>
+
+// GLAD must be included before GLFW
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#ifdef __APPLE__
-  #include <OpenGL/gl.h>
-#else
-  #include <GL/gl.h>
-#endif
+namespace se {
 
 Window::Window(int width, int height, const std::string& title)
     : width_(width), height_(height) {
@@ -15,9 +14,13 @@ Window::Window(int width, int height, const std::string& title)
         throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    // Use an OpenGL 2.1 compatible context (immediate mode friendly)
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    // Request OpenGL 3.3 Core Profile (modern pipeline)
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#ifdef __APPLE__
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 
     handle_ = glfwCreateWindow(width_, height_, title.c_str(), nullptr, nullptr);
     if (!handle_) {
@@ -27,9 +30,16 @@ Window::Window(int width, int height, const std::string& title)
 
     glfwMakeContextCurrent(handle_);
     glfwSwapInterval(1); // vsync
+
+    // Load OpenGL function pointers via GLAD
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        glfwDestroyWindow(handle_);
+        glfwTerminate();
+        throw std::runtime_error("Failed to initialize GLAD");
+    }
+
     glfwSetFramebufferSizeCallback(handle_, framebufferSizeCallback);
 
-    // Setup initial viewport
     int fbw = 0, fbh = 0;
     glfwGetFramebufferSize(handle_, &fbw, &fbh);
     applyViewport(fbw, fbh);
@@ -63,12 +73,12 @@ bool Window::isKeyPressed(int key) const {
     return glfwGetKey(handle_, key) == GLFW_PRESS;
 }
 
-void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
-    // Retrieve our Window instance if needed; here we just update the viewport
-    (void)window;
+void Window::framebufferSizeCallback(GLFWwindow* /*window*/, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
 void Window::applyViewport(int width, int height) const {
     glViewport(0, 0, width, height);
 }
+
+} // namespace se

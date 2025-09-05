@@ -3,14 +3,8 @@ add_executable(sandbox
     src/App.cpp
 )
 
-target_include_directories(sandbox PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-# Link only the engine; transitive deps come from the engine target
+# Liga o sandbox APENAS à engine. A engine trata do resto.
 target_link_libraries(sandbox PRIVATE simple_engine)
 
-# Warnings (optional)
-if (MSVC)
-  target_compile_options(sandbox PRIVATE /W4 /permissive-)
-else()
-  target_compile_options(sandbox PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+# (Opcional: pode adicionar a macro de path aqui se precisar dela no main.cpp)
+target_compile_definitions(sandbox PRIVATE PROJECT_SOURCE_DIR="${CMAKE_PROJECT_DIR}")
