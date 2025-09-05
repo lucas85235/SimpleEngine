@@ -1,7 +1,6 @@
-#include "./includes/Application.h"
+#include <iostream>
 
 int main() {
-    Application app;
-    app.Run();
+    std::cout << "SimpleEngine minimal build OK 👌\n";
     return 0;
 }
