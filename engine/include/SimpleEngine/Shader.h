@@ -18,6 +18,9 @@ public:
     // Minimal uniform helper (float)
     void setFloat(const char* name, float value) const;
 
+    unsigned int getID() const { return program_; }
+    unsigned int release() { unsigned int id = program_; program_ = 0; return id; }
+
 private:
     unsigned int program_ = 0;
 

@@ -28,12 +28,6 @@ void main() {
 
 namespace se {
 
-Renderer::~Renderer() {
-    if (program_) glDeleteProgram(program_);
-    if (vbo_) glDeleteBuffers(1, &vbo_);
-    if (vao_) glDeleteVertexArrays(1, &vao_);
-}
-
 void Renderer::init() {
     // Triangle data: pos (x,y), color (r,g,b)
     const float verts[] = {
@@ -41,16 +35,6 @@ void Renderer::init() {
          0.6f, -0.5f,  0.f, 1.f, 0.f,
          0.0f,  0.6f,  0.f, 0.f, 1.f,
     };
-
-    // Create shader
-    Shader shader(kVS, kFS);
-    shader.bind();
-    // Keep only the program id for speed (this Renderer stays minimal)
-    // A small trick: get current program id
-    GLint currentProgram = 0;
-    glGetIntegerv(GL_CURRENT_PROGRAM, &currentProgram);
-    program_ = static_cast<unsigned int>(currentProgram);
-    shader.unbind();
 
     // Create VAO + VBO
     glGenVertexArrays(1, &vao_);
@@ -68,8 +52,15 @@ void Renderer::init() {
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
 
+    // Cleanup binding
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    // Create shader
+    Shader shader(kVS, kFS);
+    shader.bind();
+    program_ = shader.release();
+    shader.unbind();
 }
 
 void Renderer::draw(float time) {
@@ -77,6 +68,7 @@ void Renderer::draw(float time) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(program_);
+
     float u = 0.5f * (std::sin(time) * 0.5f + 0.5f); // [0,0.5]
     GLint loc = glGetUniformLocation(program_, "uMix");
     if (loc >= 0) glUniform1f(loc, u);
@@ -84,5 +76,13 @@ void Renderer::draw(float time) {
     glBindVertexArray(vao_);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glBindVertexArray(0);
+    glUseProgram(0);
 }
+
+Renderer::~Renderer() {
+    if (program_) glDeleteProgram(program_);
+    if (vbo_) glDeleteBuffers(1, &vbo_);
+    if (vao_) glDeleteVertexArrays(1, &vao_);
+}
+
 } // namespace se
