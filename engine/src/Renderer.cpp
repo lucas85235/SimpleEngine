@@ -1,11 +1,11 @@
 #include <SimpleEngine/Renderer.h>
 #include <SimpleEngine/Shader.h>
+#include <glm/gtc/type_ptr.hpp>
 #include <cmath>
 
-// GLAD first
-#include <glad/glad.h>
-
 namespace se {
+
+Renderer::Renderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)) {}
 
 void Renderer::init() {
     // Triangle data: pos (x,y), color (r,g,b)
@@ -47,14 +47,93 @@ void Renderer::init() {
     Shader shader = Shader::fromFiles(vsPath, fsPath);
     shader.bind();
     program_ = shader.release();
+
+    viewLoc_ = glGetUniformLocation(program_, "uView");
+    projLoc_ = glGetUniformLocation(program_, "uProj");
+
+    // Setup input: get GLFW window and register mouse callback + disable cursor
+    GLFWwindow* window = glfwGetCurrentContext();
+    if (!window) {
+        std::cerr << "Renderer::init: no current GLFW context\n";
+    } else {        
+        // store pointer to this renderer so callback can access it
+        glfwSetWindowUserPointer(window, this);
+        glfwSetCursorPosCallback(window, mouseCallback);
+
+        // capture the mouse
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+        // initialize last mouse pos to window center
+        int w, h;
+        glfwGetWindowSize(window, &w, &h);
+        lastX_ = w / 2.0;
+        lastY_ = h / 2.0;
+    }
+
     shader.unbind();
 }
 
+void Renderer::mouseCallback(GLFWwindow* window, double xpos, double ypos) {
+    Renderer* r = static_cast<Renderer*>(glfwGetWindowUserPointer(window));
+    if (r) r->processMouse(xpos, ypos);
+    else std::cout << "[mouseCallback] no renderer in window user pointer!\n";
+}
+
+void Renderer::processMouse(double xpos, double ypos) {
+    if (firstMouse_) {
+        lastX_ = xpos;
+        lastY_ = ypos;
+        firstMouse_ = false;
+    }
+
+    double xoffset = xpos - lastX_;
+    double yoffset = lastY_ - ypos; // reversed: y ranges bottom->top in GLFW
+    lastX_ = xpos;
+    lastY_ = ypos;
+
+    camera_.processMouseMovement(static_cast<float>(xoffset), static_cast<float>(yoffset));
+}
+
+void Renderer::processKeyboard(float deltaTime) {
+    GLFWwindow* window = glfwGetCurrentContext();
+    if (!window) return;
+
+    bool forward = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
+    bool back    = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
+    bool left    = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
+    bool right   = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+    bool upKey   = glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS;
+    bool downKey = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS;
+
+    camera_.processKeyboard(deltaTime, forward, back, left, right, upKey, downKey);
+}
+
 void Renderer::draw(float time) {
+    static float lastFrame = 0.0f;
+    float currentFrame = time;
+    float delta = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+
+    // allow keyboard movement
+    processKeyboard(delta);
+
     glClearColor(0.08f, 0.10f, 0.14f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(program_);
+
+    // view / projection
+    int width, height;
+    GLFWwindow* window = glfwGetCurrentContext();
+    if (window) glfwGetFramebufferSize(window, &width, &height);
+    else { width = 800; height = 600; } // fallback
+    float aspect = width / (float)height;
+
+    glm::mat4 view = camera_.getViewMatrix();
+    glm::mat4 proj = camera_.getProjectionMatrix(aspect);
+
+    glUniformMatrix4fv(viewLoc_, 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(projLoc_, 1, GL_FALSE, glm::value_ptr(proj));
 
     float u = 0.5f * (std::sin(time) * 0.5f + 0.5f); // [0,0.5]
     GLint loc = glGetUniformLocation(program_, "uMix");

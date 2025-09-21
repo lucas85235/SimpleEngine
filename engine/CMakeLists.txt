@@ -16,6 +16,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(glfw)
 
 find_package(OpenGL REQUIRED)
+find_package(glm CONFIG REQUIRED)
 
 # --- BIBLIOTECAS INTERNAS ---
 
@@ -34,6 +35,7 @@ add_library(simple_engine
     src/Window.cpp
     src/Renderer.cpp
     src/Shader.cpp
+    src/Camera.cpp
     # Adicione aqui todos os outros ficheiros .cpp da sua engine
 )
 target_include_directories(simple_engine PUBLIC
@@ -49,6 +51,7 @@ target_link_libraries(simple_engine
         glad # Ligação ao alvo 'glad' restaurada
         glfw
         OpenGL::GL
+        glm::glm
 )
 
 # Adiciona definições de compilação necessárias

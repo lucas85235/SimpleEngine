@@ -17,8 +17,8 @@ int App::run() {
         double t = glfwGetTime() - start;
         renderer_.draw(static_cast<float>(t));
 
-        window_.swapBuffers();
         window_.pollEvents();
+        window_.swapBuffers();
     }
     return 0;
 }
