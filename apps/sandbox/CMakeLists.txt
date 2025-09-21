@@ -3,6 +3,8 @@ add_executable(sandbox
     src/App.cpp
 )
 
+add_dependencies(sandbox copy_assets)
+
 # Liga o sandbox APENAS à engine. A engine trata do resto.
 target_link_libraries(sandbox PRIVATE simple_engine)
 

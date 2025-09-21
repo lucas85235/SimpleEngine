@@ -1,12 +1,18 @@
 #pragma once
 #include <string>
 #include <cstdint>
+#include <filesystem>
+#include <SimpleEngine/utils/FilesHandler.h>
 
 namespace se {
 
 class Shader {
 public:
-    Shader(const char* vsSource, const char* fsSource); // build from source strings
+    Shader(const std::string& vertSrc, const std::string& fragSrc);
+    static Shader fromFiles(const std::filesystem::path& vertPath, const std::filesystem::path& fragPath) {
+        return Shader(readFileToString(vertPath), readFileToString(fragPath));
+    }
+
     ~Shader();
 
     Shader(const Shader&) = delete;

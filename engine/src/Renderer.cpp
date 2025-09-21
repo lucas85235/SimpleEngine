@@ -5,27 +5,6 @@
 // GLAD first
 #include <glad/glad.h>
 
-// Minimal vertex & fragment shaders (OpenGL 330 core)
-static const char* kVS = R"(#version 330 core
-layout (location = 0) in vec2 aPos;
-layout (location = 1) in vec3 aColor;
-out vec3 vColor;
-void main() {
-    vColor = aColor;
-    gl_Position = vec4(aPos, 0.0, 1.0);
-}
-)";
-
-static const char* kFS = R"(#version 330 core
-in vec3 vColor;
-out vec4 FragColor;
-uniform float uMix;
-void main() {
-    vec3 mixed = mix(vColor, vec3(1.0, 1.0, 1.0), uMix);
-    FragColor = vec4(mixed, 1.0);
-}
-)";
-
 namespace se {
 
 void Renderer::init() {
@@ -56,8 +35,16 @@ void Renderer::init() {
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    // Find shaders folder and files
+    auto assets = findAssetsFolder();
+    if (!assets) {
+        throw std::runtime_error("Assets folder not found. Checked: ASSETS_DIR, ./assets, exe_dir/assets");
+    }
+    fs::path vsPath = *assets / "shaders" / "basic.vert";
+    fs::path fsPath = *assets / "shaders" / "basic.frag";
+
     // Create shader
-    Shader shader(kVS, kFS);
+    Shader shader = Shader::fromFiles(vsPath, fsPath);
     shader.bind();
     program_ = shader.release();
     shader.unbind();

@@ -33,17 +33,17 @@ static std::string numberedSource(const char* src) {
     return out.str();
 }
 
-Shader::Shader(const char* vsSource, const char* fsSource) {
-    if (!vsSource) throw std::invalid_argument("Vertex shader source is null");
-    if (!fsSource) throw std::invalid_argument("Fragment shader source is null");
+Shader::Shader(const std::string& vertSrc, const std::string& fragSrc) {
+    if (vertSrc.empty()) throw std::invalid_argument("Vertex shader source is null");
+    if (fragSrc.empty()) throw std::invalid_argument("Fragment shader source is null");
 
     unsigned int vs = 0;
     unsigned int fs = 0;
     program_ = 0;
 
     // compile stages first
-    vs = compileStage(GL_VERTEX_SHADER, vsSource);
-    fs = compileStage(GL_FRAGMENT_SHADER, fsSource);
+    vs = compileStage(GL_VERTEX_SHADER, vertSrc.c_str());
+    fs = compileStage(GL_FRAGMENT_SHADER, fragSrc.c_str());
 
     // create program and attach
     program_ = glCreateProgram();
