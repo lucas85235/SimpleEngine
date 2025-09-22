@@ -1,8 +1,13 @@
 #include "App.h"
 #include <GLFW/glfw3.h>
+#include <SimpleEngine/Log.h>
 
 App::App()
     : window_(800, 600, "Sandbox - OpenGL 3.3 Core") {
+
+    se::LogInit(true);
+    SE_LOG_INFO("Starting engine - build: {}", 0);
+
     renderer_.init();
 }
 

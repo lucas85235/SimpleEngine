@@ -30,12 +30,19 @@ target_include_directories(glad PUBLIC
     "libs/glad/include"
 )
 
+FetchContent_Declare(spdlog
+  GIT_REPOSITORY https://github.com/gabime/spdlog.git
+  GIT_TAG v1.x
+)
+FetchContent_MakeAvailable(spdlog)
+
 # Constrói a biblioteca da engine, SEM o código da GLAD.
 add_library(simple_engine
     src/Window.cpp
     src/Renderer.cpp
     src/Shader.cpp
     src/Camera.cpp
+    src/Log.cpp
     # Adicione aqui todos os outros ficheiros .cpp da sua engine
 )
 target_include_directories(simple_engine PUBLIC
@@ -52,6 +59,8 @@ target_link_libraries(simple_engine
         glfw
         OpenGL::GL
         glm::glm
+        spdlog::spdlog 
+        spdlog::spdlog_header_only
 )
 
 # Adiciona definições de compilação necessárias

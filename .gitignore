@@ -1,2 +1,4 @@
 .vscode/
 build/
+logs/
+compile_commands.json
