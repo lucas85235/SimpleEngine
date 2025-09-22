@@ -22,9 +22,9 @@ public:
     void processMouseScroll(float yoffset);
 
     // public config
-    float MovementSpeed = 3.0f;
-    float MouseSensitivity = 0.1f;
-    float Zoom = 45.0f; // fov
+    float MovementSpeed = 5.0f;
+    float MouseSensitivity = 0.5f;
+    float Zoom = 90.0f; // fov
 
     glm::vec3 Position;
     glm::vec3 Front;
