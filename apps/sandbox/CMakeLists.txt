@@ -6,7 +6,7 @@ add_executable(sandbox
 add_dependencies(sandbox copy_assets)
 
 # Liga o sandbox APENAS à engine. A engine trata do resto.
-target_link_libraries(sandbox PRIVATE simple_engine)
+target_link_libraries(sandbox PRIVATE simple_engine imgui)
 
 # (Opcional: pode adicionar a macro de path aqui se precisar dela no main.cpp)
 target_compile_definitions(sandbox PRIVATE PROJECT_SOURCE_DIR="${CMAKE_PROJECT_DIR}")
