@@ -1,4 +1,4 @@
-#include <SimpleEngine/Window.h>
+#include <engine/Window.h>
 #include <stdexcept>
 #include <cstdio>
 #include <iostream>

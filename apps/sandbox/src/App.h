@@ -1,6 +1,6 @@
 #pragma once
-#include <SimpleEngine/Window.h>
-#include <SimpleEngine/Renderer.h>
+#include <engine/Window.h>
+#include <engine/Renderer.h>
 
 class App {
 public:

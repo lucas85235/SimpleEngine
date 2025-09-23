@@ -1,4 +1,4 @@
-#include <SimpleEngine/Shader.h>
+#include <engine/Shader.h>
 #include <stdexcept>
 #include <vector>
 #include <string>

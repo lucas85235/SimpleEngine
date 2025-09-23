@@ -1,4 +1,4 @@
-#include <SimpleEngine/Camera.h>
+#include <engine/Camera.h>
 #include <glm/gtc/constants.hpp>
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)

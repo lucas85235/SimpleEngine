@@ -1,5 +1,5 @@
 #pragma once
-#include <SimpleEngine/Camera.h>
+#include <engine/Camera.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -11,7 +11,10 @@ public:
     ~Renderer();
 
     void init();             // create VAO/VBO + compile shader
+    void clear();            // Limpa a tela
+
     void draw(float time);   // draw rotating color factor
+    void swapBuffers();      // Troca os buffers de frente e trás
 
 private:
     unsigned int vao_ = 0;

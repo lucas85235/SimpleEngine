@@ -1,5 +1,5 @@
-#include <SimpleEngine/Renderer.h>
-#include <SimpleEngine/Shader.h>
+#include <engine/Renderer.h>
+#include <engine/Shader.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <cmath>
 

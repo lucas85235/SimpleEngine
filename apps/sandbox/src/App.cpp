@@ -1,6 +1,6 @@
 #include "App.h"
 #include <GLFW/glfw3.h>
-#include <SimpleEngine/Log.h>
+#include <engine/Log.h>
 
 App::App()
     : window_(800, 600, "Sandbox - OpenGL 3.3 Core") {
