@@ -72,8 +72,9 @@ add_library(simple_engine
     src/Shader.cpp
     src/Camera.cpp
     src/Log.cpp
-    # Adicione aqui todos os outros ficheiros .cpp da sua engine
+    src/InputHandler.cpp
 )
+
 target_include_directories(simple_engine PUBLIC
     "include"
 )
