@@ -8,33 +8,6 @@ namespace se {
 Renderer::Renderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {}
 
 void Renderer::init() {
-    // Triangle data: pos (x,y), color (r,g,b)
-    const float verts[] = {
-        -0.6f, -0.5f,  1.f, 0.f, 0.f,
-         0.6f, -0.5f,  0.f, 1.f, 0.f,
-         0.0f,  0.6f,  0.f, 0.f, 1.f,
-    };
-
-    // Create VAO + VBO
-    glGenVertexArrays(1, &vao_);
-    glBindVertexArray(vao_);
-
-    glGenBuffers(1, &vbo_);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
-
-    // layout (location=0) -> vec2 position
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-
-    // layout (location=1) -> vec3 color
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-
-    // Cleanup binding
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
     // Find shaders folder and files
     auto assets = findAssetsFolder();
     if (!assets) {
@@ -53,6 +26,7 @@ void Renderer::init() {
 
     try {
         // Initialize component
+        mesh_.initialize();
         inputHandler_.initialize(glfwGetCurrentContext());
         
     } catch (const std::exception& e) {
@@ -88,9 +62,8 @@ void Renderer::draw(float time) {
     setupMatrices();
     setupAnimationUniforms(time);
 
-    glBindVertexArray(vao_);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(0);
+    mesh_.draw();
+
     glUseProgram(0);
 }
 

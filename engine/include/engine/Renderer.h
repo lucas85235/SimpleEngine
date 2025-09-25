@@ -1,6 +1,7 @@
 #pragma once
 #include <engine/Camera.h>
 #include <engine/InputHandler.h>
+#include <engine/Mesh.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -20,6 +21,7 @@ public:
 private:
     // Core components
     InputHandler inputHandler_;
+    TriangleMesh mesh_;
 
     unsigned int vao_ = 0;
     unsigned int vbo_ = 0;

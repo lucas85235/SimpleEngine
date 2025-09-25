@@ -73,6 +73,7 @@ add_library(simple_engine
     src/Camera.cpp
     src/Log.cpp
     src/InputHandler.cpp
+    src/Mesh.cpp
 )
 
 target_include_directories(simple_engine PUBLIC
