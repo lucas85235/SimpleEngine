@@ -20,12 +20,12 @@ public:
     void pollEvents() const;
     bool isKeyPressed(int key) const;
 
-    GLFWwindow* native() const { return handle_; }
+    GLFWwindow* native() const { return window_; }
     int width()  const { return width_; }
     int height() const { return height_; }
 
 private:
-    GLFWwindow* handle_ = nullptr;
+    GLFWwindow* window_ = nullptr;
     int width_ = 0;
     int height_ = 0;
 
