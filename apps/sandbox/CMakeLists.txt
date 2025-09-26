@@ -1,6 +1,6 @@
 add_executable(sandbox
     src/main.cpp
-    src/App.cpp
+    src/AppTest.cpp
 )
 
 add_dependencies(sandbox copy_assets)

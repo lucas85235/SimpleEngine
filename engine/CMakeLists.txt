@@ -74,6 +74,10 @@ add_library(simple_engine
     src/Log.cpp
     src/InputHandler.cpp
     src/Mesh.cpp
+    src/renderer/opengl/OpenGLBuffer.cpp
+    src/renderer/opengl/OpenGLDevice.cpp
+    src/renderer/vulkan/VulkanBuffer.cpp
+    src/renderer/vulkan/VulkanDevice.cpp
 )
 
 target_include_directories(simple_engine PUBLIC
