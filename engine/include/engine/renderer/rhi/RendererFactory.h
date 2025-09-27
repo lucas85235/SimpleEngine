@@ -1,8 +1,8 @@
 #pragma once
-#include <memory>
-#include "../rhi/IGraphicsDevice.h"
-#include "../opengl/OpenGLDevice.h" // Incluímos os headers concretos aqui
-#include "../vulkan/VulkanDevice.h" // para poder criá-los.
+
+#include <engine/renderer/rhi/IGraphicsDevice.h>
+#include <engine/renderer/opengl/OpenGLDevice.h>
+#include <engine/renderer/vulkan/VulkanDevice.h>
 
 enum class GraphicsAPI {
     OpenGL,

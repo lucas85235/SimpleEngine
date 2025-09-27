@@ -65,6 +65,9 @@ int App::run()
     std::cout << "========================================\n\n";
     */
 
+    // ----------------------------------------------------------------
+
+    /*
     std::unique_ptr<OpenGLDevice> device;
 
     try {
@@ -105,7 +108,38 @@ int App::run()
 
         device->EndFrame();
     }
+    */
 
+    // ----------------------------------------------------------------
+
+    // ESCOLHA A API AQUI!
+    const GraphicsAPI api = GraphicsAPI::Vulkan; // Ou GraphicsAPI::OpenGL
+
+    std::unique_ptr<VulkanDevice> device;
+
+    try {
+        // device = RendererFactory::CreateDevice(api);
+        device = std::make_unique<VulkanDevice>();
+
+    } catch (const std::exception& e) {
+        std::cerr << "Erro fatal na inicialização: " << e.what() << std::endl;
+        return -1;
+    }
+
+    device->run();
+
+    // O código abaixo é agnóstico à API!
+    // Ele funciona da mesma forma para OpenGL e Vulkan.
+    while (device->IsWindowOpen()) {
+        device->BeginFrame();
+
+        // Lógica de renderização viria aqui
+
+        device->EndFrame();
+    }
+
+    // O device é destruído, chamando o destrutor correto (OpenGL ou Vulkan)
+    // e liberando todos os recursos.
 
     return 0;
 }

@@ -42,6 +42,14 @@ FetchContent_Declare(
   GIT_TAG v1.89.8 # ajuste a versão se preferir um tag mais recente
 )
 
+# Opção para escolher o backend de renderização
+# option(SE_GFX_BACKEND "Graphics backend (OpenGL|Vulkan)" "OpenGL")
+
+# ---- Vulkan (find package do CMake) ----
+find_package(Vulkan REQUIRED)        # fornece Vulkan::Vulkan
+# Se quiser VALIDATION LAYERS em debug:
+add_definitions(-DSE_VK_ENABLE_VALIDATION=1)
+
 FetchContent_GetProperties(imgui)
 if (NOT imgui_POPULATED)
   FetchContent_Populate(imgui)
@@ -96,6 +104,7 @@ target_link_libraries(simple_engine
         glm::glm
         spdlog::spdlog 
         spdlog::spdlog_header_only
+        Vulkan::Vulkan
 )
 
 # Adiciona definições de compilação necessárias
