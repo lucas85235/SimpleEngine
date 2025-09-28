@@ -1,72 +1,105 @@
 #include "App.h"
-#include <GLFW/glfw3.h>
+// #include <GLFW/glfw3.h>
 #include <engine/Log.h>
+#include <engine/Window.h>
+#include <engine/Renderer.h>
+// #include <engine/OpenGLRenderer.h>
+#include <engine/VulkanRenderer.h>
+
+using namespace se;
 
 // ImGui headers
-#include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+// #include "imgui.h"
+// #include "backends/imgui_impl_glfw.h"
+// #include "backends/imgui_impl_opengl3.h"
+
+std::unique_ptr<Window> window;
+std::unique_ptr<Renderer> renderer;
 
 App::App()
-    : window_(800, 600, "Sandbox - OpenGL 3.3 Core")
+    // : window_(800, 600, "Sandbox - OpenGL 3.3 Core")
 {
-
     // Initialize logging
     se::LogInit(true);
     SE_LOG_INFO("Starting engine - build: {}", 0);
 
-    // Initialize renderer
-    renderer_.init();
+    window = std::make_unique<Window>(800, 600, "Sandbox");
+    renderer = std::make_unique<VulkanRenderer>();
 
-    // ImGui: create context and init backend
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    (void)io;
-    ImGui::StyleColorsDark();
+    // Configurar callback de redimensionamento
+    window->setResizeCallback([this](int w, int h) {
+        if (renderer) {
+            renderer->onResize(w, h);
+        }
+    });
+    
+    renderer->initialize(*window);
 
-    // Initialize ImGui GLFW + OpenGL3 backends
-    // note: the GLSL version string must match your GL context, here 330 core
-    const char *glsl_version = "#version 330 core";
-    ImGui_ImplGlfw_InitForOpenGL(window_.native(), true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
+    // // Initialize renderer
+    // renderer_.init();
+
+    // // ImGui: create context and init backend
+    // IMGUI_CHECKVERSION();
+    // ImGui::CreateContext();
+    // ImGuiIO &io = ImGui::GetIO();
+    // (void)io;
+    // ImGui::StyleColorsDark();
+
+    // // Initialize ImGui GLFW + OpenGL3 backends
+    // // note: the GLSL version string must match your GL context, here 330 core
+    // const char *glsl_version = "#version 330 core";
+    // ImGui_ImplGlfw_InitForOpenGL(window_.native(), true);
+    // ImGui_ImplOpenGL3_Init(glsl_version);
 }
 
 int App::run()
 {
-    double start = glfwGetTime();
-    bool show_demo_window = true;
-
-    while (!window_.shouldClose())
-    {
-        if (window_.isKeyPressed(GLFW_KEY_ESCAPE))
-            window_.requestClose();
-
-        double t = glfwGetTime() - start;
-
-        // Start the ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        // You can move/close it at runtime; shows many ImGui features
-        ImGui::ShowDemoWindow(&show_demo_window);
-
-        // Engine rendering draw first, then ImGui overlay
-        renderer_.draw(static_cast<float>(t));
-
-        // Render ImGui on top
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        window_.pollEvents();
-        window_.swapBuffers();
+    if (!renderer) {
+        throw std::runtime_error("Nenhum renderer definido");
     }
 
-    // Cleanup ImGui
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+    while (!window->shouldClose()) {
+        window->pollEvents();
+        renderer->render();
+        window->swapBuffers();
+    }
+    
+    renderer->cleanup();
+
+
+    // double start = glfwGetTime();
+    // bool show_demo_window = true;
+
+    // while (!window_.shouldClose())
+    // {
+    //     if (window_.isKeyPressed(GLFW_KEY_ESCAPE))
+    //         window_.requestClose();
+
+    //     double t = glfwGetTime() - start;
+
+    //     // Start the ImGui frame
+    //     ImGui_ImplOpenGL3_NewFrame();
+    //     ImGui_ImplGlfw_NewFrame();
+    //     ImGui::NewFrame();
+
+    //     // You can move/close it at runtime; shows many ImGui features
+    //     ImGui::ShowDemoWindow(&show_demo_window);
+
+    //     // Engine rendering draw first, then ImGui overlay
+    //     renderer_.draw(static_cast<float>(t));
+
+    //     // Render ImGui on top
+    //     ImGui::Render();
+    //     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+    //     window_.pollEvents();
+    //     window_.swapBuffers();
+    // }
+
+    // // Cleanup ImGui
+    // ImGui_ImplOpenGL3_Shutdown();
+    // ImGui_ImplGlfw_Shutdown();
+    // ImGui::DestroyContext();
 
     return 0;
 }

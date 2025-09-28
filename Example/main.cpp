@@ -16,7 +16,7 @@ int main() {
         std::cin >> choice;
         
         if (choice == 'o' || choice == '1') {
-            app.setRenderer(std::make_unique<OpenGLAPI>());
+            app.setRenderer(std::make_unique<OpenGLRenderer>());
         } else {
             app.setRenderer(std::make_unique<VulkanRenderer>());
         }

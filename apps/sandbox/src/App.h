@@ -1,6 +1,6 @@
 #pragma once
-#include <engine/Window.h>
-#include <engine/OldRenderer.h>
+// #include <engine/Window.h>
+// #include <engine/OldRenderer.h>
 
 class App {
 public:
@@ -8,6 +8,6 @@ public:
     int run();
 
 private:
-    se::Window   window_;
-    se::OldRenderer renderer_;
+    // se::Window   window_;
+    // se::OldRenderer renderer_;
 };

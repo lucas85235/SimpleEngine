@@ -3,32 +3,14 @@
 # --- DEPENDÊNCIAS DE TERCEIROS ---
 # Esta parte não muda
 include(FetchContent)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_DOCS     OFF CACHE BOOL "" FORCE)
-set(GLFW_INSTALL        OFF CACHE BOOL "" FORCE)
 
-FetchContent_Declare(
-  glfw
-  GIT_REPOSITORY https://github.com/glfw/glfw.git
-  GIT_TAG        3.4
-)
-FetchContent_MakeAvailable(glfw)
+add_library(glad STATIC "libs/glad/src/glad.c")
+target_include_directories(glad PUBLIC "libs/glad/include")
 
+find_package(glfw3 REQUIRED)
 find_package(OpenGL REQUIRED)
 find_package(glm CONFIG REQUIRED)
-
-# --- BIBLIOTECAS INTERNAS ---
-
-# [RESTAURADO] Constrói GLAD como a sua própria biblioteca estática isolada.
-# Isto força o 'make' a completar este passo antes de avançar,
-# o que irá expor o erro corretamente ou contornar o problema do filesystem.
-add_library(glad STATIC
-    "libs/glad/src/glad.c"
-)
-target_include_directories(glad PUBLIC
-    "libs/glad/include"
-)
+find_package(Vulkan REQUIRED)
 
 FetchContent_Declare(spdlog
   GIT_REPOSITORY https://github.com/gabime/spdlog.git
@@ -74,6 +56,8 @@ add_library(simple_engine
     src/Log.cpp
     src/InputHandler.cpp
     src/Mesh.cpp
+    src/OpenGLRenderer.cpp
+    src/VulkanRenderer.cpp
 )
 
 target_include_directories(simple_engine PUBLIC
@@ -92,6 +76,7 @@ target_link_libraries(simple_engine
         glm::glm
         spdlog::spdlog 
         spdlog::spdlog_header_only
+        Vulkan::Vulkan
 )
 
 # Adiciona definições de compilação necessárias

@@ -1,0 +1,45 @@
+#include <engine/OpenGLRenderer.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
+
+namespace se {
+
+void OpenGLRenderer::initialize(Window& window) {
+    currentWindow = &window;
+    
+    // Configurar contexto OpenGL
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    
+    // Recriar janela com contexto OpenGL
+    GLFWwindow* handle = window.native();
+    glfwMakeContextCurrent(handle);
+    
+    // Inicializar GLEW
+    if (!glfwInit()) {
+        throw std::runtime_error("Falha ao inicializar GLEW");
+    }
+    
+    // Configurações iniciais
+    glViewport(0, 0, 800, 600);
+    glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
+    
+    std::cout << "OpenGL " << glGetString(GL_VERSION) << " inicializado" << std::endl;
+}
+
+void OpenGLRenderer::render() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    // Aqui você adicionaria sua lógica de renderização
+}
+
+void OpenGLRenderer::cleanup() {
+    // Limpeza específica do OpenGL se necessário
+}
+
+void OpenGLRenderer::onResize(int width, int height) {
+    glViewport(0, 0, width, height);
+}
+
+} // namespace se
