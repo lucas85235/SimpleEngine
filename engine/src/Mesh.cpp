@@ -1,5 +1,3 @@
-#pragma once
-
 #include <engine/Mesh.h>
 #include <engine/Log.h>
 

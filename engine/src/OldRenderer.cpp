@@ -1,13 +1,13 @@
-#include <engine/Renderer.h>
+#include <engine/OldRenderer.h>
 #include <engine/Shader.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <cmath>
 
 namespace se {
 
-Renderer::Renderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {}
+OldRenderer::OldRenderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {}
 
-void Renderer::init() {
+void OldRenderer::init() {
     // Find shaders folder and files
     auto assets = findAssetsFolder();
     if (!assets) {
@@ -37,20 +37,20 @@ void Renderer::init() {
     shader.unbind();
 }
 
-void Renderer::updateDeltaTime(float currentTime) {
+void OldRenderer::updateDeltaTime(float currentTime) {
     static float lastFrame = 0.0f;
     deltaTime_ = currentTime - lastFrame;
     lastFrame = currentTime;
 }
 
-void Renderer::handleInput() {
+void OldRenderer::handleInput() {
     GLFWwindow* window = glfwGetCurrentContext();
     if (window) {
         inputHandler_.processKeyboard(window, deltaTime_);
     }
 }
 
-void Renderer::draw(float time) {
+void OldRenderer::draw(float time) {
     updateDeltaTime(time);
     handleInput();
 
@@ -67,7 +67,7 @@ void Renderer::draw(float time) {
     glUseProgram(0);
 }
 
-void Renderer::setupMatrices() {
+void OldRenderer::setupMatrices() {
     auto viewport = 800.0f / 600.0f;
 
     glm::mat4 view = camera_.getViewMatrix();
@@ -77,13 +77,13 @@ void Renderer::setupMatrices() {
     glUniformMatrix4fv(projLoc_, 1, GL_FALSE, glm::value_ptr(proj));
 }
 
-void Renderer::setupAnimationUniforms(float time) {
+void OldRenderer::setupAnimationUniforms(float time) {
     float mixValue = 0.5f * (std::sin(time) * 0.5f + 0.5f); // [0, 0.5]
     GLint loc = glGetUniformLocation(program_, "uMix");
     if (loc >= 0) glUniform1f(loc, mixValue);
 }
 
-Renderer::~Renderer() {
+OldRenderer::~OldRenderer() {
     if (program_) glDeleteProgram(program_);
     if (vbo_) glDeleteBuffers(1, &vbo_);
     if (vao_) glDeleteVertexArrays(1, &vao_);

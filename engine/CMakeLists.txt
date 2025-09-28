@@ -68,7 +68,7 @@ target_link_libraries(imgui PUBLIC glfw glad ${OPENGL_gl_LIBRARY})
 # Constrói a biblioteca da engine, SEM o código da GLAD.
 add_library(simple_engine
     src/Window.cpp
-    src/Renderer.cpp
+    src/OldRenderer.cpp
     src/Shader.cpp
     src/Camera.cpp
     src/Log.cpp
