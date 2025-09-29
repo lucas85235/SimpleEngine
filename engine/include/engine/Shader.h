@@ -1,4 +1,5 @@
 #pragma once
+#include "se_pch.h"
 #include <string>
 #include <cstdint>
 #include <filesystem>
