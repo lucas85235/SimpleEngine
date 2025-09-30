@@ -8,7 +8,7 @@
 
 namespace se {
 
-Window::Window(int width, int height, const std::string& title)
+Window::Window(uint32_t width, uint32_t height, const std::string& title)
     : width_(width), height_(height) {
     if (!glfwInit()) {
         throw std::runtime_error("Failed to initialize GLFW");
@@ -59,6 +59,9 @@ Window::Window(int width, int height, const std::string& title)
     // Leave input mode as normal; input capture/RAW should be handled by Renderer
     // Example (do not enable by default): glfwSetInputMode(handle_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
+
+Window::Window(const ApplicationSpec& specification) 
+    : Window(specification.WindowWidth, specification.WindowHeight, specification.Name) {}
 
 Window::~Window() {
     if (handle_) {

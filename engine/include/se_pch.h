@@ -19,3 +19,9 @@
 
 // glad depois do Windows.h (evita redef de APIENTRY)
 #include <glad/glad.h>
+#include <string>
+#include <functional>
+#include <cstdint>
+#include <iostream>
+#include <vector>
+#include <mutex>
