@@ -1,4 +1,5 @@
 #pragma once
+#include "se_pch.h"
 #include <engine/Camera.h>
 #include <engine/InputHandler.h>
 #include <engine/Mesh.h>

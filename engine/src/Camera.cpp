@@ -1,5 +1,5 @@
 #include <engine/Camera.h>
-#include <glm/gtc/constants.hpp>
+#include <gtc/constants.hpp>
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     : Position(position), WorldUp(up), Yaw(yaw), Pitch(pitch),

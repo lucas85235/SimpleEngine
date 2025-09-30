@@ -4,8 +4,8 @@
 
 // ImGui headers
 #include "imgui.h"
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
+#include "examples/imgui_impl_glfw.h"
+#include "examples/imgui_impl_opengl3.h"
 
 App::App()
     : window_(800, 600, "Sandbox - OpenGL 3.3 Core")
