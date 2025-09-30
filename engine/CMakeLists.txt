@@ -1,13 +1,14 @@
-# /engine/CMakeLists.txt
-
-# --- DEPENDÊNCIAS DE TERCEIROS ---
-# Esta parte não muda
-include(FetchContent)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS    OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_DOCS     OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL        OFF CACHE BOOL "" FORCE)
 set(IMNODES_IMGUI_TARGET_NAME ImGui)
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃                   COMPILATION RELATED                   ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+set(CMAKE_UNITY_BUILD ON) 
+
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                   PLATFORM DETECTION                    ┃
@@ -47,18 +48,16 @@ add_subdirectory(${entt_DIR})
 
 find_package(OpenGL REQUIRED)
 
-add_library(simple_engine
-    src/Window.cpp
-    src/Renderer.cpp
-    src/Shader.cpp
-    src/Camera.cpp
-    src/Log.cpp
-    src/InputHandler.cpp
-    src/Mesh.cpp
+file(GLOB_RECURSE PROJECT_SRCS CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
 )
 
+add_library(simple_engine
+    ${PROJECT_SRCS}
+ )
+
 target_include_directories(simple_engine PUBLIC
-    "include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
     ${spdlog_DIR}/include
     ${imgui_DIR}
     ${imnodes_DIR}
@@ -133,3 +132,7 @@ target_precompile_headers(simple_engine
   PUBLIC
     $<$<COMPILE_LANGUAGE:CXX>:se_pch.h>
 )
+
+if (MSVC)
+  target_compile_options(simple_engine PRIVATE /MP)
+endif()
