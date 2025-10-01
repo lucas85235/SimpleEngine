@@ -1,6 +1,8 @@
 #pragma once
+#include <memory>
 #include <engine/Window.h>
 #include <engine/OldRenderer.h>
+#include <engine/Renderer.h>
 
 class App {
 public:
@@ -10,4 +12,5 @@ public:
 private:
     se::Window   window_;
     se::OldRenderer renderer_;
+    std::unique_ptr<se::Renderer> render_;
 };

@@ -2,6 +2,10 @@
 #include <GLFW/glfw3.h>
 #include <engine/Log.h>
 
+#include <iostream>
+#include <memory>
+#include <engine/OpenGLRenderer.h>
+
 // ImGui headers
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
@@ -10,13 +14,14 @@
 App::App()
     : window_(800, 600, "Sandbox - OpenGL 3.3 Core")
 {
-
     // Initialize logging
     se::LogInit(true);
     SE_LOG_INFO("Starting engine - build: {}", 0);
 
     // Initialize renderer
-    renderer_.init();
+    render_ = std::make_unique<se::OpenGLRenderer>();
+    render_->initialize(window_);
+    // renderer_.init();
 
     // ImGui: create context and init backend
     IMGUI_CHECKVERSION();
@@ -53,7 +58,8 @@ int App::run()
         ImGui::ShowDemoWindow(&show_demo_window);
 
         // Engine rendering draw first, then ImGui overlay
-        renderer_.draw(static_cast<float>(t));
+        // renderer_.draw(static_cast<float>(t));
+        render_->render();
 
         // Render ImGui on top
         ImGui::Render();

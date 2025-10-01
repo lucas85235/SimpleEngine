@@ -50,6 +50,7 @@ find_package(OpenGL REQUIRED)
 add_library(simple_engine
     src/Window.cpp
     src/OldRenderer.cpp
+    src/OpenGLRenderer.cpp
     src/Shader.cpp
     src/Camera.cpp
     src/Log.cpp

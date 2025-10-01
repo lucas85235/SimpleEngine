@@ -1,8 +1,7 @@
 #pragma once
 #include <string>
-
-// Forward declare GLFW types to keep header light
-struct GLFWwindow;
+#include <GLFW/glfw3.h>
+#include <functional>
 
 namespace se {
 
@@ -20,14 +19,12 @@ public:
     void pollEvents() const;
     bool isKeyPressed(int key) const;
 
-    GLFWwindow* native() const { return handle_; }
-    int width()  const { return width_; }
-    int height() const { return height_; }
+    GLFWwindow* native() const { return window_; }
+    void setResizeCallback(std::function<void(int, int)> callback);
 
 private:
-    GLFWwindow* handle_ = nullptr;
-    int width_ = 0;
-    int height_ = 0;
+    GLFWwindow* window_ = nullptr;
+    std::function<void(int, int)> resizeCallback;
 
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
     void applyViewport(int width, int height) const;
