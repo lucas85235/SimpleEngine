@@ -11,7 +11,7 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
 
     // Não especificar API ainda
     // todo: custom condition for vulkan
-    // glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
     // Helpful error callback for debugging
     glfwSetErrorCallback([](int code, const char* desc) {
