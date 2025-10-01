@@ -1,5 +1,4 @@
 #pragma once
-#include "se_pch.h"
 #include "Engine.h"
 
 // Forward declare GLFW types to keep header light
@@ -25,6 +24,8 @@ public:
     GLFWwindow* native() const { return handle_; }
     uint32_t width()  const { return width_; }
     uint32_t height() const { return height_; }
+
+    void Destroy();
 
 private:
     GLFWwindow* handle_ = nullptr;
