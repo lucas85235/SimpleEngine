@@ -5,4 +5,3 @@ namespace se {
 class Event {};
 
 } // namespace se
-

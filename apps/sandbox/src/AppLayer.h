@@ -1,13 +1,14 @@
 #pragma once
 #include "engine/Layer.h"
 
-class AppLayer : se::Layer {
-public:
-  AppLayer();
-  virtual ~AppLayer();
+class AppLayer : public se::Layer {
+  public:
+    AppLayer();
 
-  virtual void OnEvent(se::Event &event) override;
+    ~AppLayer() override;
 
-  virtual void OnUpdate(float ts) override;
-  virtual void OnRender() override;
+    virtual void OnEvent(se::Event& event) override;
+
+    virtual void OnUpdate(float ts) override;
+    virtual void OnRender() override;
 };

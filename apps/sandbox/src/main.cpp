@@ -5,14 +5,14 @@
 using namespace std;
 
 int main() {
-  se::ApplicationSpec appSpec;
-  appSpec.Name = "Architecture";
-  appSpec.WindowWidth = 1920;
-  appSpec.WindowHeight = 1080;
+    se::ApplicationSpec appSpec;
+    appSpec.Name = "Architecture";
+    appSpec.WindowWidth = 800;
+    appSpec.WindowHeight = 600;
 
-  se::LogInit(true);
+    se::LogInit(true);
 
-  se::Application application(appSpec);
-  // application.PushLayer<AppLayer>();
-  application.Run();
+    se::Application application(appSpec);
+    application.PushLayer<AppLayer>();
+    application.Run();
 }

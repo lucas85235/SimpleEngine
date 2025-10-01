@@ -1,7 +1,7 @@
+#include <cmath>
 #include <engine/Renderer.h>
 #include <engine/Shader.h>
 #include <gtc/type_ptr.hpp>
-#include <cmath>
 
 namespace se {
 
@@ -11,7 +11,8 @@ void Renderer::init() {
     // Find shaders folder and files
     auto assets = findAssetsFolder();
     if (!assets) {
-        throw std::runtime_error("Assets folder not found. Checked: ASSETS_DIR, ./assets, exe_dir/assets");
+        throw std::runtime_error(
+            "Assets folder not found. Checked: ASSETS_DIR, ./assets, exe_dir/assets");
     }
     fs::path vsPath = *assets / "shaders" / "basic.vert";
     fs::path fsPath = *assets / "shaders" / "basic.frag";
@@ -28,7 +29,6 @@ void Renderer::init() {
         // Initialize component
         mesh_.initialize();
         inputHandler_.initialize(glfwGetCurrentContext());
-        
     } catch (const std::exception& e) {
         std::cerr << "Renderer initialization failed: " << e.what() << std::endl;
         throw;
@@ -37,10 +37,8 @@ void Renderer::init() {
     shader.unbind();
 }
 
-void Renderer::updateDeltaTime(float currentTime) {
-    static float lastFrame = 0.0f;
-    deltaTime_ = currentTime - lastFrame;
-    lastFrame = currentTime;
+void Renderer::updateDeltaTime(float delta_time) {
+    deltaTime_ = delta_time;
 }
 
 void Renderer::handleInput() {
@@ -80,13 +78,17 @@ void Renderer::setupMatrices() {
 void Renderer::setupAnimationUniforms(float time) {
     float mixValue = 0.5f * (std::sin(time) * 0.5f + 0.5f); // [0, 0.5]
     GLint loc = glGetUniformLocation(program_, "uMix");
-    if (loc >= 0) glUniform1f(loc, mixValue);
+    if (loc >= 0)
+        glUniform1f(loc, mixValue);
 }
 
 Renderer::~Renderer() {
-    if (program_) glDeleteProgram(program_);
-    if (vbo_) glDeleteBuffers(1, &vbo_);
-    if (vao_) glDeleteVertexArrays(1, &vao_);
+    if (program_)
+        glDeleteProgram(program_);
+    if (vbo_)
+        glDeleteBuffers(1, &vbo_);
+    if (vao_)
+        glDeleteVertexArrays(1, &vao_);
 }
 
 } // namespace se

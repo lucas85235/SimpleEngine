@@ -2,11 +2,10 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 
-namespace se
-{
-    void LogInit(bool toFile = true);
-    std::shared_ptr<spdlog::logger> &Logger(); // retorna o logger global
-}
+namespace se {
+void LogInit(bool toFile = true);
+std::shared_ptr<spdlog::logger>& Logger(); // retorna o logger global
+} // namespace se
 
 // macros convenientes
 #define SE_LOG_INFO(...) ::se::Logger()->info(__VA_ARGS__)
