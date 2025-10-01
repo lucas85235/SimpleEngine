@@ -12,10 +12,10 @@
 #endif
 
 // Diga ao GLFW para não incluir headers GL antigos
-#ifndef GLFW_INCLUDE_NONE
-#define GLFW_INCLUDE_NONE
-#endif
-#include <GLFW/glfw3.h>
+// #ifndef GLFW_INCLUDE_NONE
+// #define GLFW_INCLUDE_NONE
+// #endif
+// #include <GLFW/glfw3.h>
 
 // glad depois do Windows.h (evita redef de APIENTRY)
 #include <glad/glad.h>

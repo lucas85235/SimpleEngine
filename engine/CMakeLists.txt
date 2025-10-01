@@ -46,11 +46,13 @@ add_subdirectory(${glm_DIR})
 add_subdirectory(${entt_DIR})
 
 find_package(OpenGL REQUIRED)
+find_package(Vulkan REQUIRED)
 
 add_library(simple_engine
     src/Window.cpp
     src/OldRenderer.cpp
     src/OpenGLRenderer.cpp
+    src/VulkanRenderer.cpp
     src/Shader.cpp
     src/Camera.cpp
     src/Log.cpp
@@ -77,13 +79,14 @@ target_link_libraries(simple_engine PUBLIC
         glad
         glfw
         OpenGL::GL
+        Vulkan::Vulkan
         glm
         ImGui
         spdlog
 )
 
 # Adiciona definições de compilação necessárias
-target_compile_definitions(simple_engine PUBLIC GLFW_INCLUDE_NONE)
+# target_compile_definitions(simple_engine PUBLIC GLFW_INCLUDE_NONE)
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

@@ -1,5 +1,6 @@
 #include <engine/OpenGLRenderer.h>
-#include <glad/glad.h>
+// #include <glad/glad.h>
+// #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -18,10 +19,16 @@ void OpenGLRenderer::initialize(Window& window) {
     glfwMakeContextCurrent(handle);
     
     // Inicializar GLEW
-    if (!glfwInit()) {
-        throw std::runtime_error("Falha ao inicializar GLEW");
-    }
+    // if (!glfwInit()) {
+    //     throw std::runtime_error("Falha ao inicializar GLEW");
+    // }
     
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+        glfwDestroyWindow(window.native());
+        glfwTerminate();
+        throw std::runtime_error("Failed to initialize GLAD");
+    }
+
     // Configurações iniciais
     glViewport(0, 0, 800, 600);
     glClearColor(1.0f, 0.2f, 0.2f, 1.0f);

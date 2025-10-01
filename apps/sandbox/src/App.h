@@ -10,7 +10,7 @@ public:
     int run();
 
 private:
-    se::Window   window_;
+    std::unique_ptr<se::Window> window_;
     se::OldRenderer renderer_;
     std::unique_ptr<se::Renderer> render_;
 };
