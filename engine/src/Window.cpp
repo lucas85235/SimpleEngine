@@ -3,8 +3,6 @@
 #include <cstdio>
 #include <iostream>
 
-// #include <GLFW/glfw3.h>
-
 namespace se {
 
 Window::Window(int width, int height, const std::string& title)
@@ -15,7 +13,7 @@ Window::Window(int width, int height, const std::string& title)
 
     // Não especificar API ainda
     // todo: custom condition for vulkan
-    // glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
     // Helpful error callback for debugging
     glfwSetErrorCallback([](int code, const char* desc) {
