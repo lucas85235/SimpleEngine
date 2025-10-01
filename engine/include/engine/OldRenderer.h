@@ -8,10 +8,10 @@
 
 namespace se {
 
-class Renderer {
+class OldRenderer {
 public:
-    Renderer();
-    ~Renderer();
+    OldRenderer();
+    ~OldRenderer();
 
     void init();             // create VAO/VBO + compile shader
     void clear();            // Limpa a tela

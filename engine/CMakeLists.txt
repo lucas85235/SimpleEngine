@@ -49,7 +49,7 @@ find_package(OpenGL REQUIRED)
 
 add_library(simple_engine
     src/Window.cpp
-    src/Renderer.cpp
+    src/OldRenderer.cpp
     src/Shader.cpp
     src/Camera.cpp
     src/Log.cpp
