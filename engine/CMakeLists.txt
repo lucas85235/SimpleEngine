@@ -47,6 +47,7 @@ add_subdirectory(${glm_DIR})
 add_subdirectory(${entt_DIR})
 
 find_package(OpenGL REQUIRED)
+find_package(Vulkan REQUIRED)
 
 file(GLOB_RECURSE PROJECT_SRCS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
@@ -75,13 +76,14 @@ target_link_libraries(simple_engine PUBLIC
         glad
         glfw
         OpenGL::GL
+        Vulkan::Vulkan
         glm
         ImGui
         spdlog
 )
 
 # Adiciona definições de compilação necessárias
-target_compile_definitions(simple_engine PUBLIC GLFW_INCLUDE_NONE)
+# target_compile_definitions(simple_engine PUBLIC GLFW_INCLUDE_NONE)
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

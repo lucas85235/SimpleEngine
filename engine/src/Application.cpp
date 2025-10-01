@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <engine/OpenGLRenderer.h>
+#include <engine/VulkanRenderer.h>
 
 // ImGui headers
 #include "examples/imgui_impl_glfw.h"
@@ -18,8 +19,10 @@ Application::Application(const ApplicationSpec& specification) : window_(specifi
     SE_LOG_INFO("Starting engine - build: {}", 0);
 
     // Initialize renderer
+    window_ = std::make_unique<se::Window>(800, 600, "Sandbox");
     render_ = std::make_unique<se::OpenGLRenderer>();
-    render_->initialize(window_);
+
+    render_->initialize(*window_);
     // renderer_.init();
 
     // ImGui: create context and init backend
@@ -89,6 +92,8 @@ int Application::Run() {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
+
+    render_->cleanup();
 
     return 0;
 }
