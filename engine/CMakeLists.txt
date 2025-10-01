@@ -88,6 +88,9 @@ target_compile_definitions(simple_engine PUBLIC GLFW_INCLUDE_NONE)
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃            IMGUI CONSUMER CONFIGURATION                 ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+target_compile_definitions(ImGui PUBLIC 
+        IMGUI_IMPL_OPENGL_LOADER_GLAD
+)
 target_include_directories(ImGui PUBLIC
         ${glad_DIR}/include
         ${glfw_DIR}/include
