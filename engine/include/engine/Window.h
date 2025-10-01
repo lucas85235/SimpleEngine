@@ -1,9 +1,6 @@
 #pragma once
 #include "Engine.h"
 
-// Forward declare GLFW types to keep header light
-struct GLFWwindow;
-
 namespace se {
 
 class Window {

@@ -24,18 +24,18 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
 #endif
 
     // Create window and context
-    handle_ = glfwCreateWindow(width_, height_, title.c_str(), nullptr, nullptr);
-    if (!handle_) {
+    window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+    if (!window_) {
         glfwTerminate();
         throw std::runtime_error("Failed to create GLFW window");
     }
 
     // Make the context current BEFORE loading GL function pointers
-    glfwMakeContextCurrent(handle_);
+    glfwMakeContextCurrent(window_);
 
     // Initialize GLAD (must be done after context creation)
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        glfwDestroyWindow(handle_);
+        glfwDestroyWindow(window_);
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
     }
@@ -44,11 +44,11 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
     glfwSwapInterval(1);
 
     // Framebuffer callback (keeps viewport correct)
-    glfwSetFramebufferSizeCallback(handle_, framebufferSizeCallback);
+    glfwSetFramebufferSizeCallback(window_, framebufferSizeCallback);
 
     // Setup initial viewport dimensions
     int fbw = 0, fbh = 0;
-    glfwGetFramebufferSize(handle_, &fbw, &fbh);
+    glfwGetFramebufferSize(window_, &fbw, &fbh);
     applyViewport(fbw, fbh);
 
     // Leave input mode as normal; input capture/RAW should be handled by Renderer
@@ -64,15 +64,15 @@ Window::~Window() {
 }
 
 bool Window::shouldClose() const {
-    return glfwWindowShouldClose(handle_) != 0;
+    return glfwWindowShouldClose(window_) != 0;
 }
 
 void Window::requestClose() const {
-    glfwSetWindowShouldClose(handle_, 1);
+    glfwSetWindowShouldClose(window_, 1);
 }
 
 void Window::swapBuffers() const {
-    glfwSwapBuffers(handle_);
+    glfwSwapBuffers(window_);
 }
 
 void Window::pollEvents() const {
@@ -80,7 +80,7 @@ void Window::pollEvents() const {
 }
 
 bool Window::isKeyPressed(int key) const {
-    return glfwGetKey(handle_, key) == GLFW_PRESS;
+    return glfwGetKey(window_, key) == GLFW_PRESS;
 }
 void Window::Destroy() {
     if (handle_)

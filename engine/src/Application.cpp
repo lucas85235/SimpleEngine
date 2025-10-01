@@ -2,6 +2,10 @@
 #include "engine/Log.h"
 #include "se_pch.h"
 
+#include <iostream>
+#include <memory>
+#include <engine/OpenGLRenderer.h>
+
 // ImGui headers
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
@@ -14,7 +18,9 @@ Application::Application(const ApplicationSpec& specification) : window_(specifi
     SE_LOG_INFO("Starting engine - build: {}", 0);
 
     // Initialize renderer
-    renderer_.init();
+    render_ = std::make_unique<se::OpenGLRenderer>();
+    render_->initialize(window_);
+    // renderer_.init();
 
     // ImGui: create context and init backend
     IMGUI_CHECKVERSION();
