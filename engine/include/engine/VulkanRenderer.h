@@ -3,7 +3,9 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
+#include <iostream>
 #include <vector>
+#include <cstring>
 
 namespace se {
 
@@ -34,8 +36,16 @@ private:
     std::vector<VkFence> inFlightFences;
     size_t currentFrame = 0;
     const int MAX_FRAMES_IN_FLIGHT = 2;
-    int graphicsFamily = -1, presentFamily = -1;
     
+    inline void checkVk(VkResult result, const char* msg) {
+        if (result != VK_SUCCESS) {
+            throw std::runtime_error(std::string(msg) + " (VkResult=" + std::to_string(result) + ")");
+        }
+    }
+
+    void initWindow();
+    void initVulkan();
+
     void createInstance();
     void createSurface();
     void pickPhysicalDevice();
