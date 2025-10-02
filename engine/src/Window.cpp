@@ -11,14 +11,15 @@ Window::Window(int width, int height, const std::string& title)
         throw std::runtime_error("Failed to initialize GLFW");
     }
 
-    // Não especificar API ainda
-    // todo: custom condition for vulkan
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-
     // Helpful error callback for debugging
     glfwSetErrorCallback([](int code, const char* desc) {
         std::cerr << "GLFW ERROR " << code << ": " << (desc ? desc : "<null>") << "\n";
     });
+
+    // Não especificar API ainda
+    // todo: custom condition for vulkan
+    // glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 
     // Create window and context
     window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
@@ -48,6 +49,7 @@ void Window::requestClose() const {
 }
 
 void Window::swapBuffers() const {
+    //todo: only work with opengl
     glfwSwapBuffers(window_);
 }
 

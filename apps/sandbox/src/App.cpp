@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include <memory>
-// #include <engine/OpenGLRenderer.h>
-// #include <engine/VulkanRenderer.h>
+#include <engine/OpenGLRenderer.h>
+#include <engine/VulkanRenderer.h>
 
 // ImGui headers
 // #include "imgui.h"
@@ -19,10 +19,10 @@ App::App()
     SE_LOG_INFO("Starting engine - build: {}", 0);
 
     // Initialize renderer
-    // window_ = std::make_unique<se::Window>(800, 600, "Sandbox");
-    // render_ = std::make_unique<se::VulkanRenderer>();
+    window_ = std::make_unique<se::Window>(800, 600, "Sandbox");
+    render_ = std::make_unique<se::OpenGLRenderer>();
 
-    // render_->initialize(*window_);
+    render_->initialize(*window_);
 
     // renderer_.init();
 
@@ -42,55 +42,57 @@ App::App()
 
 int App::run()
 {
-    VulkanApp app;
-    try {
-        app.run();
-    } catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
+    // VulkanApp app;
+    // try {
+    //     app.run();
+    // } catch (const std::exception& e) {
+    //     std::cerr << e.what() << std::endl;
+    //     return EXIT_FAILURE;
+    // }
+    // return EXIT_SUCCESS;
+
+    if (!render_) {
+        throw std::runtime_error("Nenhum renderer definido");
     }
-    return EXIT_SUCCESS;
 
-    // if (!render_) {
-    //     throw std::runtime_error("Nenhum renderer definido");
-    // }
+    double start = glfwGetTime();
+    bool show_demo_window = true;
 
-    // double start = glfwGetTime();
-    // bool show_demo_window = true;
+    while (!window_->shouldClose())
+    {
+        if (window_->isKeyPressed(GLFW_KEY_ESCAPE))
+            window_->requestClose();
 
-    // while (!window_->shouldClose())
-    // {
-    //     if (window_->isKeyPressed(GLFW_KEY_ESCAPE))
-    //         window_->requestClose();
+        double t = glfwGetTime() - start;
 
-    //     double t = glfwGetTime() - start;
+        // Start the ImGui frame
+        // ImGui_ImplOpenGL3_NewFrame();
+        // ImGui_ImplGlfw_NewFrame();
+        // ImGui::NewFrame();
 
-    //     // Start the ImGui frame
-    //     ImGui_ImplOpenGL3_NewFrame();
-    //     ImGui_ImplGlfw_NewFrame();
-    //     ImGui::NewFrame();
+        // You can move/close it at runtime; shows many ImGui features
+        // ImGui::ShowDemoWindow(&show_demo_window);
 
-    //     // You can move/close it at runtime; shows many ImGui features
-    //     ImGui::ShowDemoWindow(&show_demo_window);
+        // Engine rendering draw first, then ImGui overlay
+        // renderer_.draw(static_cast<float>(t));
+        render_->render();
 
-    //     // Engine rendering draw first, then ImGui overlay
-    //     // renderer_.draw(static_cast<float>(t));
-    //     // render_->render();
+        // Render ImGui on top
+        // ImGui::Render();
+        // ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-    //     // Render ImGui on top
-    //     ImGui::Render();
-    //     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        window_->pollEvents();
 
-    //     window_->pollEvents();
-    //     window_->swapBuffers();
-    // }
+        // todo: actualy swap buffers only work with opengl
+        window_->swapBuffers();
+    }
 
     // // Cleanup ImGui
     // ImGui_ImplOpenGL3_Shutdown();
     // ImGui_ImplGlfw_Shutdown();
     // ImGui::DestroyContext();
 
-    // render_->cleanup();
+    render_->cleanup();
 
     return 0;
 }

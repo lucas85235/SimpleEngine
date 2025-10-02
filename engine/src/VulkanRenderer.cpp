@@ -6,9 +6,61 @@
 
 namespace se {
 
+// ----- Renderer Methods ----- //
+
 void VulkanRenderer::initialize(se::Window& window) {
     currentWindow = &window;
     
+    // initWindow();
+    initVulkan();
+    
+    std::cout << "Vulkan inicializado com sucesso" << std::endl;
+}
+
+void VulkanRenderer::render() {
+    drawFrame();
+}
+
+void VulkanRenderer::cleanup() {
+    vkDeviceWaitIdle(device);
+    
+    for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
+        vkDestroySemaphore(device, renderFinishedSemaphores[i], nullptr);
+        vkDestroySemaphore(device, imageAvailableSemaphores[i], nullptr);
+        vkDestroyFence(device, inFlightFences[i], nullptr);
+    }
+    vkDestroyCommandPool(device, commandPool, nullptr);
+    for (auto imageView : swapChainImageViews) {
+        vkDestroyImageView(device, imageView, nullptr);
+    }
+    vkDestroySwapchainKHR(device, swapChain, nullptr);
+    vkDestroyDevice(device, nullptr);
+    vkDestroySurfaceKHR(instance, surface, nullptr);
+    vkDestroyInstance(instance, nullptr);
+    glfwDestroyWindow(currentWindow->native());
+    glfwTerminate();
+}
+
+void VulkanRenderer::onResize(int width, int height) {
+    // Implementar recreação do swap chain se necessário
+}
+
+// ----- Vulkan Methods ----- //
+
+void VulkanRenderer::initWindow() {
+    if (!glfwInit()) throw std::runtime_error("Failed to init GLFW");
+
+    // glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    // glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    // Recriar janela com contexto OpenGL
+    GLFWwindow* handle = currentWindow->native();
+    glfwMakeContextCurrent(handle);
+
+    if (!currentWindow) throw std::runtime_error("Failed to create GLFW window");
+}
+
+void VulkanRenderer::initVulkan() {
     createInstance();
     createSurface();
     pickPhysicalDevice();
@@ -18,14 +70,12 @@ void VulkanRenderer::initialize(se::Window& window) {
     createCommandPool();
     createCommandBuffers();
     createSyncObjects();
-    
-    std::cout << "Vulkan inicializado com sucesso" << std::endl;
 }
 
 void VulkanRenderer::createInstance() {
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "App Vulkan";
+    appInfo.pApplicationName = "Vulkan Mínimo";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName = "No Engine";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
@@ -41,26 +91,21 @@ void VulkanRenderer::createInstance() {
     createInfo.ppEnabledExtensionNames = glfwExtensions;
     createInfo.enabledLayerCount = 0;
 
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-        throw std::runtime_error("Falha ao criar instância Vulkan");
-    }
+    VkResult res = vkCreateInstance(&createInfo, nullptr, &instance);
+    checkVk(res, "vkCreateInstance failed");
 }
 
 void VulkanRenderer::createSurface() {
-    if (glfwCreateWindowSurface(instance, currentWindow->native(), nullptr, &surface) != VK_SUCCESS) {
-        throw std::runtime_error("Falha ao criar superfície");
-    }
+    VkResult res = glfwCreateWindowSurface(instance, currentWindow->native(), nullptr, &surface);
+    checkVk(res, "glfwCreateWindowSurface failed");
 }
 
 void VulkanRenderer::pickPhysicalDevice() {
     uint32_t deviceCount = 0;
-    vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr);
-    if (deviceCount == 0) {
-        throw std::runtime_error("Nenhum dispositivo Vulkan encontrado");
-    }
-    
+    checkVk(vkEnumeratePhysicalDevices(instance, &deviceCount, nullptr), "vkEnumeratePhysicalDevices (count) failed");
+    if (deviceCount == 0) throw std::runtime_error("No Vulkan physical devices found");
     std::vector<VkPhysicalDevice> devices(deviceCount);
-    vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
+    checkVk(vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data()), "vkEnumeratePhysicalDevices failed");
     physicalDevice = devices[0];
 }
 
@@ -70,48 +115,78 @@ void VulkanRenderer::createLogicalDevice() {
     std::vector<VkQueueFamilyProperties> queueFamilies(queueFamilyCount);
     vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueFamilyCount, queueFamilies.data());
 
-    for (int i = 0; i < queueFamilies.size(); i++) {
+    int graphicsFamily = -1, presentFamily = -1;
+    for (int i = 0; i < (int)queueFamilies.size(); i++) {
         if (queueFamilies[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) graphicsFamily = i;
         VkBool32 presentSupport = false;
         vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice, i, surface, &presentSupport);
         if (presentSupport) presentFamily = i;
     }
+    if (graphicsFamily < 0 || presentFamily < 0) throw std::runtime_error("Failed to find required queue families");
 
-    VkDeviceQueueCreateInfo queueCreateInfo{};
-    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    queueCreateInfo.queueFamilyIndex = graphicsFamily;
-    queueCreateInfo.queueCount = 1;
+    std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
     float queuePriority = 1.0f;
-    queueCreateInfo.pQueuePriorities = &queuePriority;
+    VkDeviceQueueCreateInfo qi{};
+    qi.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    qi.queueFamilyIndex = graphicsFamily;
+    qi.queueCount = 1;
+    qi.pQueuePriorities = &queuePriority;
+    queueCreateInfos.push_back(qi);
+
+    if (presentFamily != graphicsFamily) {
+        VkDeviceQueueCreateInfo qi2 = qi;
+        qi2.queueFamilyIndex = presentFamily;
+        queueCreateInfos.push_back(qi2);
+    }
 
     const char* extensions[] = {VK_KHR_SWAPCHAIN_EXTENSION_NAME};
 
     VkDeviceCreateInfo createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.pQueueCreateInfos = &queueCreateInfo;
-    createInfo.queueCreateInfoCount = 1;
+    createInfo.pQueueCreateInfos = queueCreateInfos.data();
+    createInfo.queueCreateInfoCount = (uint32_t)queueCreateInfos.size();
     createInfo.enabledExtensionCount = 1;
     createInfo.ppEnabledExtensionNames = extensions;
 
-    if (vkCreateDevice(physicalDevice, &createInfo, nullptr, &device) != VK_SUCCESS) {
-        throw std::runtime_error("Falha ao criar dispositivo lógico");
-    }
-    
+    checkVk(vkCreateDevice(physicalDevice, &createInfo, nullptr, &device), "vkCreateDevice failed");
     vkGetDeviceQueue(device, graphicsFamily, 0, &graphicsQueue);
     vkGetDeviceQueue(device, presentFamily, 0, &presentQueue);
 }
 
 void VulkanRenderer::createSwapChain() {
     VkSurfaceCapabilitiesKHR capabilities;
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, &capabilities);
+    checkVk(vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, &capabilities), "vkGetPhysicalDeviceSurfaceCapabilitiesKHR failed");
 
-    swapChainExtent = capabilities.currentExtent;
-    swapChainImageFormat = VK_FORMAT_B8G8R8A8_SRGB;
+    // Escolher extent
+    if (capabilities.currentExtent.width == UINT32_MAX) {
+        int w, h;
+        glfwGetFramebufferSize(currentWindow->native(), &w, &h);
+        swapChainExtent = { (uint32_t)w, (uint32_t)h };
+    } else {
+        swapChainExtent = capabilities.currentExtent;
+    }
+
+    // Escolher formato suportado
+    uint32_t formatCount = 0;
+    checkVk(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &formatCount, nullptr), "vkGetPhysicalDeviceSurfaceFormatsKHR count failed");
+    if (formatCount == 0) throw std::runtime_error("No surface formats found");
+    std::vector<VkSurfaceFormatKHR> formats(formatCount);
+    checkVk(vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &formatCount, formats.data()), "vkGetPhysicalDeviceSurfaceFormatsKHR failed");
+    if (formats.size() == 1 && formats[0].format == VK_FORMAT_UNDEFINED) {
+        swapChainImageFormat = VK_FORMAT_B8G8R8A8_SRGB;
+    } else {
+        swapChainImageFormat = formats[0].format;
+    }
+
+    // Image count safe
+    uint32_t imageCount = capabilities.minImageCount + 1;
+    if (capabilities.maxImageCount > 0 && imageCount > capabilities.maxImageCount)
+        imageCount = capabilities.maxImageCount;
 
     VkSwapchainCreateInfoKHR createInfo{};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     createInfo.surface = surface;
-    createInfo.minImageCount = capabilities.minImageCount + 1;
+    createInfo.minImageCount = imageCount;
     createInfo.imageFormat = swapChainImageFormat;
     createInfo.imageColorSpace = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
     createInfo.imageExtent = swapChainExtent;
@@ -123,14 +198,12 @@ void VulkanRenderer::createSwapChain() {
     createInfo.presentMode = VK_PRESENT_MODE_FIFO_KHR;
     createInfo.clipped = VK_TRUE;
 
-    if (vkCreateSwapchainKHR(device, &createInfo, nullptr, &swapChain) != VK_SUCCESS) {
-        throw std::runtime_error("Falha ao criar swap chain");
-    }
+    checkVk(vkCreateSwapchainKHR(device, &createInfo, nullptr, &swapChain), "vkCreateSwapchainKHR failed");
 
-    uint32_t imageCount;
-    vkGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr);
-    swapChainImages.resize(imageCount);
-    vkGetSwapchainImagesKHR(device, swapChain, &imageCount, swapChainImages.data());
+    uint32_t actualCount = 0;
+    checkVk(vkGetSwapchainImagesKHR(device, swapChain, &actualCount, nullptr), "vkGetSwapchainImagesKHR count failed");
+    swapChainImages.resize(actualCount);
+    checkVk(vkGetSwapchainImagesKHR(device, swapChain, &actualCount, swapChainImages.data()), "vkGetSwapchainImagesKHR failed");
 }
 
 void VulkanRenderer::createImageViews() {
@@ -159,7 +232,7 @@ void VulkanRenderer::createCommandPool() {
     VkCommandPoolCreateInfo poolInfo{};
     poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
-    poolInfo.queueFamilyIndex = graphicsFamily;
+    poolInfo.queueFamilyIndex = 0; // Assumindo família 0 para graphics
 
     vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool);
 }
@@ -195,15 +268,9 @@ void VulkanRenderer::createSyncObjects() {
     }
 }
 
-void VulkanRenderer::render() {
-    drawFrame();
-}
-
 void VulkanRenderer::drawFrame() {
-    std::cout << "Vulkan draw frame" << std::endl;
-
-    vkWaitForFences(device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX);
-    vkResetFences(device, 1, &inFlightFences[currentFrame]);
+    checkVk(vkWaitForFences(device, 1, &inFlightFences[currentFrame], VK_TRUE, UINT64_MAX), "vkWaitForFences failed");
+    checkVk(vkResetFences(device, 1, &inFlightFences[currentFrame]), "vkResetFences failed");
 
     uint32_t imageIndex;
     vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
@@ -214,6 +281,7 @@ void VulkanRenderer::drawFrame() {
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
     vkBeginCommandBuffer(commandBuffers[currentFrame], &beginInfo);
 
+    // Limpar tela com cor azul
     VkClearColorValue clearColor = {{0.2f, 0.3f, 0.8f, 1.0f}};
     VkImageSubresourceRange range = {};
     range.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
@@ -238,7 +306,8 @@ void VulkanRenderer::drawFrame() {
     submitInfo.signalSemaphoreCount = 1;
     submitInfo.pSignalSemaphores = signalSemaphores;
 
-    vkQueueSubmit(graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]);
+    VkResult submitRes = vkQueueSubmit(graphicsQueue, 1, &submitInfo, inFlightFences[currentFrame]);
+    checkVk(submitRes, "vkQueueSubmit failed");
 
     VkPresentInfoKHR presentInfo{};
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
@@ -252,28 +321,6 @@ void VulkanRenderer::drawFrame() {
     vkQueuePresentKHR(presentQueue, &presentInfo);
 
     currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
-}
-
-void VulkanRenderer::cleanup() {
-    vkDeviceWaitIdle(device);
-    
-    for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
-        vkDestroySemaphore(device, renderFinishedSemaphores[i], nullptr);
-        vkDestroySemaphore(device, imageAvailableSemaphores[i], nullptr);
-        vkDestroyFence(device, inFlightFences[i], nullptr);
-    }
-    vkDestroyCommandPool(device, commandPool, nullptr);
-    for (auto imageView : swapChainImageViews) {
-        vkDestroyImageView(device, imageView, nullptr);
-    }
-    vkDestroySwapchainKHR(device, swapChain, nullptr);
-    vkDestroyDevice(device, nullptr);
-    vkDestroySurfaceKHR(instance, surface, nullptr);
-    vkDestroyInstance(instance, nullptr);
-}
-
-void VulkanRenderer::onResize(int width, int height) {
-    // Implementar recreação do swap chain se necessário
 }
 
 }
