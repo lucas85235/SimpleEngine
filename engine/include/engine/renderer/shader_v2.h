@@ -1,5 +1,6 @@
+#pragma once
 #include "se_pch.h"
-#include "utils/FilesHandler.h"
+#include "engine/utils/FilesHandler.h"
 
 namespace Renderer {
 class Shader {

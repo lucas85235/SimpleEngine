@@ -1,45 +1,47 @@
-#pragma once
-#include <GLFW/glfw3.h>
-#include <engine/Camera.h>
-#include <engine/InputHandler.h>
-#include <engine/Mesh.h>
-#include <glad/glad.h>
 
-#include "se_pch.h"
+#pragma once
+
+#include "engine/Camera.h"
+#include "engine/renderer/RenderCommand.h"
+#include "engine/renderer/SceneRenderer.h"
+#include <memory>
 
 namespace se {
 
-class Renderer {
-  public:
-    Renderer();
-    ~Renderer();
+    // Forward declarations
+    class Window;
 
-    void init();  // create VAO/VBO + compile shader
-    void clear(); // Limpa a tela
+    class Renderer {
+    public:
+        Renderer();
+        ~Renderer();
 
-    void draw(float time); // draw rotating color factor
-                           // void swapBuffers();      // Troca os buffers de frente e trás
+        // Initialize renderer subsystems
+        void Init();
+        void Shutdown();
 
-  private:
-    // Core components
-    InputHandler inputHandler_;
-    Mesh triangle_mesh_;
-    Mesh quad_mesh_;
+        // Begin/End frame
+        void BeginFrame();
+        void EndFrame();
 
-    unsigned int vao_ = 0;
-    unsigned int vbo_ = 0;
-    unsigned int program_ = 0; // shader program id (kept minimal here)
+        // Clear screen
+        void Clear();
+        void SetClearColor(float r, float g, float b, float a = 1.0f);
 
-    Camera camera_;
-    GLint viewLoc_ = -1;
-    GLint projLoc_ = -1;
+        // Scene rendering
+        void BeginScene(const Camera& camera, float aspectRatio);
+        void EndScene();
 
-    float deltaTime_ = 0.0f;
+        // Get renderer stats
+        RenderStats GetStats() const { return SceneRenderer::GetStats(); }
+        void ResetStats() { SceneRenderer::ResetStats(); }
 
-    void updateDeltaTime(float delta_time);
-    void handleInput();
-    void setupMatrices();
-    void setupAnimationUniforms(float time);
-};
+        // Disable copy/move
+        Renderer(const Renderer&) = delete;
+        Renderer& operator=(const Renderer&) = delete;
+
+    private:
+        bool initialized_ = false;
+    };
 
 } // namespace se

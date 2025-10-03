@@ -1,3 +1,4 @@
+#pragma once
 #include "se_pch.h"
 #include "stb_image.h"
 

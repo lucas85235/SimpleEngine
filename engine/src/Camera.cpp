@@ -1,5 +1,6 @@
 #include <engine/Camera.h>
-#include <gtc/constants.hpp>
+#include "ext/matrix_clip_space.hpp"
+#include "ext/matrix_transform.hpp"
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
     : Position(position), WorldUp(up), Yaw(yaw), Pitch(pitch), Front(glm::vec3(0.0f, 0.0f, -1.0f)) {
