@@ -1,106 +1,127 @@
 #include "engine/Application.h"
+#include "engine/Input.h"
 #include "engine/Log.h"
-#include "se_pch.h"
-
-// ImGui headers
-#include "examples/imgui_impl_glfw.h"
-#include "examples/imgui_impl_opengl3.h"
+#include <GLFW/glfw3.h>
+#include <glm.hpp>
+#include <imgui.h>
 
 namespace se {
 
-static Application* application = nullptr;
+Application* Application::s_Instance = nullptr;
 
-Application::Application(const ApplicationSpec& specification) : window_(specification) {
-    SE_LOG_INFO("Starting engine - build: {}", 0);
+Application::Application(const ApplicationSpec& specification) {
+    if (s_Instance) {
+        SE_LOG_ERROR("Application already exists!");
+        return;
+    }
+    s_Instance = this;
 
-    // Initialize renderer
-    renderer_.init();
+    SE_LOG_INFO("Starting Simple Engine");
 
-    // ImGui: create context and init backend
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO();
-    (void)io;
-    ImGui::StyleColorsDark();
+    // Create window
+    window_ = std::make_unique<Window>(specification);
 
-    // Initialize ImGui GLFW + OpenGL3 backends
-    // note: the GLSL version string must match your GL context, here 330 core
-    const char* glsl_version = "#version 330 core";
-    ImGui_ImplGlfw_InitForOpenGL(window_.native(), true);
-    ImGui_ImplOpenGL3_Init(glsl_version);
+    // Create and initialize renderer
+    renderer_ = std::make_unique<Renderer>();
+    renderer_->Init();
+
+    // Create and attach ImGui layer
+    imguiLayer_ = std::make_shared<ImGuiLayer>();
+    imguiLayer_->SetWindow(window_->GetNativeWindow());
+    imguiLayer_->OnAttach();
 }
+
 Application::~Application() {
-    window_.Destroy();
+    SE_LOG_INFO("Shutting down Simple Engine");
+
+    // Detach ImGui
+    if (imguiLayer_) {
+        imguiLayer_->OnDetach();
+    }
+
+    // Cleanup layers
+    for (auto& layer : layer_stack_) {
+        layer->OnDetach();
+    }
+    layer_stack_.clear();
+
+    // Cleanup systems
+    renderer_.reset();
+    window_.reset();
 
     glfwTerminate();
 
-    application = nullptr;
+    s_Instance = nullptr;
 }
 
 int Application::Run() {
     running_ = true;
     float lastTime = GetTime();
-    bool show_demo_window = true;
 
     while (running_) {
-        if (window_.isKeyPressed(GLFW_KEY_ESCAPE))
-            window_.requestClose();
+        // Check for window close
+        if (Input::IsKeyPressed(GLFW_KEY_ESCAPE)) {
+            window_->RequestClose();
+        }
 
-        if (window_.shouldClose()) {
+        if (window_->ShouldClose()) {
             Stop();
             break;
         }
 
-        // update the engine timestep
+        // Calculate timestep
         float currentTime = GetTime();
         float timestep = glm::clamp(currentTime - lastTime, 0.001f, 0.1f);
-
         lastTime = currentTime;
 
-        for (const std::unique_ptr<Layer>& layer : layer_stack_)
+        // Begin frame
+        renderer_->BeginFrame();
+
+        // Update all layers
+        for (const std::unique_ptr<Layer>& layer : layer_stack_) {
             layer->OnUpdate(timestep);
+        }
 
-        // Start the ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+        // Render all layers
+        for (const std::unique_ptr<Layer>& layer : layer_stack_) {
+            layer->OnRender();
+        }
 
-        // You can move/close it at runtime; shows many ImGui features
-        ImGui::ShowDemoWindow(&show_demo_window);
+        // End frame
+        renderer_->EndFrame();
 
-        // Engine rendering draw first, then ImGui overlay
-        renderer_.draw(static_cast<float>(timestep));
+        // ImGui rendering
+        imguiLayer_->Begin();
 
-        // Render ImGui on top
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        // Let layers draw their ImGui
+        for (const std::unique_ptr<Layer>& layer : layer_stack_) {
+            layer->OnImGuiRender();
+        }
 
-        window_.swapBuffers();
-        window_.pollEvents();
+        imguiLayer_->End();
+
+        // Swap buffers and poll events
+        window_->SwapBuffers();
+        window_->OnUpdate();
     }
-
-    // Cleanup ImGui
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
 
     return 0;
 }
+
 void Application::Stop() {
     running_ = false;
 }
-void Application::PushLayer() {
-    // TODO(rafael): implement
-}
+
 void Application::PushOverlay() {
-    // TODO(rafael): implement
+    // TODO: Implement overlay support
 }
 
 Application& Application::Get() {
-    return *application;
+    return *s_Instance;
 }
 
 float Application::GetTime() {
-    return (float)glfwGetTime();
+    return static_cast<float>(glfwGetTime());
 }
+
 } // namespace se

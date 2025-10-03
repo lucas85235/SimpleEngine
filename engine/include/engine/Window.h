@@ -1,45 +1,57 @@
 #pragma once
-#include "Engine.h"
 
-// Forward declare GLFW types to keep header light
+#include <cstdint>
+#include <memory>
+#include <string>
+
 struct GLFWwindow;
 
 namespace se {
 
-class Window {
-  public:
-    Window(uint32_t width, uint32_t height, const std::string& title);
-    Window(const ApplicationSpec& specification);
-    ~Window();
+    class GraphicsContext;
 
-    Window(const Window&) = delete;
-    Window& operator=(const Window&) = delete;
+    struct ApplicationSpec {
+        std::string Name = "Simple Engine";
+        uint32_t WindowWidth = 1280;
+        uint32_t WindowHeight = 720;
+        bool VSync = true;
+    };
 
-    bool shouldClose() const;
-    void requestClose() const;
-    void swapBuffers() const;
-    void pollEvents() const;
-    bool isKeyPressed(int key) const;
+    class Window {
+    public:
+        Window(const ApplicationSpec& spec);
+        Window(uint32_t width, uint32_t height, const std::string& title);
+        ~Window();
 
-    GLFWwindow* native() const {
-        return handle_;
-    }
-    uint32_t width() const {
-        return width_;
-    }
-    uint32_t height() const {
-        return height_;
-    }
+        void OnUpdate(); // Poll events
 
-    void Destroy();
+        uint32_t GetWidth() const { return width_; }
+        uint32_t GetHeight() const { return height_; }
 
-  private:
-    GLFWwindow* handle_ = nullptr;
-    uint32_t width_ = 0;
-    uint32_t height_ = 0;
+        void SetVSync(bool enabled);
+        bool IsVSync() const { return vsync_; }
 
-    static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
-    void applyViewport(int width, int height) const;
-};
+        bool ShouldClose() const;
+        void RequestClose();
+
+        GLFWwindow* GetNativeWindow() const { return handle_; }
+
+        void SwapBuffers();
+
+    private:
+        void Init(uint32_t width, uint32_t height, const std::string& title);
+        void Shutdown();
+
+        static void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
+
+    private:
+        GLFWwindow* handle_ = nullptr;
+        std::unique_ptr<GraphicsContext> context_;
+
+        uint32_t width_;
+        uint32_t height_;
+        std::string title_;
+        bool vsync_ = true;
+    };
 
 } // namespace se

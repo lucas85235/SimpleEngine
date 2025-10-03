@@ -1,98 +1,64 @@
 #include "engine/Renderer.h"
-#include "engine/Shader.h"
-#include <gtc/type_ptr.hpp>
-#include <cmath>
-#include <engine/MeshFactory.h>
+#include "engine/Log.h"
 
 namespace se {
 
-Renderer::Renderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {}
+    Renderer::Renderer() {}
 
-void Renderer::init() {
-    glEnable(GL_DEPTH_TEST);
-    // Find shaders folder and files
-    auto assets = findAssetsFolder();
-    if (!assets) {
-        throw std::runtime_error(
-            "Assets folder not found. Checked: ASSETS_DIR, ./assets, exe_dir/assets");
-    }
-    fs::path vsPath = *assets / "shaders" / "basic.vert";
-    fs::path fsPath = *assets / "shaders" / "basic.frag";
-
-    // Create shader
-    Shader shader = Shader::fromFiles(vsPath, fsPath);
-    shader.bind();
-    program_ = shader.release();
-
-    viewLoc_ = glGetUniformLocation(program_, "uView");
-    projLoc_ = glGetUniformLocation(program_, "uProj");
-
-    try {
-        // Initialize component
-        // triangle_mesh_ = MeshFactory::CreateTriangle();
-        quad_mesh_ = MeshFactory::CreateCube();
-        inputHandler_.initialize(glfwGetCurrentContext());
-    } catch (const std::exception& e) {
-        std::cerr << "Renderer initialization failed: " << e.what() << std::endl;
-        throw;
+    Renderer::~Renderer() {
+        Shutdown();
     }
 
-    shader.unbind();
-}
+    void Renderer::Init() {
+        if (initialized_) {
+            SE_LOG_WARN("Renderer already initialized");
+            return;
+        }
 
-void Renderer::updateDeltaTime(float delta_time) {
-    deltaTime_ = delta_time;
-}
+        SE_LOG_INFO("Initializing Renderer");
 
-void Renderer::handleInput() {
-    GLFWwindow* window = glfwGetCurrentContext();
-    if (window) {
-        inputHandler_.processKeyboard(window, deltaTime_);
+        // Initialize low-level rendering systems
+        RenderCommand::Init();
+        SceneRenderer::Init();
+
+        initialized_ = true;
+        SE_LOG_INFO("Renderer initialized successfully");
     }
-}
 
-void Renderer::draw(float time) {
-    updateDeltaTime(time);
-    handleInput();
+    void Renderer::Shutdown() {
+        if (!initialized_)
+            return;
 
-    glClearColor(0.08f, 0.10f, 0.14f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        SE_LOG_INFO("Shutting down Renderer");
 
-    glUseProgram(program_);
+        SceneRenderer::Shutdown();
 
-    setupMatrices();
-    setupAnimationUniforms(time);
+        initialized_ = false;
+    }
 
-    // triangle_mesh_.draw();
-    quad_mesh_.draw();
+    void Renderer::BeginFrame() {
+        // Any per-frame setup can go here
+    }
 
-    glUseProgram(0);
-}
+    void Renderer::EndFrame() {
+        // Any per-frame cleanup can go here
+    }
 
-void Renderer::setupMatrices() {
-    auto viewport = 800.0f / 600.0f;
+    void Renderer::Clear() {
+        RenderCommand::Clear();
+    }
 
-    glm::mat4 view = camera_.getViewMatrix();
-    glm::mat4 proj = camera_.getProjectionMatrix(viewport);
+    void Renderer::SetClearColor(float r, float g, float b, float a) {
+        RenderCommand::SetClearColor({r, g, b, a});
+    }
 
-    glUniformMatrix4fv(viewLoc_, 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(projLoc_, 1, GL_FALSE, glm::value_ptr(proj));
-}
+    void Renderer::BeginScene(const Camera& camera, float aspectRatio) {
+        glm::mat4 projection = camera.getProjectionMatrix(aspectRatio);
+        SceneRenderer::BeginScene(camera, projection);
+    }
 
-void Renderer::setupAnimationUniforms(float time) {
-    float mixValue = 0.5f * (std::sin(time) * 0.5f + 0.5f); // [0, 0.5]
-    GLint loc = glGetUniformLocation(program_, "uMix");
-    if (loc >= 0)
-        glUniform1f(loc, mixValue);
-}
-
-Renderer::~Renderer() {
-    if (program_)
-        glDeleteProgram(program_);
-    if (vbo_)
-        glDeleteBuffers(1, &vbo_);
-    if (vao_)
-        glDeleteVertexArrays(1, &vao_);
-}
+    void Renderer::EndScene() {
+        SceneRenderer::EndScene();
+    }
 
 } // namespace se

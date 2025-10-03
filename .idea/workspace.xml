@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AIAssistantCustomInstructionsStorage">
+    <option name="instructions">
+      <map>
+        <entry key="AIAssistant.General.ProjectPrompt">
+          <value>
+            <AIAssistantStoredInstruction>
+              <option name="actionId" value="AIAssistant.General.ProjectPrompt" />
+              <option name="content" value="sempre em portugues&#10;sempre comentarios em ingles&#10;sempre use padroes de projeto&#10;arquitetura robusta&#10;implemente todas as classes que me disse se certificando de que estao funcionando e que vao compilar. Imprima pra mim separadamente o .h e .cpp para que eu possa copiar de maneira mais facil" />
+            </AIAssistantStoredInstruction>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="8" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="10" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
@@ -32,6 +46,7 @@
       <config projectName="SimpleEngineProject" targetName="ImGui" />
       <config projectName="SimpleEngineProject" targetName="ImGuizmo" />
       <config projectName="SimpleEngineProject" targetName="imnodes" />
+      <config projectName="SimpleEngineProject" targetName="stb" />
       <config projectName="SimpleEngineProject" targetName="spdlog" />
     </generated>
   </component>
@@ -42,6 +57,28 @@
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/engine/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Application.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Camera.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Layer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Layer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Mesh.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/MeshFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/MeshFactory.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Renderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Renderer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Shader.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Window.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/renderer_v2.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/shader_v2.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Application.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Camera.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Mesh.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Shader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Window.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,56 +93,61 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///AIAssistantSnippet.." root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/engine/include/se_pch.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="NamedScopeManager">
@@ -144,20 +186,25 @@
     "cf.advertisement.text.overridden": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "improvement/application-entrypoint",
-    "last_opened_file_path": "C:/Users/rapha/_PROJECTS/SimpleEngine",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/rapha/_PROJECTS/SimpleEngine/engine/third_party",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "CPPToolchains",
+    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rapha\_PROJECTS\SimpleEngine\engine\third_party" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rapha\_PROJECTS\SimpleEngine\engine\src\Renderer" />
+      <recent name="C:\Users\rapha\_PROJECTS\SimpleEngine\engine\src" />
       <recent name="$PROJECT_DIR$/engine/include/engine" />
       <recent name="$PROJECT_DIR$/engine" />
       <recent name="$PROJECT_DIR$/engine/include" />
@@ -209,6 +256,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="stb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="stb" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="update_mappings" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="update_mappings" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -217,6 +269,7 @@
     <list>
       <item itemvalue="CMake Application.sandbox" />
       <item itemvalue="CMake Application.simple_engine" />
+      <item itemvalue="CMake Application.stb" />
       <item itemvalue="CMake Application.glad" />
       <item itemvalue="CMake Application.glfw" />
       <item itemvalue="CMake Application.update_mappings" />

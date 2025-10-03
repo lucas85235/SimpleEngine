@@ -1,6 +1,6 @@
-#include "renderer/shader_v2.h"
+#include "engine/renderer/shader_v2.h"
 
-#include <glad/gl.h>
+#include <glad/glad.h>
 
 namespace Renderer {
 
