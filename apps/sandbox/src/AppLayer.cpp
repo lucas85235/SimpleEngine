@@ -51,7 +51,8 @@ void AppLayer::OnRender() {
     renderer.Clear();
 
     // Begin scene with camera
-    float aspectRatio = 1920.0f / 1080.0f; // TODO: Get from window
+    glm::vec2 window_size = {se::Application::Get().GetWindow().GetWidth(), se::Application::Get().GetWindow().GetHeight()};
+    float aspectRatio = window_size.x / window_size.y;
     renderer.BeginScene(camera_, aspectRatio);
 
     // Update material animation
@@ -113,7 +114,7 @@ void AppLayer::SetupScene() {
     material_->SetFloat("uMix", 0.0f);
 
     // Create mesh
-    Mesh mesh = MeshFactory::CreateCapsule();
+    Mesh mesh = MeshFactory::CreateCylinder();
 
     const auto& vertices = mesh.getVertices();
     const auto& indices = mesh.getIndices();

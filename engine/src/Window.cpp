@@ -107,7 +107,17 @@ void Window::SetVSync(bool enabled) {
 }
 
 void Window::FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
+
+    Window* self = static_cast<Window*>(glfwGetWindowUserPointer(window));
+    if (!self) return;
+
+    int h = std::max(1, height);
+    int w = std::max(1, width);
+
+    self->width_ = static_cast<uint32_t>(w);
+    self->height_ = static_cast<uint32_t>(h);
+
+    glViewport(0, 0, w, h);
 }
 
 } // namespace se

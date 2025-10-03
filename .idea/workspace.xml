@@ -55,29 +55,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/engine/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Layer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Layer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/MeshFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/MeshFactory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Renderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Renderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Shader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Window.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/renderer_v2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/shader_v2.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Application.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Mesh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Shader.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/src/Window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Window.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -186,7 +165,7 @@
     "cf.advertisement.text.overridden": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "improvement/architecture",
     "last_opened_file_path": "C:/Users/rapha/_PROJECTS/SimpleEngine/engine/third_party",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
