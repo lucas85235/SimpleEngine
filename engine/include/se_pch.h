@@ -17,6 +17,8 @@
 
 #include <glad/glad.h>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm.hpp>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
@@ -32,3 +34,4 @@
 
 #include "engine/Log.h"
 #include "imgui.h"
+#include <entt.hpp>

@@ -3,31 +3,32 @@
 
 namespace se {
 
-    GLFWwindow* Input::s_Window = nullptr;
+    GLFWwindow* Input::window_ = nullptr;
 
     void Input::SetWindow(GLFWwindow* window) {
-        s_Window = window;
+        window_ = window;
     }
 
     bool Input::IsKeyPressed(int keycode) {
-        if (!s_Window)
+        if (!window_)
             return false;
-        int state = glfwGetKey(s_Window, keycode);
+        int state = glfwGetKey(window_, keycode);
         return state == GLFW_PRESS || state == GLFW_REPEAT;
     }
 
     bool Input::IsMouseButtonPressed(int button) {
-        if (!s_Window)
+        if (!window_)
             return false;
-        int state = glfwGetMouseButton(s_Window, button);
+        int state = glfwGetMouseButton(window_, button);
         return state == GLFW_PRESS;
     }
 
     glm::vec2 Input::GetMousePosition() {
-        if (!s_Window)
+        if (!window_)
             return {0.0f, 0.0f};
         double xpos, ypos;
-        glfwGetCursorPos(s_Window, &xpos, &ypos);
+        glfwGetCursorPos(window_, &xpos, &ypos);
+        SE_LOG_DEBUG("Mouse position: ({}, {})", xpos, ypos);
         return {static_cast<float>(xpos), static_cast<float>(ypos)};
     }
 

@@ -72,6 +72,7 @@ target_include_directories(simple_engine PUBLIC
         ${glfw_DIR}/include
         ${glm_DIR}
         ${stb_DIR}
+        ${entt_DIR}
 )
 
 # --- LIGAÇÃO DAS DEPENDÊNCIAS DA ENGINE ---
@@ -86,10 +87,14 @@ target_link_libraries(simple_engine PUBLIC
         ImGui
         spdlog
         stb
+        Entt
 )
 
 # Adiciona definições de compilação necessárias
-target_compile_definitions(simple_engine PUBLIC GLFW_INCLUDE_NONE)
+target_compile_definitions(simple_engine PUBLIC
+        GLFW_INCLUDE_NONE
+        GLM_ENABLE_EXPERIMENTAL
+)
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

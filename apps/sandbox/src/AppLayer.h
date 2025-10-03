@@ -4,11 +4,10 @@
 #include <engine/Camera.h>
 #include <engine/InputHandler.h>
 #include <engine/Layer.h>
-#include <engine/Mesh.h>
-#include <engine/Shader.h>
-#include <engine/renderer/Material.h>
-#include <engine/renderer/VertexArray.h>
+#include <engine/ecs/Scene.h>
 #include <memory>
+#include <string>
+#include <glm.hpp>
 
 class AppLayer : public se::Layer {
 public:
@@ -23,17 +22,20 @@ public:
     void OnImGuiRender() override;
 
 private:
-    void SetupScene();
     void HandleInput(float deltaTime);
 
+    // Helper methods for creating entities
+    void CreateCubeEntity(const std::string& name, const glm::vec3& position);
+    void CreateSphereEntity(const std::string& name, const glm::vec3& position);
+    void CreateCapsuleEntity(const std::string& name, const glm::vec3& position);
+
 private:
+    // Scene
+    std::unique_ptr<se::Scene> scene_;
+
     // Camera and input
     Camera camera_;
     InputHandler inputHandler_;
-
-    // Rendering resources
-    std::shared_ptr<se::VertexArray> meshVAO_;
-    std::shared_ptr<se::Material> material_;
 
     // Animation time
     float animationTime_ = 0.0f;

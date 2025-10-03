@@ -1,3 +1,4 @@
+
 #include "engine/Application.h"
 #include "engine/Input.h"
 #include "engine/Log.h"
@@ -24,6 +25,9 @@ Application::Application(const ApplicationSpec& specification) {
     // Create and initialize renderer
     renderer_ = std::make_unique<Renderer>();
     renderer_->Init();
+
+    // Set default clear color
+    renderer_->SetClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 
     // Create and attach ImGui layer
     imguiLayer_ = std::make_shared<ImGuiLayer>();
@@ -58,6 +62,8 @@ int Application::Run() {
     running_ = true;
     float lastTime = GetTime();
 
+    SE_LOG_INFO("Application main loop started");
+
     while (running_) {
         // Check for window close
         if (Input::IsKeyPressed(GLFW_KEY_ESCAPE)) {
@@ -76,6 +82,9 @@ int Application::Run() {
 
         // Begin frame
         renderer_->BeginFrame();
+
+        // Clear screen with the configured color
+        renderer_->Clear();
 
         // Update all layers
         for (const std::unique_ptr<Layer>& layer : layer_stack_) {
@@ -105,6 +114,7 @@ int Application::Run() {
         window_->OnUpdate();
     }
 
+    SE_LOG_INFO("Application main loop ended");
     return 0;
 }
 

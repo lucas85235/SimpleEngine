@@ -25,6 +25,7 @@ class InputHandler {
         auto* handler = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         if (handler) {
             handler->processMouse(xpos, ypos);
+            SE_LOG_DEBUG("Mouse position: ({}, {})", xpos, ypos);
         }
     }
 };

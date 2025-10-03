@@ -9,6 +9,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
 
 glm::mat4 Camera::getViewMatrix() const {
     return glm::lookAt(Position, Position + Front, Up);
+
 }
 
 glm::mat4 Camera::getProjectionMatrix(float aspectRatio) const {
