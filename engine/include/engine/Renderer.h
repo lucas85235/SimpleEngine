@@ -23,7 +23,8 @@ class Renderer {
   private:
     // Core components
     InputHandler inputHandler_;
-    TriangleMesh mesh_;
+    Mesh triangle_mesh_;
+    Mesh quad_mesh_;
 
     unsigned int vao_ = 0;
     unsigned int vbo_ = 0;
