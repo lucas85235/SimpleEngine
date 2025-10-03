@@ -1,13 +1,15 @@
-#include <engine/Renderer.h>
-#include <engine/Shader.h>
+#include "engine/Renderer.h"
+#include "engine/Shader.h"
 #include <gtc/type_ptr.hpp>
 #include <cmath>
+#include <engine/MeshFactory.h>
 
 namespace se {
 
 Renderer::Renderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {}
 
 void Renderer::init() {
+    glEnable(GL_DEPTH_TEST);
     // Find shaders folder and files
     auto assets = findAssetsFolder();
     if (!assets) {
@@ -26,7 +28,8 @@ void Renderer::init() {
 
     try {
         // Initialize component
-        mesh_.initialize();
+        // triangle_mesh_ = MeshFactory::CreateTriangle();
+        quad_mesh_ = MeshFactory::CreateCube();
         inputHandler_.initialize(glfwGetCurrentContext());
         
     } catch (const std::exception& e) {
@@ -55,14 +58,15 @@ void Renderer::draw(float time) {
     handleInput();
 
     glClearColor(0.08f, 0.10f, 0.14f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(program_);
 
     setupMatrices();
     setupAnimationUniforms(time);
 
-    mesh_.draw();
+    // triangle_mesh_.draw();
+    quad_mesh_.draw();
 
     glUseProgram(0);
 }
