@@ -7,45 +7,44 @@ void InputHandler::initialize(GLFWwindow* window) {
         std::cerr << "InputHandler: Invalid window context\n";
         return;
     }
-    
+
     setupMouseCapture(window);
     initializeMousePosition(window);
 }
 
 void InputHandler::processKeyboard(GLFWwindow* window, float deltaTime) {
-    if (!window || !camera_) return;
+    if (!camera_)
+        return;
 
-    const auto isPressed = [window](int key) {
-        return glfwGetKey(window, key) == GLFW_PRESS;
-    };
-    
-    camera_->processKeyboard(deltaTime, 
-                            isPressed(GLFW_KEY_W),              // forward
-                            isPressed(GLFW_KEY_S),              // back  
-                            isPressed(GLFW_KEY_A),              // left
-                            isPressed(GLFW_KEY_D),              // right
-                            isPressed(GLFW_KEY_SPACE),          // up
-                            isPressed(GLFW_KEY_LEFT_CONTROL));  // down
+    const auto isPressed = [window](int key) { return glfwGetKey(window, key) == GLFW_PRESS; };
+
+    camera_->processKeyboard(deltaTime,
+                             isPressed(GLFW_KEY_W),             // forward
+                             isPressed(GLFW_KEY_S),             // back
+                             isPressed(GLFW_KEY_A),             // left
+                             isPressed(GLFW_KEY_D),             // right
+                             isPressed(GLFW_KEY_SPACE),         // up
+                             isPressed(GLFW_KEY_LEFT_CONTROL)); // down
 }
 
 void InputHandler::processMouse(double xpos, double ypos) {
-    if (!camera_) return;
-    
+    if (!camera_)
+        return;
+
     if (firstMouse_) {
         lastX_ = xpos;
         lastY_ = ypos;
         firstMouse_ = false;
         return;
     }
-    
+
     double xOffset = xpos - lastX_;
     double yOffset = lastY_ - ypos; // Y inverted in GLFW
-    
+
     lastX_ = xpos;
     lastY_ = ypos;
-    
-    camera_->processMouseMovement(static_cast<float>(xOffset), 
-                                static_cast<float>(yOffset));
+
+    camera_->processMouseMovement(static_cast<float>(xOffset), static_cast<float>(yOffset));
 }
 
 void InputHandler::setupMouseCapture(GLFWwindow* window) {
