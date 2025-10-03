@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="14" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="8" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
@@ -40,42 +40,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.clang-format" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/include/engine/renderer/renderer_v2.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/include/engine/renderer/shader_v2.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/include/engine/utils/GLUtils.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/engine/include/engine/utils/GLUtils.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/format-all-project.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/generate_visual_studio_files_and_build.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cmake.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cmake.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/Engine.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/Engine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Event.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Event.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/InputHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/InputHandler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Layer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Layer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Log.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Renderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Renderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Shader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Window.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Window.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/utils/FilesHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/utils/FilesHandler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/se_pch.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/se_pch.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Application.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Application.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/InputHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/InputHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Log.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Log.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Renderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Shader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Window.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Window.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +51,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug-Visual Studio" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -186,7 +152,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "CMakeSettings",
+    "settings.editor.selected.configurable": "CPPToolchains",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -198,12 +164,12 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.sandbox">
-    <configuration name="ImGui" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGui" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="ImGui" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGui" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ImGuizmo" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGuizmo" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="ImGuizmo" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGuizmo" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -213,37 +179,37 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="glad" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="glad" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="glad" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="glad" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="glfw" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="glfw" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="glfw" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="glfw" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="imnodes" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="imnodes" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="imnodes" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="imnodes" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="sandbox" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="sandbox" CONFIG_NAME="Debug-Visual Studio" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="sandbox">
+    <configuration name="sandbox" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="sandbox" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="sandbox">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="simple_engine" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="simple_engine" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="simple_engine" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="simple_engine" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="spdlog" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="spdlog" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="spdlog" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="spdlog" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="update_mappings" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="update_mappings" CONFIG_NAME="Debug-Visual Studio">
+    <configuration name="update_mappings" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="update_mappings" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>

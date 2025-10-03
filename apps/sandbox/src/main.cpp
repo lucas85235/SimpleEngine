@@ -7,8 +7,8 @@ using namespace std;
 int main() {
     se::ApplicationSpec appSpec;
     appSpec.Name = "Architecture";
-    appSpec.WindowWidth = 800;
-    appSpec.WindowHeight = 600;
+    appSpec.WindowWidth = 1920;
+    appSpec.WindowHeight = 1080;
 
     se::LogInit(true);
 
