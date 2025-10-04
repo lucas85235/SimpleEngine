@@ -7,7 +7,7 @@ set(IMNODES_IMGUI_TARGET_NAME ImGui)
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                   COMPILATION RELATED                   ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-set(CMAKE_UNITY_BUILD ON) 
+set(CMAKE_UNITY_BUILD OFF)
 
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -52,12 +52,12 @@ file(GLOB_RECURSE PROJECT_SRCS CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
 )
 
-add_library(simple_engine
+add_library(simple_engine STATIC
     ${PROJECT_SRCS}
  )
 
 target_include_directories(simple_engine PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${spdlog_DIR}/include
     ${imgui_DIR}
     ${imnodes_DIR}

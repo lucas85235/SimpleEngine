@@ -1,9 +1,10 @@
 #include <engine/Shader.h>
-#include <stdexcept>
-#include <vector>
-#include <string>
-#include <sstream>
+
 #include <iostream>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
 
 // GLAD must be included before any GL headers usage
 #include <glad/glad.h>
@@ -13,15 +14,20 @@ namespace se {
 // helper to produce a short textual stage name
 static const char* stageName(unsigned int type) {
     switch (type) {
-        case GL_VERTEX_SHADER:   return "VERTEX";
-        case GL_FRAGMENT_SHADER: return "FRAGMENT";
-        case GL_GEOMETRY_SHADER: return "GEOMETRY";
-        default: return "UNKNOWN";
+        case GL_VERTEX_SHADER:
+            return "VERTEX";
+        case GL_FRAGMENT_SHADER:
+            return "FRAGMENT";
+        case GL_GEOMETRY_SHADER:
+            return "GEOMETRY";
+        default:
+            return "UNKNOWN";
     }
 }
 
 static std::string numberedSource(const char* src) {
-    if (!src) return "<null>";
+    if (!src)
+        return "<null>";
     std::istringstream iss(src);
     std::string line;
     int ln = 1;
@@ -34,8 +40,10 @@ static std::string numberedSource(const char* src) {
 }
 
 Shader::Shader(const std::string& vertSrc, const std::string& fragSrc) {
-    if (vertSrc.empty()) throw std::invalid_argument("Vertex shader source is null");
-    if (fragSrc.empty()) throw std::invalid_argument("Fragment shader source is null");
+    if (vertSrc.empty())
+        throw std::invalid_argument("Vertex shader source is null");
+    if (fragSrc.empty())
+        throw std::invalid_argument("Fragment shader source is null");
 
     unsigned int vs = 0;
     unsigned int fs = 0;
@@ -49,8 +57,10 @@ Shader::Shader(const std::string& vertSrc, const std::string& fragSrc) {
     program_ = glCreateProgram();
     if (program_ == 0) {
         // cleanup compiled shaders
-        if (vs) glDeleteShader(vs);
-        if (fs) glDeleteShader(fs);
+        if (vs)
+            glDeleteShader(vs);
+        if (fs)
+            glDeleteShader(fs);
         throw std::runtime_error("glCreateProgram returned 0");
     }
 
@@ -80,11 +90,13 @@ Shader::Shader(const std::string& vertSrc, const std::string& fragSrc) {
 }
 
 Shader::~Shader() {
-    if (program_) glDeleteProgram(program_);
+    if (program_)
+        glDeleteProgram(program_);
 }
 
 void Shader::bind() const {
-    if (program_) glUseProgram(program_);
+    if (program_)
+        glUseProgram(program_);
 }
 
 void Shader::unbind() const {
@@ -93,14 +105,17 @@ void Shader::unbind() const {
 
 void Shader::setFloat(const char* name, float value) const {
     int loc = uniformLocation(name);
-    if (loc >= 0) glUniform1f(loc, value);
+    if (loc >= 0)
+        glUniform1f(loc, value);
 }
 
 unsigned int Shader::compileStage(unsigned int type, const char* src) {
-    if (!src) throw std::invalid_argument("Shader source is null");
+    if (!src)
+        throw std::invalid_argument("Shader source is null");
 
     unsigned int id = glCreateShader(type);
-    if (!id) throw std::runtime_error(std::string("glCreateShader failed for ") + stageName(type));
+    if (!id)
+        throw std::runtime_error(std::string("glCreateShader failed for ") + stageName(type));
 
     glShaderSource(id, 1, &src, nullptr);
     glCompileShader(id);
@@ -109,7 +124,8 @@ unsigned int Shader::compileStage(unsigned int type, const char* src) {
         checkCompile(id, /*isProgram=*/false);
     } catch (const std::exception& e) {
         // include source with line numbers to help debugging
-        std::string msg = std::string(e.what()) + "\n---- Shader Source (" + stageName(type) + ") ----\n" + numberedSource(src);
+        std::string msg = std::string(e.what()) + "\n---- Shader Source (" + stageName(type) +
+                          ") ----\n" + numberedSource(src);
         // cleanup shader before rethrowing
         glDeleteShader(id);
         throw std::runtime_error(msg);
@@ -142,7 +158,8 @@ void Shader::checkCompile(unsigned int id, bool isProgram) {
 }
 
 int Shader::uniformLocation(const char* name) const {
-    if (!program_) return -1;
+    if (!program_)
+        return -1;
     return glGetUniformLocation(program_, name);
 }
 

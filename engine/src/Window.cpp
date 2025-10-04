@@ -1,10 +1,5 @@
-#include <engine/Window.h>
-#include <stdexcept>
-#include <cstdio>
-#include <iostream>
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "engine/Window.h"
+#include "se_pch.h"
 
 namespace se {
 
@@ -57,18 +52,15 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
     applyViewport(fbw, fbh);
 
     // Leave input mode as normal; input capture/RAW should be handled by Renderer
-    // Example (do not enable by default): glfwSetInputMode(handle_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    // Example (do not enable by default): glfwSetInputMode(handle_, GLFW_CURSOR,
+    // GLFW_CURSOR_NORMAL);
 }
 
-Window::Window(const ApplicationSpec& specification) 
+Window::Window(const ApplicationSpec& specification)
     : Window(specification.WindowWidth, specification.WindowHeight, specification.Name) {}
 
 Window::~Window() {
-    if (handle_) {
-        glfwDestroyWindow(handle_);
-        handle_ = nullptr;
-    }
-    glfwTerminate();
+    Destroy();
 }
 
 bool Window::shouldClose() const {
@@ -89,6 +81,11 @@ void Window::pollEvents() const {
 
 bool Window::isKeyPressed(int key) const {
     return glfwGetKey(handle_, key) == GLFW_PRESS;
+}
+void Window::Destroy() {
+    if (handle_)
+        glfwDestroyWindow(handle_);
+    handle_ = nullptr;
 }
 
 void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
