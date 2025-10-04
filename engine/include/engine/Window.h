@@ -22,7 +22,7 @@ class Window {
     bool isKeyPressed(int key) const;
 
     GLFWwindow* native() const {
-        return handle_;
+        return window_;
     }
     uint32_t width() const {
         return width_;
@@ -31,12 +31,15 @@ class Window {
         return height_;
     }
 
+    void setResizeCallback(std::function<void(int, int)> callback);
+  
     void Destroy();
 
   private:
-    GLFWwindow* handle_ = nullptr;
+    GLFWwindow* window_ = nullptr;
     uint32_t width_ = 0;
     uint32_t height_ = 0;
+    std::function<void(int, int)> resizeCallback;
 
     static void framebufferSizeCallback(GLFWwindow* window, int width, int height);
     void applyViewport(int width, int height) const;

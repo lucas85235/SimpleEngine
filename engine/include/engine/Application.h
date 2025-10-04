@@ -1,6 +1,7 @@
 #pragma once
 #include "Engine.h"
 #include "Layer.h"
+// #include "OldRenderer.h"
 #include "Renderer.h"
 #include "Window.h"
 
@@ -32,8 +33,8 @@ class Application {
     bool running_ = false;
     bool minimized_ = false;
     float last_frame_time_ = 0.0f;
-    Window window_;
-    Renderer renderer_;
+    std::unique_ptr<Window> window_;
+    std::unique_ptr<Renderer> renderer_;
     std::vector<std::unique_ptr<Layer>> layer_stack_;
 };
 

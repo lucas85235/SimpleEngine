@@ -6,6 +6,7 @@
 #include <memory>
 #include <engine/OpenGLRenderer.h>
 #include <engine/VulkanRenderer.h>
+#include <glm/glm.hpp>
 
 // ImGui headers
 #include "examples/imgui_impl_glfw.h"
@@ -15,15 +16,14 @@ namespace se {
 
 static Application* application = nullptr;
 
-Application::Application(const ApplicationSpec& specification) : window_(specification) {
-    SE_LOG_INFO("Starting engine - build: {}", 0);
+Application::Application(const ApplicationSpec& specification) {
+    SE_LOG_INFO("Starting engine - build");
 
     // Initialize renderer
-    window_ = std::make_unique<se::Window>(800, 600, "Sandbox");
-    render_ = std::make_unique<se::OpenGLRenderer>();
+    window_ = std::make_unique<se::Window>(specification);
+    renderer_ = std::make_unique<se::OpenGLRenderer>();
 
-    render_->initialize(*window_);
-    // renderer_.init();
+    renderer_->initialize(*window_);
 
     // ImGui: create context and init backend
     IMGUI_CHECKVERSION();
@@ -35,11 +35,11 @@ Application::Application(const ApplicationSpec& specification) : window_(specifi
     // Initialize ImGui GLFW + OpenGL3 backends
     // note: the GLSL version string must match your GL context, here 330 core
     const char* glsl_version = "#version 330 core";
-    ImGui_ImplGlfw_InitForOpenGL(window_.native(), true);
+    ImGui_ImplGlfw_InitForOpenGL(window_->native(), true);
     ImGui_ImplOpenGL3_Init(glsl_version);
 }
 Application::~Application() {
-    window_.Destroy();
+    window_->Destroy();
 
     glfwTerminate();
 
@@ -52,10 +52,10 @@ int Application::Run() {
     bool show_demo_window = true;
 
     while (running_) {
-        if (window_.isKeyPressed(GLFW_KEY_ESCAPE))
-            window_.requestClose();
+        if (window_->isKeyPressed(GLFW_KEY_ESCAPE))
+            window_->requestClose();
 
-        if (window_.shouldClose()) {
+        if (window_->shouldClose()) {
             Stop();
             break;
         }
@@ -78,14 +78,15 @@ int Application::Run() {
         ImGui::ShowDemoWindow(&show_demo_window);
 
         // Engine rendering draw first, then ImGui overlay
-        renderer_.draw(static_cast<float>(timestep));
+        // renderer_.draw(static_cast<float>(timestep));
+        renderer_->render();
 
         // Render ImGui on top
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        window_.swapBuffers();
-        window_.pollEvents();
+        window_->swapBuffers();
+        window_->pollEvents();
     }
 
     // Cleanup ImGui
@@ -93,7 +94,7 @@ int Application::Run() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    render_->cleanup();
+    renderer_->cleanup();
 
     return 0;
 }

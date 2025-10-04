@@ -1,5 +1,5 @@
 #include <cmath>
-#include <engine/Renderer.h>
+#include <engine/OldRenderer.h>
 #include <engine/Shader.h>
 #include <gtc/type_ptr.hpp>
 
@@ -37,7 +37,7 @@ void OldRenderer::init() {
     shader.unbind();
 }
 
-void Renderer::updateDeltaTime(float delta_time) {
+void OldRenderer::updateDeltaTime(float delta_time) {
     deltaTime_ = delta_time;
 }
 
@@ -82,7 +82,7 @@ void OldRenderer::setupAnimationUniforms(float time) {
         glUniform1f(loc, mixValue);
 }
 
-Renderer::~Renderer() {
+OldRenderer::~OldRenderer() {
     if (program_)
         glDeleteProgram(program_);
     if (vbo_)

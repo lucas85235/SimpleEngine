@@ -58,9 +58,9 @@ bool Window::isKeyPressed(int key) const {
     return glfwGetKey(window_, key) == GLFW_PRESS;
 }
 void Window::Destroy() {
-    if (handle_)
-        glfwDestroyWindow(handle_);
-    handle_ = nullptr;
+    if (window_)
+        glfwDestroyWindow(window_);
+    window_ = nullptr;
 }
 
 void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
