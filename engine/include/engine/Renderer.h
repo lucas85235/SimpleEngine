@@ -1,25 +1,26 @@
 #pragma once
-#include "se_pch.h"
+#include <GLFW/glfw3.h>
 #include <engine/Camera.h>
 #include <engine/InputHandler.h>
 #include <engine/Mesh.h>
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+
+#include "se_pch.h"
 
 namespace se {
 
 class Renderer {
-public:
+  public:
     Renderer();
     ~Renderer();
 
-    void init();             // create VAO/VBO + compile shader
-    void clear();            // Limpa a tela
+    void init();  // create VAO/VBO + compile shader
+    void clear(); // Limpa a tela
 
-    void draw(float time);   // draw rotating color factor
-    // void swapBuffers();      // Troca os buffers de frente e trás
+    void draw(float time); // draw rotating color factor
+                           // void swapBuffers();      // Troca os buffers de frente e trás
 
-private:
+  private:
     // Core components
     InputHandler inputHandler_;
     TriangleMesh mesh_;
@@ -34,7 +35,7 @@ private:
 
     float deltaTime_ = 0.0f;
 
-    void updateDeltaTime(float currentTime);
+    void updateDeltaTime(float delta_time);
     void handleInput();
     void setupMatrices();
     void setupAnimationUniforms(float time);

@@ -1,7 +1,7 @@
 add_executable(sandbox
-    src/main.cpp
-    src/App.cpp
-)
+        src/AppLayer.cpp
+        src/AppLayer.h
+        src/main.cpp)
 
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set_property(TARGET ImGui PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
@@ -17,8 +17,8 @@ if(EXISTS "${ASSETS_SOURCE_DIR}")
   add_custom_command(
     TARGET sandbox POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E echo "Copying assets to binary dir..."
-    COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:sandbox>/../assets"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory "${ASSETS_SOURCE_DIR}" "$<TARGET_FILE_DIR:sandbox>/../assets"
+          COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:sandbox>/assets"
+          COMMAND ${CMAKE_COMMAND} -E copy_directory "${ASSETS_SOURCE_DIR}" "$<TARGET_FILE_DIR:sandbox>/assets"
     VERBATIM
   )
 else()
