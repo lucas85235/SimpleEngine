@@ -8,7 +8,7 @@ namespace se {
 
 // ----- Renderer Methods ----- //
 
-void VulkanRenderer::initialize(se::Window& window) {
+void VulkanRenderer::Initialize(se::Window& window) {
     currentWindow = &window;
     
     // initWindow();
@@ -17,11 +17,11 @@ void VulkanRenderer::initialize(se::Window& window) {
     std::cout << "Vulkan inicializado com sucesso" << std::endl;
 }
 
-void VulkanRenderer::render() {
+void VulkanRenderer::Render(float delta_time) {
     drawFrame();
 }
 
-void VulkanRenderer::cleanup() {
+void VulkanRenderer::Cleanup() {
     vkDeviceWaitIdle(device);
     
     for (size_t i = 0; i < MAX_FRAMES_IN_FLIGHT; i++) {
@@ -41,7 +41,7 @@ void VulkanRenderer::cleanup() {
     glfwTerminate();
 }
 
-void VulkanRenderer::onResize(int width, int height) {
+void VulkanRenderer::OnResize(int width, int height) {
     // Implementar recreação do swap chain se necessário
 }
 

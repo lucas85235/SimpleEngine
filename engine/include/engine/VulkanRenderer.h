@@ -2,21 +2,21 @@
 #include <engine/Renderer.h>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
-#include <vulkan/vulkan.h>
+#include <cstring>
 #include <iostream>
 #include <vector>
-#include <cstring>
+#include <vulkan/vulkan.h>
 
 namespace se {
 
 class VulkanRenderer : public se::Renderer {
-public:
-    void initialize(se::Window& window) override;
-    void render() override;
-    void cleanup() override;
-    void onResize(int width, int height) override;
-    
-private:
+  public:
+    void Initialize(se::Window& window) override;
+    void Render(float delta_time) override;
+    void Cleanup() override;
+    void OnResize(int width, int height) override;
+
+  private:
     se::Window* currentWindow = nullptr;
     VkInstance instance;
     VkSurfaceKHR surface;
@@ -36,7 +36,7 @@ private:
     std::vector<VkFence> inFlightFences;
     size_t currentFrame = 0;
     const int MAX_FRAMES_IN_FLIGHT = 2;
-    
+
     inline void checkVk(VkResult result, const char* msg) {
         if (result != VK_SUCCESS) {
             throw std::runtime_error(std::string(msg) + " (VkResult=" + std::to_string(result) + ")");
@@ -58,4 +58,4 @@ private:
     void drawFrame();
 };
 
-}
+} // namespace se

@@ -2,11 +2,8 @@
 #include "engine/Log.h"
 #include "se_pch.h"
 
-#include <iostream>
-#include <memory>
 #include <engine/OpenGLRenderer.h>
 #include <engine/VulkanRenderer.h>
-#include <glm/glm.hpp>
 
 // ImGui headers
 #include "examples/imgui_impl_glfw.h"
@@ -23,7 +20,7 @@ Application::Application(const ApplicationSpec& specification) {
     window_ = std::make_unique<se::Window>(specification);
     renderer_ = std::make_unique<se::OpenGLRenderer>();
 
-    renderer_->initialize(*window_);
+    renderer_->Initialize(*window_);
 
     // ImGui: create context and init backend
     IMGUI_CHECKVERSION();
@@ -78,8 +75,7 @@ int Application::Run() {
         ImGui::ShowDemoWindow(&show_demo_window);
 
         // Engine rendering draw first, then ImGui overlay
-        // renderer_.draw(static_cast<float>(timestep));
-        renderer_->render();
+        renderer_->Render(static_cast<float>(timestep));
 
         // Render ImGui on top
         ImGui::Render();
@@ -94,7 +90,7 @@ int Application::Run() {
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 
-    renderer_->cleanup();
+    renderer_->Cleanup();
 
     return 0;
 }

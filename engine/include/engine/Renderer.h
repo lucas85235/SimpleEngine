@@ -4,12 +4,12 @@
 namespace se {
 
 class Renderer {
-public:
+  public:
     virtual ~Renderer() = default;
-    virtual void initialize(Window& window) = 0;
-    virtual void render() = 0;
-    virtual void cleanup() = 0;
-    virtual void onResize(int width, int height) {}
+    virtual void Initialize(Window& window) = 0;
+    virtual void Render(float delta_time) = 0;
+    virtual void Cleanup() = 0;
+    virtual void OnResize(int width, int height) {}
 };
 
 } // namespace se
