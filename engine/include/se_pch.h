@@ -10,10 +10,11 @@
 #    include <Windows.h>
 #endif
 
-#ifndef GLFW_INCLUDE_NONE
-#    define GLFW_INCLUDE_NONE
-#endif
-#include <GLFW/glfw3.h>
+// Diga ao GLFW para não incluir headers GL antigos
+// #ifndef GLFW_INCLUDE_NONE
+// #define GLFW_INCLUDE_NONE
+// #endif
+// #include <GLFW/glfw3.h>
 
 #include <glad/glad.h>
 
@@ -25,7 +26,6 @@
 #include <memory>
 #include <mutex>
 #include <optional>
-#include <print>
 #include <sstream>
 #include <string>
 #include <vector>

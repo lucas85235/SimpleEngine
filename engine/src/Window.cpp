@@ -14,46 +14,20 @@ Window::Window(uint32_t width, uint32_t height, const std::string& title)
         std::cerr << "GLFW ERROR " << code << ": " << (desc ? desc : "<null>") << "\n";
     });
 
-    // Request a modern OpenGL context (3.3 core).
-    // If you want a different version, change these values.
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
+    // Não especificar API ainda
+    // todo: custom condition for vulkan
+    // glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 
     // Create window and context
-    handle_ = glfwCreateWindow(width_, height_, title.c_str(), nullptr, nullptr);
-    if (!handle_) {
+    window_ = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
+    if (!window_) {
         glfwTerminate();
         throw std::runtime_error("Failed to create GLFW window");
     }
 
-    // Make the context current BEFORE loading GL function pointers
-    glfwMakeContextCurrent(handle_);
-
-    // Initialize GLAD (must be done after context creation)
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        glfwDestroyWindow(handle_);
-        glfwTerminate();
-        throw std::runtime_error("Failed to initialize GLAD");
-    }
-
-    // Vsync
-    glfwSwapInterval(1);
-
-    // Framebuffer callback (keeps viewport correct)
-    glfwSetFramebufferSizeCallback(handle_, framebufferSizeCallback);
-
-    // Setup initial viewport dimensions
-    int fbw = 0, fbh = 0;
-    glfwGetFramebufferSize(handle_, &fbw, &fbh);
-    applyViewport(fbw, fbh);
-
-    // Leave input mode as normal; input capture/RAW should be handled by Renderer
-    // Example (do not enable by default): glfwSetInputMode(handle_, GLFW_CURSOR,
-    // GLFW_CURSOR_NORMAL);
+    // glfwSetWindowUserPointer(window_, this);
+    glfwSetFramebufferSizeCallback(window_, framebufferSizeCallback);
 }
 
 Window::Window(const ApplicationSpec& specification)
@@ -64,15 +38,16 @@ Window::~Window() {
 }
 
 bool Window::shouldClose() const {
-    return glfwWindowShouldClose(handle_) != 0;
+    return glfwWindowShouldClose(window_) != 0;
 }
 
 void Window::requestClose() const {
-    glfwSetWindowShouldClose(handle_, 1);
+    glfwSetWindowShouldClose(window_, 1);
 }
 
 void Window::swapBuffers() const {
-    glfwSwapBuffers(handle_);
+    //todo: only work with opengl
+    glfwSwapBuffers(window_);
 }
 
 void Window::pollEvents() const {
@@ -80,12 +55,12 @@ void Window::pollEvents() const {
 }
 
 bool Window::isKeyPressed(int key) const {
-    return glfwGetKey(handle_, key) == GLFW_PRESS;
+    return glfwGetKey(window_, key) == GLFW_PRESS;
 }
 void Window::Destroy() {
-    if (handle_)
-        glfwDestroyWindow(handle_);
-    handle_ = nullptr;
+    if (window_)
+        glfwDestroyWindow(window_);
+    window_ = nullptr;
 }
 
 void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) {
@@ -95,6 +70,10 @@ void Window::framebufferSizeCallback(GLFWwindow* window, int width, int height) 
 
 void Window::applyViewport(int width, int height) const {
     glViewport(0, 0, width, height);
+}
+
+void Window::setResizeCallback(std::function<void(int, int)> callback) {
+    resizeCallback = callback;
 }
 
 } // namespace se
