@@ -1,4 +1,5 @@
 #include <GLFW/glfw3.h>
+#include <engine/MeshFactory.h>
 #include <engine/OpenGLRenderer.h>
 #include <gtc/type_ptr.hpp>
 
@@ -49,6 +50,8 @@ void OpenGLRenderer::OnResize(int width, int height) {
 // ----- Temp render example ----- //
 
 void OpenGLRenderer::init() {
+    glEnable(GL_DEPTH_TEST);
+
     camera_ = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
     inputHandler_ = std::make_unique<InputHandler>(*camera_);
 
@@ -71,7 +74,7 @@ void OpenGLRenderer::init() {
 
     try {
         // Initialize component
-        mesh_.initialize();
+        mesh_ = MeshFactory::CreateCube();
         inputHandler_->initialize(glfwGetCurrentContext());
     } catch (const std::exception& e) {
         std::cerr << "Renderer initialization failed: " << e.what() << std::endl;
@@ -97,7 +100,7 @@ void OpenGLRenderer::draw(float time) {
     handleInput();
 
     glClearColor(0.08f, 0.10f, 0.14f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(program_);
 
