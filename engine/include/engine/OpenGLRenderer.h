@@ -22,7 +22,7 @@ class OpenGLRenderer : public Renderer {
     // Temp
 
     std::unique_ptr<InputHandler> inputHandler_;
-    TriangleMesh mesh_;
+    Mesh mesh_;
 
     unsigned int vao_ = 0;
     unsigned int vbo_ = 0;

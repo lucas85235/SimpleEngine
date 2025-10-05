@@ -1,13 +1,12 @@
-#include <cmath>
 #include <engine/OldRenderer.h>
 #include <engine/Shader.h>
+#include <engine/MeshFactory.h>
 #include <gtc/type_ptr.hpp>
+#include <cmath>
 
 namespace se {
 
-OldRenderer::OldRenderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {}
-
-void OldRenderer::init() {
+OldRenderer::OldRenderer() : camera_(glm::vec3(0.0f, 0.0f, 3.0f)), inputHandler_(camera_) {
     // Find shaders folder and files
     auto assets = findAssetsFolder();
     if (!assets) {
@@ -27,7 +26,8 @@ void OldRenderer::init() {
 
     try {
         // Initialize component
-        mesh_.initialize();
+        // triangle_mesh_ = MeshFactory::CreateTriangle();
+        mesh_ = MeshFactory::CreateCube();
         inputHandler_.initialize(glfwGetCurrentContext());
     } catch (const std::exception& e) {
         std::cerr << "Renderer initialization failed: " << e.what() << std::endl;
@@ -53,13 +53,14 @@ void OldRenderer::draw(float time) {
     handleInput();
 
     glClearColor(0.08f, 0.10f, 0.14f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glUseProgram(program_);
 
     setupMatrices();
     setupAnimationUniforms(time);
 
+    // triangle_mesh_.draw();
     mesh_.draw();
 
     glUseProgram(0);
