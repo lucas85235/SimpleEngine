@@ -55,16 +55,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.frag" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/engine/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Application.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Application.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/se_pch.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/se_pch.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/InputHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/InputHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/InputHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/InputHandler.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +303,7 @@
       <workItem from="1759358505424" duration="2716000" />
       <workItem from="1759517864968" duration="1067000" />
       <workItem from="1759772166974" duration="7000" />
-      <workItem from="1759832381156" duration="356000" />
+      <workItem from="1759832381156" duration="1326000" />
     </task>
     <servers />
   </component>

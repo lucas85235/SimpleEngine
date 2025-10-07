@@ -47,10 +47,21 @@ void InputHandler::processMouse(double xpos, double ypos) {
     camera_->processMouseMovement(static_cast<float>(xOffset), static_cast<float>(yOffset));
 }
 
+void InputHandler::setCursorModeFromString(GLFWwindow* window, const std::string& modeString) {
+    auto it = stringToCursorMode.find(modeString);
+
+    if (it != stringToCursorMode.end()) {
+        glfwSetInputMode(window, GLFW_CURSOR, static_cast<int>(it->second));
+        SE_LOG_INFO("Cursor mode set to: {}", modeString);
+    } else {
+        SE_LOG_ERROR("Cursor mode not found: {}. The available ones are: normal, hidden, disabled", modeString);
+    }
+}
+
 void InputHandler::setupMouseCapture(GLFWwindow* window) {
     glfwSetWindowUserPointer(window, this);
     glfwSetCursorPosCallback(window, mouseCallback);
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    setCursorModeFromString(window, "hidden");
 }
 
 void InputHandler::initializeMousePosition(GLFWwindow* window) {

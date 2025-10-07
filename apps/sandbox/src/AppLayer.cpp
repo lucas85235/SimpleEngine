@@ -53,6 +53,8 @@ void AppLayer::OnAttach() {
     if (window) {
         inputHandler_.initialize(window);
     }
+
+    InputHandler::setCursorModeFromString(window, "disabled");
 }
 
 void AppLayer::OnDetach() {
