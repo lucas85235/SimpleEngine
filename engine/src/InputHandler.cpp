@@ -27,7 +27,7 @@ void InputHandler::processKeyboard(GLFWwindow* window, float deltaTime) {
                              isPressed(GLFW_KEY_LEFT_CONTROL)); // down
 }
 
-void InputHandler::processMouse(double xpos, double ypos) {
+void InputHandler::processMousePosition(double xpos, double ypos) {
     if (!camera_)
         return;
 
@@ -46,6 +46,11 @@ void InputHandler::processMouse(double xpos, double ypos) {
 
     camera_->processMouseMovement(static_cast<float>(xOffset), static_cast<float>(yOffset));
 }
+void InputHandler::processMouseScroll(double xpos, double ypos) {
+    if (!camera_)
+        return;
+    camera_->processMouseScroll(static_cast<float>(xpos), static_cast<float>(ypos));
+}
 
 void InputHandler::setCursorModeFromString(GLFWwindow* window, const std::string& modeString) {
     auto it = stringToCursorMode.find(modeString);
@@ -54,13 +59,21 @@ void InputHandler::setCursorModeFromString(GLFWwindow* window, const std::string
         glfwSetInputMode(window, GLFW_CURSOR, static_cast<int>(it->second));
         SE_LOG_INFO("Cursor mode set to: {}", modeString);
     } else {
-        SE_LOG_ERROR("Cursor mode not found: {}. The available ones are: normal, hidden, disabled", modeString);
+        SE_LOG_ERROR("Cursor mode not found: {}. The available ones are: normal, hidden, disabled",
+                     modeString);
     }
 }
 
 void InputHandler::setupMouseCapture(GLFWwindow* window) {
     glfwSetWindowUserPointer(window, this);
-    glfwSetCursorPosCallback(window, mouseCallback);
+
+    // mouse position
+    glfwSetCursorPosCallback(window, mousePositionCallback);
+
+    // mouse scroll
+    glfwSetScrollCallback(window, mouseScrollCallback);
+
+    // mouse input mode
     setCursorModeFromString(window, "hidden");
 }
 

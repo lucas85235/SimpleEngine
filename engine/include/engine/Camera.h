@@ -22,31 +22,31 @@ public:
     void processMouseMovement(float xoffset, float yoffset, bool constrainPitch = true);
 
     // Processes input received from a mouse scroll-wheel event
-    void processMouseScroll(float yoffset);
+    void processMouseScroll(float xoffset, float yoffset);
 
     // Getters for camera attributes
-    glm::vec3 GetPosition() const { return Position; }
-    glm::vec3 GetFront() const { return Front; }
-    glm::vec3 GetUp() const { return Up; }
-    glm::vec3 GetRight() const { return Right; }
-    float GetYaw() const { return Yaw; }
-    float GetPitch() const { return Pitch; }
-    float GetZoom() const { return Zoom; }
+    glm::vec3 GetPosition() const { return position_; }
+    glm::vec3 GetFront() const { return front_; }
+    glm::vec3 GetUp() const { return up_; }
+    glm::vec3 GetRight() const { return right_; }
+    float GetYaw() const { return yaw_; }
+    float GetPitch() const { return pitch_; }
+    float GetZoom() const { return fov_; }
 
     // Setters for camera attributes
-    void SetPosition(const glm::vec3 &position) { Position = position; }
+    void SetPosition(const glm::vec3 &position) { position_ = position; }
 
     void SetYaw(float yaw) {
-        Yaw = yaw;
+        yaw_ = yaw;
         updateCameraVectors();
     }
 
     void SetPitch(float pitch) {
-        Pitch = pitch;
+        pitch_ = pitch;
         updateCameraVectors();
     }
 
-    void SetZoom(float zoom) { Zoom = glm::clamp(zoom, 1.0f, 90.0f); }
+    void SetZoom(float zoom) { fov_ = glm::clamp(zoom, 1.0f, 90.0f); }
 
 private:
     // Calculates the front vector from the Camera's (updated) Euler Angles
@@ -54,18 +54,18 @@ private:
 
 private:
     // Camera Attributes
-    glm::vec3 Position;
-    glm::vec3 Front;
-    glm::vec3 Up;
-    glm::vec3 Right;
-    glm::vec3 WorldUp;
+    glm::vec3 position_;
+    glm::vec3 front_;
+    glm::vec3 up_;
+    glm::vec3 right_;
+    glm::vec3 world_up_;
 
     // Euler Angles
-    float Yaw;
-    float Pitch;
+    float yaw_;
+    float pitch_;
 
     // Camera options
-    float MovementSpeed = 5.0f;
-    float MouseSensitivity = 0.1f;
-    float Zoom = 45.0f;
+    float movement_speed_ = 5.0f;
+    float mouse_sensitivity_ = 0.1f;
+    float fov_ = 45.0f;
 };

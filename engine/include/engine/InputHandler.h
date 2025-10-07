@@ -20,7 +20,9 @@ class InputHandler {
     static void setCursorModeFromString(GLFWwindow* window, const std::string& modeString);
     void initialize(GLFWwindow* window);
     void processKeyboard(GLFWwindow* window, float deltaTime);
-    void processMouse(double xpos, double ypos);
+    void processMousePosition(double xpos, double ypos);
+    void processMouseScroll(double xpos, double ypos);
+
 
   private:
     Camera* camera_ = nullptr;
@@ -30,13 +32,18 @@ class InputHandler {
 
     void setupMouseCapture(GLFWwindow* window);
     void initializeMousePosition(GLFWwindow* window);
-    void setInputMode(GLFWwindow* window, int mode, int value);
 
-    static void mouseCallback(GLFWwindow* window, double xpos, double ypos) {
+    static void mousePositionCallback(GLFWwindow* window, double xpos, double ypos) {
         auto* handler = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
         if (handler) {
-            handler->processMouse(xpos, ypos);
-            SE_LOG_DEBUG("Mouse position: ({}, {})", xpos, ypos);
+            handler->processMousePosition(xpos, ypos);
+        }
+    }
+
+    static void mouseScrollCallback(GLFWwindow* window, double xpos, double ypos) {
+        auto* handler = static_cast<InputHandler*>(glfwGetWindowUserPointer(window));
+        if (handler) {
+            handler->processMouseScroll(xpos, ypos);
         }
     }
 };
