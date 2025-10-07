@@ -52,7 +52,6 @@ Application::~Application() {
     // Cleanup systems
     renderer_.reset();
     window_.reset();
-
     glfwTerminate();
 
     s_Instance = nullptr;
@@ -83,8 +82,16 @@ int Application::Run() {
         // Begin frame
         renderer_->BeginFrame();
 
+        int width, height;
+        glfwGetFramebufferSize(window_->GetNativeWindow(), &width, &height);
+
         // Clear screen with the configured color
         renderer_->Clear();
+
+        if (window_->GetWidth() != width || window_->GetHeight() != height) {
+            window_->SetWidth(width);
+            window_->SetHeight(height);
+        }
 
         // Update all layers
         for (const std::unique_ptr<Layer>& layer : layer_stack_) {

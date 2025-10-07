@@ -11,6 +11,7 @@ namespace se {
 
         void Init();
         void SwapBuffers();
+        GLFWwindow* GetContext() {return windowHandle_;}
 
     private:
         GLFWwindow* windowHandle_;

@@ -48,13 +48,13 @@ void AppLayer::OnAttach() {
     SE_LOG_INFO("Scene setup complete with {} entities", scene_->GetEntityCount());
 
     auto &app = se::Application::Get();
-    GLFWwindow *window = app.GetWindow().GetNativeWindow();
+    auto *window = app.GetWindow().GetNativeWindow();
 
     if (window) {
         inputHandler_.initialize(window);
     }
 
-    InputHandler::setCursorModeFromString(window, "disabled");
+    InputHandler::setCursorModeFromString(window, "normal");
 }
 
 void AppLayer::OnDetach() {
@@ -106,6 +106,8 @@ void AppLayer::OnRender() {
         se::Application::Get().GetWindow().GetHeight()
     };
     float aspectRatio = windowSize.x / windowSize.y;
+
+    SE_LOG_WARN("aspect ratio: {}", aspectRatio);
 
     // Scene automatically renders all entities with MeshRenderComponent!
     scene_->OnRender(camera_, aspectRatio);
@@ -204,12 +206,12 @@ void AppLayer::OnImGuiRender() {
 }
 
 void AppLayer::HandleInput(float deltaTime) {
-    // auto &app = se::Application::Get();
-    // GLFWwindow *window = app.GetWindow().GetNativeWindow();
-    //
-    // if (window) {
-    //     inputHandler_.processKeyboard(window, deltaTime);
-    // }
+    auto &app = se::Application::Get();
+    GLFWwindow *window = app.GetWindow().GetNativeWindow();
+
+    if (window) {
+        inputHandler_.processKeyboard(window, deltaTime);
+    }
 }
 
 // ==================== Entity Creation Helpers ====================

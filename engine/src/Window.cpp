@@ -27,6 +27,31 @@ Window::~Window() {
     Shutdown();
 }
 
+void Window::OnUpdate() {
+    glfwPollEvents();
+}
+
+void Window::SetVSync(bool enabled) {
+    if (enabled)
+        glfwSwapInterval(1);
+    else
+        glfwSwapInterval(0);
+
+    vsync_ = enabled;
+}
+
+bool Window::ShouldClose() const {
+    return glfwWindowShouldClose(handle_);
+}
+
+void Window::RequestClose() {
+    glfwSetWindowShouldClose(handle_, GLFW_TRUE);
+}
+
+void Window::SwapBuffers() {
+    context_->SwapBuffers();
+}
+
 void Window::Init(uint32_t width, uint32_t height, const std::string& title) {
     width_ = width;
     height_ = height;
@@ -58,9 +83,12 @@ void Window::Init(uint32_t width, uint32_t height, const std::string& title) {
         throw std::runtime_error("Failed to create GLFW window");
     }
 
+
     // Create graphics context
     context_ = std::make_unique<GraphicsContext>(handle_);
     context_->Init();
+
+    glfwSetWindowUserPointer(handle_, this);
 
     // Set callbacks
     glfwSetFramebufferSizeCallback(handle_, FramebufferSizeCallback);
@@ -81,43 +109,12 @@ void Window::Shutdown() {
     }
 }
 
-void Window::OnUpdate() {
-    glfwPollEvents();
-}
-
-void Window::SwapBuffers() {
-    context_->SwapBuffers();
-}
-
-bool Window::ShouldClose() const {
-    return glfwWindowShouldClose(handle_);
-}
-
-void Window::RequestClose() {
-    glfwSetWindowShouldClose(handle_, GLFW_TRUE);
-}
-
-void Window::SetVSync(bool enabled) {
-    if (enabled)
-        glfwSwapInterval(1);
-    else
-        glfwSwapInterval(0);
-
-    vsync_ = enabled;
-}
-
 void Window::FramebufferSizeCallback(GLFWwindow* window, int width, int height) {
-
-    Window* self = static_cast<Window*>(glfwGetWindowUserPointer(window));
-    if (!self) return;
-
     int h = std::max(1, height);
     int w = std::max(1, width);
 
-    self->width_ = static_cast<uint32_t>(w);
-    self->height_ = static_cast<uint32_t>(h);
+    SE_LOG_WARN("Window size callback: ({},{})", w, h);
 
     glViewport(0, 0, w, h);
 }
-
 } // namespace se

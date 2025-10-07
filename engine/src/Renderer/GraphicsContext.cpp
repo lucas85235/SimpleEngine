@@ -22,6 +22,7 @@ namespace se {
             throw std::runtime_error("Failed to initialize GLAD");
         }
 
+
         SE_LOG_INFO("OpenGL Info:");
         SE_LOG_INFO("  Vendor: {}", (const char*)glGetString(GL_VENDOR));
         SE_LOG_INFO("  Renderer: {}", (const char*)glGetString(GL_RENDERER));
