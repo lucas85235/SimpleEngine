@@ -40,10 +40,10 @@ void AppLayer::OnAttach() {
     }
 
     // Create original entities
-    CreateCubeEntity("Cube", {0.0f, 0.0f, 2.0f});
-    CreateCubeEntity("Rotating Cube", {3.0f, 0.0f, 2.0f});
-    CreateSphereEntity("Sphere", {-3.0f, 0.0f, 2.0f});
-    CreateCapsuleEntity("Capsule", {0.0f, 2.5f, 2.0f});
+    CreateCubeEntity("Cube", {0.0f, 0.0f, -2.0f});
+    CreateCubeEntity("Rotating Cube", {3.0f, 0.0f, -2.0f});
+    CreateSphereEntity("Sphere", {-3.0f, 0.0f, -2.0f});
+    CreateCapsuleEntity("Capsule", {0.0f, 2.5f, -2.0f});
 
     SE_LOG_INFO("Scene setup complete with {} entities", scene_->GetEntityCount());
 
@@ -202,12 +202,12 @@ void AppLayer::OnImGuiRender() {
 }
 
 void AppLayer::HandleInput(float deltaTime) {
-    auto &app = se::Application::Get();
-    GLFWwindow *window = app.GetWindow().GetNativeWindow();
-
-    if (window) {
-        inputHandler_.processKeyboard(window, deltaTime);
-    }
+    // auto &app = se::Application::Get();
+    // GLFWwindow *window = app.GetWindow().GetNativeWindow();
+    //
+    // if (window) {
+    //     inputHandler_.processKeyboard(window, deltaTime);
+    // }
 }
 
 // ==================== Entity Creation Helpers ====================

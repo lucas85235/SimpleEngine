@@ -39,4 +39,6 @@ private:
 
     // Animation time
     float animationTime_ = 0.0f;
+
+    float yaw_ = 0.0f;
 };
