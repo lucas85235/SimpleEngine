@@ -17,6 +17,7 @@ namespace se {
         int Run();
         void Stop();
 
+
         template <typename T>
         void PushLayer() {
             static_assert(std::is_base_of<Layer, T>::value, "T must inherit from Layer");

@@ -1,4 +1,7 @@
 #include "engine/Renderer.h"
+#include "engine/ecs/RenderSystem.h"
+#include "engine/resources/MeshManager.h"
+#include "engine/resources/MaterialManager.h"
 #include "engine/Log.h"
 
 namespace se {
@@ -21,6 +24,13 @@ namespace se {
         RenderCommand::Init();
         SceneRenderer::Init();
 
+        // Initialize resource managers
+        MeshManager::Init();
+        MaterialManager::Init();
+
+        // Initialize render system
+        RenderSystem::Init();
+
         initialized_ = true;
         SE_LOG_INFO("Renderer initialized successfully");
     }
@@ -31,6 +41,9 @@ namespace se {
 
         SE_LOG_INFO("Shutting down Renderer");
 
+        RenderSystem::Shutdown();
+        MaterialManager::Shutdown();
+        MeshManager::Shutdown();
         SceneRenderer::Shutdown();
 
         initialized_ = false;

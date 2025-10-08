@@ -17,6 +17,8 @@
 
 #include <glad/glad.h>
 
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm.hpp>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
@@ -25,10 +27,10 @@
 #include <memory>
 #include <mutex>
 #include <optional>
-#include <print>
 #include <sstream>
 #include <string>
 #include <vector>
 
 #include "engine/Log.h"
 #include "imgui.h"
+#include <entt.hpp>
