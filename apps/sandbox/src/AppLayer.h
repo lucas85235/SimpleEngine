@@ -5,6 +5,8 @@
 #include <engine/InputHandler.h>
 #include <engine/Layer.h>
 #include <engine/ecs/Scene.h>
+#include <engine/resources/MaterialManager.h>
+#include <engine/resources/MeshManager.h>
 #include <glm.hpp>
 #include <memory>
 #include <string>
@@ -24,6 +26,8 @@ class AppLayer : public se::Layer {
   private:
     void HandleInput(float deltaTime);
 
+    void LoadMaterial();
+
     // Helper methods for creating entities
     void CreateCubeEntity(const std::string& name, const glm::vec3& position);
     void CreateSphereEntity(const std::string& name, const glm::vec3& position);
@@ -32,6 +36,9 @@ class AppLayer : public se::Layer {
   private:
     // Scene
     std::unique_ptr<se::Scene> scene_;
+
+    // Material
+    std::shared_ptr<se::Material> material_;
 
     // Camera and input
     Camera camera_;

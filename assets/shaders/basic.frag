@@ -1,8 +1,8 @@
 #version 330 core
-in vec3 vColor;
-out vec4 FragColor;
-uniform float uMix;
+layout(location = 0) out vec4 color;
+
+in vec3 v_Color;
+
 void main() {
-    vec3 mixed = mix(vColor, vec3(1.0, 1.0, 1.0), uMix);
-    FragColor = vec4(1.0,0.0,0.0,1.0);
+    color = vec4(v_Color, 1.0);
 }

@@ -154,3 +154,4 @@ if (MSVC)
     target_compile_options(simple_engine PUBLIC
             /MP)
 endif ()
+
