@@ -5,6 +5,38 @@ Mesh::Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& 
     setupMesh();
 }
 
+Mesh::Mesh(Mesh&& other) noexcept
+    : vertices_(std::move(other.vertices_)), indices_(std::move(other.indices_)), vao_(other.vao_),
+      vbo_(other.vbo_), ebo_(other.ebo_) {
+    other.vao_ = 0;
+    other.vbo_ = 0;
+    other.ebo_ = 0;
+}
+
+Mesh& Mesh::operator=(Mesh&& other) noexcept {
+    if (this == &other)
+        return *this;
+
+    if (vao_)
+        glDeleteVertexArrays(1, &vao_);
+    if (vbo_)
+        glDeleteBuffers(1, &vbo_);
+    if (ebo_)
+        glDeleteBuffers(1, &ebo_);
+
+    vertices_ = std::move(other.vertices_);
+    indices_ = std::move(other.indices_);
+    vao_ = other.vao_;
+    vbo_ = other.vbo_;
+    ebo_ = other.ebo_;
+
+    other.vao_ = 0;
+    other.vbo_ = 0;
+    other.ebo_ = 0;
+
+    return *this;
+}
+
 Mesh::~Mesh() {
     if (vao_)
         glDeleteVertexArrays(1, &vao_);

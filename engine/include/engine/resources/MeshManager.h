@@ -7,30 +7,29 @@
 #include <unordered_map>
 
 namespace se {
+    enum class PrimitiveMeshType { Triangle, Quad, Cube, Sphere, Capsule, Cylinder };
 
-enum class PrimitiveMeshType { Triangle, Quad, Cube, Sphere, Capsule, Cylinder };
+    class MeshManager {
+    public:
+        MeshManager() = delete;
 
-class MeshManager {
-  public:
-    static void Init();
-    static void Shutdown();
+        static void Init();
 
-    // Create a vertex array from a Mesh object
-    static std::shared_ptr<VertexArray> CreateVertexArrayFromMesh(const Mesh& mesh);
+        static void Shutdown();
 
-    // Get or create primitive mesh (cached)
-    static std::shared_ptr<VertexArray> GetPrimitive(PrimitiveMeshType type);
+        // Create a vertex array from a Mesh object
+        static std::shared_ptr<VertexArray> CreateVertexArrayFromMesh(const Mesh &mesh);
 
-    // Clear all cached meshes
-    static void ClearCache();
+        // Get or create primitive mesh (cached)
+        static std::shared_ptr<VertexArray> GetPrimitive(PrimitiveMeshType type);
 
-  private:
-    MeshManager() = delete;
+        // Clear all cached meshes
+        static void ClearCache();
 
-    static std::shared_ptr<VertexArray> CreatePrimitive(PrimitiveMeshType type);
+    private:
+        static std::shared_ptr<VertexArray> CreatePrimitive(PrimitiveMeshType type);
 
-    static std::unordered_map<PrimitiveMeshType, std::shared_ptr<VertexArray>> primitiveCache_;
-    static bool initialized_;
-};
-
+        static std::unordered_map<PrimitiveMeshType, std::shared_ptr<VertexArray> > primitiveCache_;
+        static bool initialized_;
+    };
 } // namespace se

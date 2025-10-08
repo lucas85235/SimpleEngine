@@ -7,6 +7,10 @@ class Mesh {
 public:
     Mesh() = default;
     Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
+    Mesh(const Mesh&) = delete;
+    Mesh& operator=(const Mesh&) = delete;
+    Mesh(Mesh&& other) noexcept;
+    Mesh& operator=(Mesh&& other) noexcept;
     ~Mesh();
 
     // Render using legacy OpenGL (for backward compatibility)
