@@ -11,19 +11,17 @@ uniform vec3 uLightDirection;
 out vec3 v_Color;
 
 void main() {
-
     vec3 ambient_light_color = vec3(0.2);
-    vec3 lightColor = vec3(0.2,0.2,0.15);
-    vec3 light_dir = vec3(1.0,1.0,0.0);
+    vec3 lightColor = vec3(0.8, 0.8, 0.7);
+    vec3 light_dir = normalize(uLightDirection);
 
     vec4 world_position = uModel * vec4(a_Position, 1.0);
 
-    vec3 normal_dir = mat3(transpose(inverse(uModel))) * a_Normal;
+    vec3 normal_dir = normalize(mat3(transpose(inverse(uModel))) * a_Normal);
 
-    float diff = max(dot(normal_dir, -light_dir), 0.0);
+    float diff = max(dot(normal_dir, light_dir), 0.0);
     vec3 diffuse = lightColor * diff;
 
-
-    v_Color = ambient_light_color + diffuse;
+    v_Color = a_Color * (ambient_light_color + diffuse);
     gl_Position = uProj * uView * world_position;
 }

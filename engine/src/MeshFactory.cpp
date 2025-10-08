@@ -155,12 +155,12 @@ Mesh MeshFactory::CreateCube() {
 
     // Indices for all faces
     unsigned int cubeIndices[] = {
-        0,  1,  2,  2,  3,  0,  // front
-        4,  5,  6,  6,  7,  4,  // back
-        8,  9,  10, 10, 11, 8,  // top
-        12, 13, 14, 14, 15, 12, // bottom
-        16, 17, 18, 18, 19, 16, // right
-        20, 21, 22, 22, 23, 20  // left
+        0,  1,  2,  2,  3,  0,  // front (+Z)
+        4,  6,  5,  4,  7,  6,  // back (-Z)
+        8,  9,  10, 10, 11, 8,  // top (+Y)
+        12, 14, 13, 12, 15, 14, // bottom (-Y)
+        16, 17, 18, 18, 19, 16, // right (+X)
+        20, 22, 21, 20, 23, 22  // left (-X)
     };
 
     indices.assign(cubeIndices, cubeIndices + 36);
@@ -207,12 +207,12 @@ Mesh MeshFactory::CreateSphere(int segments, int rings) {
             int next = current + segments + 1;
 
             indices.push_back(current);
-            indices.push_back(next);
             indices.push_back(current + 1);
+            indices.push_back(next);
 
             indices.push_back(current + 1);
-            indices.push_back(next);
             indices.push_back(next + 1);
+            indices.push_back(next);
         }
     }
 
@@ -274,7 +274,6 @@ Mesh MeshFactory::CreateCapsule(float radius, float height, int segments) {
         }
     }
 
-    // Generate indices
     int ringsCount = segments + 1;
     for (int ring = 0; ring < ringsCount - 1; ring++) {
         for (int seg = 0; seg < segments; seg++) {
@@ -282,12 +281,12 @@ Mesh MeshFactory::CreateCapsule(float radius, float height, int segments) {
             int next = current + segments + 1;
 
             indices.push_back(current);
-            indices.push_back(next);
             indices.push_back(current + 1);
+            indices.push_back(next);
 
             indices.push_back(current + 1);
-            indices.push_back(next);
             indices.push_back(next + 1);
+            indices.push_back(next);
         }
     }
 
@@ -327,12 +326,12 @@ Mesh MeshFactory::CreateCylinder(float radius, float height, int segments) {
         int bottom2 = i + segments + 2;
 
         indices.push_back(top1);
-        indices.push_back(bottom1);
         indices.push_back(top2);
+        indices.push_back(bottom1);
 
         indices.push_back(top2);
-        indices.push_back(bottom1);
         indices.push_back(bottom2);
+        indices.push_back(bottom1);
     }
 
     addNormals(vertices, indices);

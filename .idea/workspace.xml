@@ -56,16 +56,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/MeshFactory.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/MeshFactory.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/resources/MeshManager.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/resources/MeshManager.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Mesh.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.frag" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.vert" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/SceneRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/SceneRenderer.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/src/MeshFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/MeshFactory.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Renderer/Buffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/Buffer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/resources/MaterialManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/resources/MaterialManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/resources/MeshManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/resources/MeshManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/Renderer/SceneRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/SceneRenderer.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -323,7 +319,7 @@
       <workItem from="1759832381156" duration="1851000" />
       <workItem from="1759898198852" duration="31000" />
       <workItem from="1759898242540" duration="771000" />
-      <workItem from="1759954913187" duration="2867000" />
+      <workItem from="1759954913187" duration="3998000" />
     </task>
     <servers />
   </component>

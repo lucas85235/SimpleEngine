@@ -37,11 +37,15 @@ class SceneRenderer {
         stats_.Reset();
     }
 
+    static void SetLightDirection(const glm::vec3& direction);
+    static const glm::vec3& GetLightDirection();
+
   private:
     struct SceneData {
         glm::mat4 ViewMatrix;
         glm::mat4 ProjectionMatrix;
         glm::mat4 ViewProjectionMatrix;
+        glm::vec3 LightDirection = glm::vec3(0.0f, 0.0f, 1.0f);
     };
 
     static SceneData* sceneData_;
