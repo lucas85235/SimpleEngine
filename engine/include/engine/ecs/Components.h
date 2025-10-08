@@ -3,8 +3,8 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtx/quaternion.hpp>
-#include <string>
 #include <memory>
+#include <string>
 
 namespace se {
 
@@ -31,19 +31,29 @@ struct TransformComponent {
     }
 
     // Set position
-    void SetPosition(const glm::vec3& position) { Position = position; }
+    void SetPosition(const glm::vec3& position) {
+        Position = position;
+    }
 
     // Set rotation (in degrees)
-    void SetRotation(const glm::vec3& rotation) { Rotation = rotation; }
+    void SetRotation(const glm::vec3& rotation) {
+        Rotation = rotation;
+    }
 
     // Set scale
-    void SetScale(const glm::vec3& scale) { Scale = scale; }
+    void SetScale(const glm::vec3& scale) {
+        Scale = scale;
+    }
 
     // Translate by offset
-    void Translate(const glm::vec3& offset) { Position += offset; }
+    void Translate(const glm::vec3& offset) {
+        Position += offset;
+    }
 
     // Rotate by offset (in degrees)
-    void Rotate(const glm::vec3& offset) { Rotation += offset; }
+    void Rotate(const glm::vec3& offset) {
+        Rotation += offset;
+    }
 
     // Get forward vector
     glm::vec3 GetForward() const {
@@ -73,8 +83,12 @@ struct NameComponent {
     NameComponent(const NameComponent&) = default;
     NameComponent(const std::string& name) : Name(name) {}
 
-    operator const std::string&() const { return Name; }
-    operator std::string&() { return Name; }
+    operator const std::string&() const {
+        return Name;
+    }
+    operator std::string&() {
+        return Name;
+    }
 };
 
 // ==================== Mesh Render Component ====================

@@ -18,11 +18,11 @@
 #include <glad/glad.h>
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm.hpp>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
 #include <functional>
+#include <glm.hpp>
 #include <iostream>
 #include <memory>
 #include <mutex>

@@ -4,7 +4,7 @@
 #include <vector>
 
 class MeshFactory {
-public:
+  public:
     // Create basic shapes
     static Mesh CreateTriangle();
     static Mesh CreateQuad();
@@ -13,10 +13,10 @@ public:
     static Mesh CreateCapsule(float radius = 0.5f, float height = 1.0f, int segments = 16);
     static Mesh CreateCylinder(float radius = 0.5f, float height = 1.0f, int segments = 16);
 
-private:
+  private:
     MeshFactory() = delete; // Static class, no instances
 
     // Helper functions
-    static void addVertex(std::vector<float>& vertices, float x, float y, float z, float r,
-                          float g, float b);
+    static void addVertex(std::vector<float>& vertices, float x, float y, float z, float r, float g,
+                          float b);
 };

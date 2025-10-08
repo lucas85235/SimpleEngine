@@ -15,7 +15,7 @@ void MaterialManager::Init() {
     }
 
     SE_LOG_INFO("Initializing MaterialManager");
-    
+
     CreateDefaultShader();
 
     if (!defaultShader_) {
@@ -66,8 +66,8 @@ std::shared_ptr<Material> MaterialManager::CreateMaterial(std::shared_ptr<Shader
 }
 
 std::shared_ptr<Shader> MaterialManager::GetShader(const std::string& name,
-                                                     const std::filesystem::path& vertPath,
-                                                     const std::filesystem::path& fragPath) {
+                                                   const std::filesystem::path& vertPath,
+                                                   const std::filesystem::path& fragPath) {
     if (!initialized_) {
         SE_LOG_ERROR("MaterialManager not initialized!");
         return nullptr;

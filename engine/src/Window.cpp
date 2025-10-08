@@ -83,7 +83,6 @@ void Window::Init(uint32_t width, uint32_t height, const std::string& title) {
         throw std::runtime_error("Failed to create GLFW window");
     }
 
-
     // Create graphics context
     context_ = std::make_unique<GraphicsContext>(handle_);
     context_->Init();

@@ -1,15 +1,15 @@
-#include <engine/Camera.h>
 #include "ext/matrix_clip_space.hpp"
 #include "ext/matrix_transform.hpp"
+#include <engine/Camera.h>
 
 Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch)
-    : position_(position), world_up_(up), yaw_(yaw), pitch_(pitch), front_(glm::vec3(0.0f, 0.0f, -1.0f)) {
+    : position_(position), world_up_(up), yaw_(yaw), pitch_(pitch),
+      front_(glm::vec3(0.0f, 0.0f, -1.0f)) {
     updateCameraVectors();
 }
 
 glm::mat4 Camera::getViewMatrix() const {
     return glm::lookAt(position_, position_ + front_, up_);
-
 }
 
 glm::mat4 Camera::getProjectionMatrix(float aspectRatio) const {

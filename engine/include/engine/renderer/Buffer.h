@@ -35,29 +35,41 @@ struct BufferElement {
 };
 
 class BufferLayout {
-public:
+  public:
     BufferLayout() = default;
     BufferLayout(const std::initializer_list<BufferElement>& elements);
 
-    uint32_t GetStride() const { return stride_; }
-    const std::vector<BufferElement>& GetElements() const { return elements_; }
+    uint32_t GetStride() const {
+        return stride_;
+    }
+    const std::vector<BufferElement>& GetElements() const {
+        return elements_;
+    }
 
-    std::vector<BufferElement>::iterator begin() { return elements_.begin(); }
-    std::vector<BufferElement>::iterator end() { return elements_.end(); }
-    std::vector<BufferElement>::const_iterator begin() const { return elements_.begin(); }
-    std::vector<BufferElement>::const_iterator end() const { return elements_.end(); }
+    std::vector<BufferElement>::iterator begin() {
+        return elements_.begin();
+    }
+    std::vector<BufferElement>::iterator end() {
+        return elements_.end();
+    }
+    std::vector<BufferElement>::const_iterator begin() const {
+        return elements_.begin();
+    }
+    std::vector<BufferElement>::const_iterator end() const {
+        return elements_.end();
+    }
 
-private:
+  private:
     void CalculateOffsetsAndStride();
 
-private:
+  private:
     std::vector<BufferElement> elements_;
     uint32_t stride_ = 0;
 };
 
 // Vertex Buffer
 class VertexBuffer {
-public:
+  public:
     VertexBuffer(const void* vertices, uint32_t size);
     VertexBuffer(uint32_t size); // Dynamic buffer
     ~VertexBuffer();
@@ -67,26 +79,32 @@ public:
 
     void SetData(const void* data, uint32_t size);
 
-    const BufferLayout& GetLayout() const { return layout_; }
-    void SetLayout(const BufferLayout& layout) { layout_ = layout; }
+    const BufferLayout& GetLayout() const {
+        return layout_;
+    }
+    void SetLayout(const BufferLayout& layout) {
+        layout_ = layout;
+    }
 
-private:
+  private:
     uint32_t rendererId_;
     BufferLayout layout_;
 };
 
 // Index Buffer
 class IndexBuffer {
-public:
+  public:
     IndexBuffer(const uint32_t* indices, uint32_t count);
     ~IndexBuffer();
 
     void Bind() const;
     void Unbind() const;
 
-    uint32_t GetCount() const { return count_; }
+    uint32_t GetCount() const {
+        return count_;
+    }
 
-private:
+  private:
     uint32_t rendererId_;
     uint32_t count_;
 };

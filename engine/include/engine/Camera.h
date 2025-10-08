@@ -3,7 +3,7 @@
 #include <glm.hpp>
 
 class Camera {
-public:
+  public:
     // Camera constructor with vectors
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 10.0f),
            glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = -90.0f, float pitch = 0.0f);
@@ -25,16 +25,32 @@ public:
     void processMouseScroll(float xoffset, float yoffset);
 
     // Getters for camera attributes
-    glm::vec3 GetPosition() const { return position_; }
-    glm::vec3 GetFront() const { return front_; }
-    glm::vec3 GetUp() const { return up_; }
-    glm::vec3 GetRight() const { return right_; }
-    float GetYaw() const { return yaw_; }
-    float GetPitch() const { return pitch_; }
-    float GetZoom() const { return fov_; }
+    glm::vec3 GetPosition() const {
+        return position_;
+    }
+    glm::vec3 GetFront() const {
+        return front_;
+    }
+    glm::vec3 GetUp() const {
+        return up_;
+    }
+    glm::vec3 GetRight() const {
+        return right_;
+    }
+    float GetYaw() const {
+        return yaw_;
+    }
+    float GetPitch() const {
+        return pitch_;
+    }
+    float GetZoom() const {
+        return fov_;
+    }
 
     // Setters for camera attributes
-    void SetPosition(const glm::vec3 &position) { position_ = position; }
+    void SetPosition(const glm::vec3& position) {
+        position_ = position;
+    }
 
     void SetYaw(float yaw) {
         yaw_ = yaw;
@@ -46,13 +62,15 @@ public:
         updateCameraVectors();
     }
 
-    void SetZoom(float zoom) { fov_ = glm::clamp(zoom, 1.0f, 90.0f); }
+    void SetZoom(float zoom) {
+        fov_ = glm::clamp(zoom, 1.0f, 90.0f);
+    }
 
-private:
+  private:
     // Calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors();
 
-private:
+  private:
     // Camera Attributes
     glm::vec3 position_;
     glm::vec3 front_;

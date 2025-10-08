@@ -2,6 +2,6 @@
 
 namespace se {
 
-    Layer::Layer(const std::string& name) : debugName_(name) {}
+Layer::Layer(const std::string& name) : debugName_(name) {}
 
 } // namespace se
