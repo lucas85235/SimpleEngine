@@ -18,7 +18,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="20" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="24" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
@@ -38,6 +38,7 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
+      <config projectName="SimpleEngineProject" targetName="copy_assets" />
       <config projectName="SimpleEngineProject" targetName="glfw" />
       <config projectName="SimpleEngineProject" targetName="sandbox" />
       <config projectName="SimpleEngineProject" targetName="simple_engine" />
@@ -54,11 +55,23 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="" />
+    <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/sandbox/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.frag" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.vert" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/engine/CMakeLists.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
@@ -197,9 +210,9 @@
     "cf.advertisement.text.overridden": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "improvement/renderer",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "/home/rafael.morais/Documents/_PROJECTS/SidiaWorkshopEngine",
+    "last_opened_file_path": "C:/Users/rapha/_PROJECTS/SimpleEngine",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -224,12 +237,22 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.sandbox">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ImGui" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGui" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="ImGuizmo" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGuizmo" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="copy_assets" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="copy_assets" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -275,6 +298,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="CMake Application.copy_assets" />
       <item itemvalue="CMake Application.sandbox" />
       <item itemvalue="CMake Application.simple_engine" />
       <item itemvalue="CMake Application.stb" />
@@ -300,6 +324,8 @@
       <workItem from="1759517864968" duration="1067000" />
       <workItem from="1759772166974" duration="7000" />
       <workItem from="1759832381156" duration="1851000" />
+      <workItem from="1759898198852" duration="31000" />
+      <workItem from="1759898242540" duration="771000" />
     </task>
     <servers />
   </component>

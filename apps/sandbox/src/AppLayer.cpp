@@ -4,8 +4,6 @@
 #include <engine/Input.h>
 #include <engine/Log.h>
 #include <engine/ecs/Components.h>
-#include <engine/resources/MaterialManager.h>
-#include <engine/resources/MeshManager.h>
 #include <gtc/type_ptr.hpp>
 #include <imgui.h>
 
@@ -16,6 +14,9 @@ AppLayer::~AppLayer() {}
 
 void AppLayer::OnAttach() {
     SE_LOG_INFO("AppLayer attached");
+
+    // Material load
+    LoadMaterial();
 
     // Create scene
     scene_ = std::make_unique<se::Scene>("Main Scene");
@@ -51,6 +52,18 @@ void AppLayer::OnAttach() {
     }
 
     InputHandler::setCursorModeFromString(window, "normal");
+}
+
+void AppLayer::LoadMaterial() {
+
+    auto assets_folder = findAssetsFolder();
+    fs::path fragment_shader_location = assets_folder.value() / "shaders" / "basic.frag";
+    fs::path vertex_shader_location = assets_folder.value() / "shaders" / "basic.vert";
+
+    std::shared_ptr<se::Shader> shader = se::MaterialManager::GetShader(
+        "DefaultShader", vertex_shader_location, fragment_shader_location);
+
+    material_ = se::MaterialManager::CreateMaterial(shader);
 }
 
 void AppLayer::OnDetach() {
@@ -216,20 +229,14 @@ void AppLayer::CreateCubeEntity(const std::string& name, const glm::vec3& positi
     auto entity = scene_->CreateEntity(name);
 
     auto mesh = se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Cube);
-    auto material = se::MaterialManager::GetDefaultMaterial();
 
     if (!mesh) {
         SE_LOG_ERROR("Failed to get cube mesh!");
         return;
     }
 
-    if (!material) {
-        SE_LOG_ERROR("Failed to get default material!");
-        return;
-    }
-
     // Add mesh render component - Engine handles everything!
-    entity.AddComponent<se::MeshRenderComponent>(mesh, material);
+    entity.AddComponent<se::MeshRenderComponent>(mesh, material_);
 
     // Set position
     auto& transform = entity.GetComponent<se::TransformComponent>();
@@ -246,8 +253,7 @@ void AppLayer::CreateSphereEntity(const std::string& name, const glm::vec3& posi
 
     // Add mesh render component
     entity.AddComponent<se::MeshRenderComponent>(
-        se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Sphere),
-        se::MaterialManager::GetDefaultMaterial());
+        se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Sphere), material_);
 
     // Set position
     auto& transform = entity.GetComponent<se::TransformComponent>();
@@ -263,8 +269,7 @@ void AppLayer::CreateCapsuleEntity(const std::string& name, const glm::vec3& pos
 
     // Add mesh render component
     entity.AddComponent<se::MeshRenderComponent>(
-        se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Capsule),
-        se::MaterialManager::GetDefaultMaterial());
+        se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Capsule), material_);
 
     // Set position and scale
     auto& transform = entity.GetComponent<se::TransformComponent>();
