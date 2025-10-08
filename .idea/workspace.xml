@@ -56,13 +56,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/shaders/basic.vert" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Mesh.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Mesh.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Mesh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/MeshFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/MeshFactory.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

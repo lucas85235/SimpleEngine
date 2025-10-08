@@ -52,6 +52,8 @@ void AppLayer::OnAttach() {
     }
 
     InputHandler::setCursorModeFromString(window, "normal");
+
+    se::RenderCommand::SetClearColor({0.3f,0.3f,0.3f,1.0f});
 }
 
 void AppLayer::LoadMaterial() {
@@ -100,7 +102,8 @@ void AppLayer::OnUpdate(float ts) {
 
         // Make capsule rotate on X axis
         if (name.Name == "Capsule") {
-            transform.Rotate({30.0f * ts, 0.0f, 0.0f});
+            transform.Rotate({0.0f, 30.0f * ts, 0.0f});
+            transform.SetScale(glm::vec3(1.0,1.0,1.0) * glm::sin(animationTime_ * 2) * 0.5f + 1.0f);
         }
     }
 
@@ -267,7 +270,7 @@ void AppLayer::CreateCapsuleEntity(const std::string& name, const glm::vec3& pos
 
     // Add mesh render component
     entity.AddComponent<se::MeshRenderComponent>(
-        se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Capsule), material_);
+        se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Sphere), material_);
 
     // Set position and scale
     auto& transform = entity.GetComponent<se::TransformComponent>();
