@@ -1,7 +1,7 @@
 #include "engine/resources/MeshManager.h"
+#include "engine/Log.h"
 #include "engine/MeshFactory.h"
 #include "engine/renderer/Buffer.h"
-#include "engine/Log.h"
 
 namespace se {
 
@@ -32,26 +32,20 @@ std::shared_ptr<VertexArray> MeshManager::CreateVertexArrayFromMesh(const Mesh& 
     const auto& vertices = mesh.getVertices();
     const auto& indices = mesh.getIndices();
 
-    SE_LOG_INFO("Creating VertexArray from mesh: {} vertices, {} indices",
-                vertices.size() / 6, indices.size());
+    SE_LOG_INFO("Creating VertexArray from mesh: {} vertices, {} indices", vertices.size() / 6,
+                indices.size());
 
     // Create vertex buffer
     auto vertexBuffer = std::make_shared<VertexBuffer>(
-        vertices.data(),
-        static_cast<uint32_t>(vertices.size() * sizeof(float))
-    );
+        vertices.data(), static_cast<uint32_t>(vertices.size() * sizeof(float)));
 
     // Set layout: position (3 floats) + color (3 floats)
-    vertexBuffer->SetLayout(BufferLayout({
-        {ShaderDataType::Float3, "a_Position"},
-        {ShaderDataType::Float3, "a_Color"}
-    }));
+    vertexBuffer->SetLayout(BufferLayout(
+        {{ShaderDataType::Float3, "a_Position"}, {ShaderDataType::Float3, "a_Color"}}));
 
     // Create index buffer
-    auto indexBuffer = std::make_shared<IndexBuffer>(
-        indices.data(),
-        static_cast<uint32_t>(indices.size())
-    );
+    auto indexBuffer =
+        std::make_shared<IndexBuffer>(indices.data(), static_cast<uint32_t>(indices.size()));
 
     // Create and setup vertex array
     auto vertexArray = std::make_shared<VertexArray>();
@@ -96,31 +90,31 @@ std::shared_ptr<VertexArray> MeshManager::CreatePrimitive(PrimitiveMeshType type
     switch (type) {
         case PrimitiveMeshType::Triangle:
             SE_LOG_INFO("Creating Triangle mesh");
-            mesh = MeshFactory::CreateTriangle();
+            mesh = std::move(MeshFactory::CreateTriangle());
             break;
         case PrimitiveMeshType::Quad:
             SE_LOG_INFO("Creating Quad mesh");
-            mesh = MeshFactory::CreateQuad();
+            mesh = std::move(MeshFactory::CreateQuad());
             break;
         case PrimitiveMeshType::Cube:
             SE_LOG_INFO("Creating Cube mesh");
-            mesh = MeshFactory::CreateCube();
+            mesh = std::move(MeshFactory::CreateCube());
             break;
         case PrimitiveMeshType::Sphere:
             SE_LOG_INFO("Creating Sphere mesh");
-            mesh = MeshFactory::CreateSphere(32, 16);
+            mesh = std::move(MeshFactory::CreateSphere(32, 16));
             break;
         case PrimitiveMeshType::Capsule:
             SE_LOG_INFO("Creating Capsule mesh");
-            mesh = MeshFactory::CreateCapsule(0.5f, 1.0f, 16);
+            mesh = std::move(MeshFactory::CreateCapsule(0.5f, 1.0f, 16));
             break;
         case PrimitiveMeshType::Cylinder:
             SE_LOG_INFO("Creating Cylinder mesh");
-            mesh = MeshFactory::CreateCylinder(0.5f, 1.0f, 16);
+            mesh = std::move(MeshFactory::CreateCylinder(0.5f, 1.0f, 16));
             break;
         default:
             SE_LOG_ERROR("Unknown primitive mesh type");
-            mesh = MeshFactory::CreateCube();
+            mesh = std::move(MeshFactory::CreateCube());
             break;
     }
 

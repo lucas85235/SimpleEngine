@@ -5,6 +5,38 @@ Mesh::Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& 
     setupMesh();
 }
 
+Mesh::Mesh(Mesh&& other) noexcept
+    : vertices_(std::move(other.vertices_)), indices_(std::move(other.indices_)), vao_(other.vao_),
+      vbo_(other.vbo_), ebo_(other.ebo_) {
+    other.vao_ = 0;
+    other.vbo_ = 0;
+    other.ebo_ = 0;
+}
+
+Mesh& Mesh::operator=(Mesh&& other) noexcept {
+    if (this == &other)
+        return *this;
+
+    if (vao_)
+        glDeleteVertexArrays(1, &vao_);
+    if (vbo_)
+        glDeleteBuffers(1, &vbo_);
+    if (ebo_)
+        glDeleteBuffers(1, &ebo_);
+
+    vertices_ = std::move(other.vertices_);
+    indices_ = std::move(other.indices_);
+    vao_ = other.vao_;
+    vbo_ = other.vbo_;
+    ebo_ = other.ebo_;
+
+    other.vao_ = 0;
+    other.vbo_ = 0;
+    other.ebo_ = 0;
+
+    return *this;
+}
+
 Mesh::~Mesh() {
     if (vao_)
         glDeleteVertexArrays(1, &vao_);
@@ -30,8 +62,8 @@ void Mesh::setupMesh() {
 
     // Bind and set EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_.size() * sizeof(unsigned int),
-                 indices_.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_.size() * sizeof(unsigned int), indices_.data(),
+                 GL_STATIC_DRAW);
 
     // Vertex attributes
     // Position attribute (location = 0, 3 floats)
@@ -39,8 +71,7 @@ void Mesh::setupMesh() {
     glEnableVertexAttribArray(0);
 
     // Color attribute (location = 1, 3 floats)
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float),
-                          (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     // Unbind VAO
