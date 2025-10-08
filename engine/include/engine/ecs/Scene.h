@@ -1,16 +1,16 @@
 
 #pragma once
 
-#include "engine/ecs/Entity.h"
-#include "engine/Log.h"
 #include "engine/Camera.h"
+#include "engine/Log.h"
+#include "engine/ecs/Entity.h"
 #include <entt.hpp>
 #include <string>
 
 namespace se {
 
 class Scene {
-public:
+  public:
     Scene(const std::string& name = "Untitled Scene");
     ~Scene();
 
@@ -30,7 +30,9 @@ public:
     Entity FindEntityByName(const std::string& name);
 
     // Get scene name
-    const std::string& GetName() const { return name_; }
+    const std::string& GetName() const {
+        return name_;
+    }
 
     // Update scene (can be used for systems)
     void OnUpdate(float deltaTime);
@@ -46,7 +48,7 @@ public:
         return registry_.storage<entt::entity>()->size();
     }
 
-private:
+  private:
     std::string name_;
     entt::registry registry_;
 

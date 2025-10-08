@@ -23,7 +23,6 @@ class InputHandler {
     void processMousePosition(double xpos, double ypos);
     void processMouseScroll(double xpos, double ypos);
 
-
   private:
     Camera* camera_ = nullptr;
     double lastX_ = 0.0;

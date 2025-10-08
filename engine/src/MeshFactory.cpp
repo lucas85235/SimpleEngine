@@ -176,7 +176,7 @@ Mesh MeshFactory::CreateCapsule(float radius, float height, int segments) {
     }
 
     // Bottom hemisphere
-    for (int ring = segments / 2; ring <= segments; ring++) {
+    for (int ring = segments / 2 + 1; ring <= segments; ring++) {
         float theta = ring * PI / segments;
         float sinTheta = std::sin(theta);
         float cosTheta = std::cos(theta);

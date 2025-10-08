@@ -2,47 +2,47 @@
 
 namespace se {
 
-    Material::Material(const std::shared_ptr<Shader>& shader) : shader_(shader) {}
+Material::Material(const std::shared_ptr<Shader>& shader) : shader_(shader) {}
 
-    void Material::Bind() const {
-        shader_->bind();
+void Material::Bind() const {
+    shader_->bind();
 
-        // Apply all cached uniforms
-        for (const auto& [name, value] : floatUniforms_) {
-            shader_->setFloat(name.c_str(), value);
-        }
-
-        for (const auto& [name, value] : vec3Uniforms_) {
-            shader_->setVec3(name.c_str(), value);
-        }
-
-        for (const auto& [name, value] : vec4Uniforms_) {
-            shader_->setVec4(name.c_str(), value);
-        }
-
-        for (const auto& [name, value] : mat4Uniforms_) {
-            shader_->setMat4(name.c_str(), value);
-        }
+    // Apply all cached uniforms
+    for (const auto& [name, value] : floatUniforms_) {
+        shader_->setFloat(name.c_str(), value);
     }
 
-    void Material::Unbind() const {
-        shader_->unbind();
+    for (const auto& [name, value] : vec3Uniforms_) {
+        shader_->setVec3(name.c_str(), value);
     }
 
-    void Material::SetFloat(const std::string& name, float value) {
-        floatUniforms_[name] = value;
+    for (const auto& [name, value] : vec4Uniforms_) {
+        shader_->setVec4(name.c_str(), value);
     }
 
-    void Material::SetVector3(const std::string& name, const glm::vec3& value) {
-        vec3Uniforms_[name] = value;
+    for (const auto& [name, value] : mat4Uniforms_) {
+        shader_->setMat4(name.c_str(), value);
     }
+}
 
-    void Material::SetVector4(const std::string& name, const glm::vec4& value) {
-        vec4Uniforms_[name] = value;
-    }
+void Material::Unbind() const {
+    shader_->unbind();
+}
 
-    void Material::SetMatrix4(const std::string& name, const glm::mat4& value) {
-        mat4Uniforms_[name] = value;
-    }
+void Material::SetFloat(const std::string& name, float value) {
+    floatUniforms_[name] = value;
+}
+
+void Material::SetVector3(const std::string& name, const glm::vec3& value) {
+    vec3Uniforms_[name] = value;
+}
+
+void Material::SetVector4(const std::string& name, const glm::vec4& value) {
+    vec4Uniforms_[name] = value;
+}
+
+void Material::SetMatrix4(const std::string& name, const glm::mat4& value) {
+    mat4Uniforms_[name] = value;
+}
 
 } // namespace se

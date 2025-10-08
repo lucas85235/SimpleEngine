@@ -110,7 +110,7 @@ std::shared_ptr<VertexArray> MeshManager::CreatePrimitive(PrimitiveMeshType type
             break;
         case PrimitiveMeshType::Cylinder:
             SE_LOG_INFO("Creating Cylinder mesh");
-            mesh = std::move(MeshFactory::CreateCylinder(0.5f, 1.0f, 16));
+            mesh = std::move(MeshFactory::CreateCylinder(0.5f, 1.0f, 4));
             break;
         default:
             SE_LOG_ERROR("Unknown primitive mesh type");

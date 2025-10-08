@@ -5,12 +5,12 @@
 #include <engine/InputHandler.h>
 #include <engine/Layer.h>
 #include <engine/ecs/Scene.h>
+#include <glm.hpp>
 #include <memory>
 #include <string>
-#include <glm.hpp>
 
 class AppLayer : public se::Layer {
-public:
+  public:
     AppLayer();
     ~AppLayer() override;
 
@@ -21,7 +21,7 @@ public:
     void OnRender() override;
     void OnImGuiRender() override;
 
-private:
+  private:
     void HandleInput(float deltaTime);
 
     // Helper methods for creating entities
@@ -29,7 +29,7 @@ private:
     void CreateSphereEntity(const std::string& name, const glm::vec3& position);
     void CreateCapsuleEntity(const std::string& name, const glm::vec3& position);
 
-private:
+  private:
     // Scene
     std::unique_ptr<se::Scene> scene_;
 
