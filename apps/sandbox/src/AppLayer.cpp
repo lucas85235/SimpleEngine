@@ -114,8 +114,6 @@ void AppLayer::OnRender() {
                             se::Application::Get().GetWindow().GetHeight()};
     float aspectRatio = windowSize.x / windowSize.y;
 
-    SE_LOG_WARN("aspect ratio: {}", aspectRatio);
-
     // Scene automatically renders all entities with MeshRenderComponent!
     scene_->OnRender(camera_, aspectRatio);
 }
