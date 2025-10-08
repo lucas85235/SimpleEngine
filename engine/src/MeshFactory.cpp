@@ -1,5 +1,73 @@
 #include "engine/MeshFactory.h"
 #include <cmath>
+#include <array>
+
+// Anonymous namespace to hold helper for computing normals
+namespace {
+static void addNormals(std::vector<float>& vertices, const std::vector<unsigned int>& indices) {
+    const size_t vertexCount = vertices.size() / 6; // pos+color per vertex
+    std::vector<std::array<float,3>> normals(vertexCount, {0.f, 0.f, 0.f});
+
+    // accumulate face normals
+    for (size_t i = 0; i + 2 < indices.size(); i += 3) {
+        unsigned int i0 = indices[i];
+        unsigned int i1 = indices[i + 1];
+        unsigned int i2 = indices[i + 2];
+
+        // positions of triangle vertices
+        float x0 = vertices[i0*6], y0 = vertices[i0*6 + 1], z0 = vertices[i0*6 + 2];
+        float x1 = vertices[i1*6], y1 = vertices[i1*6 + 1], z1 = vertices[i1*6 + 2];
+        float x2 = vertices[i2*6], y2 = vertices[i2*6 + 1], z2 = vertices[i2*6 + 2];
+
+        // edges
+        float ax = x1 - x0;
+        float ay = y1 - y0;
+        float az = z1 - z0;
+        float bx = x2 - x0;
+        float by = y2 - y0;
+        float bz = z2 - z0;
+
+        // cross product
+        float nx = ay * bz - az * by;
+        float ny = az * bx - ax * bz;
+        float nz = ax * by - ay * bx;
+
+        // accumulate normals for each vertex of triangle
+        normals[i0][0] += nx; normals[i0][1] += ny; normals[i0][2] += nz;
+        normals[i1][0] += nx; normals[i1][1] += ny; normals[i1][2] += nz;
+        normals[i2][0] += nx; normals[i2][1] += ny; normals[i2][2] += nz;
+    }
+
+    // create new interleaved vertex array with normals
+    std::vector<float> newVerts;
+    newVerts.reserve(vertexCount * 9);
+    for (size_t i = 0; i < vertexCount; ++i) {
+        // copy position and color
+        newVerts.push_back(vertices[i*6]);
+        newVerts.push_back(vertices[i*6 + 1]);
+        newVerts.push_back(vertices[i*6 + 2]);
+        newVerts.push_back(vertices[i*6 + 3]);
+        newVerts.push_back(vertices[i*6 + 4]);
+        newVerts.push_back(vertices[i*6 + 5]);
+
+        // normalize normal
+        float nx = normals[i][0];
+        float ny = normals[i][1];
+        float nz = normals[i][2];
+        float length = std::sqrt(nx*nx + ny*ny + nz*nz);
+        if (length > 0.f) {
+            nx /= length;
+            ny /= length;
+            nz /= length;
+        }
+        newVerts.push_back(nx);
+        newVerts.push_back(ny);
+        newVerts.push_back(nz);
+    }
+
+    vertices.swap(newVerts);
+}
+} // namespace
 
 void MeshFactory::addVertex(std::vector<float>& vertices, float x, float y, float z, float r,
                             float g, float b) {
@@ -21,6 +89,8 @@ Mesh MeshFactory::CreateTriangle() {
 
     std::vector<unsigned int> indices = {0, 1, 2};
 
+    addNormals(vertices, indices);
+
     return Mesh(vertices, indices);
 }
 
@@ -37,6 +107,8 @@ Mesh MeshFactory::CreateQuad() {
         0, 1, 2, // first triangle
         2, 3, 0  // second triangle
     };
+
+    addNormals(vertices, indices);
 
     return Mesh(vertices, indices);
 }
@@ -93,6 +165,8 @@ Mesh MeshFactory::CreateCube() {
 
     indices.assign(cubeIndices, cubeIndices + 36);
 
+    addNormals(vertices, indices);
+
     return Mesh(vertices, indices);
 }
 
@@ -141,6 +215,8 @@ Mesh MeshFactory::CreateSphere(int segments, int rings) {
             indices.push_back(next + 1);
         }
     }
+
+    addNormals(vertices, indices);
 
     return Mesh(vertices, indices);
 }
@@ -215,6 +291,8 @@ Mesh MeshFactory::CreateCapsule(float radius, float height, int segments) {
         }
     }
 
+    addNormals(vertices, indices);
+
     return Mesh(vertices, indices);
 }
 
@@ -257,5 +335,146 @@ Mesh MeshFactory::CreateCylinder(float radius, float height, int segments) {
         indices.push_back(bottom2);
     }
 
+    addNormals(vertices, indices);
+
     return Mesh(vertices, indices);
 }
+
+
+#include "engine/resources/MeshManager.h"
+#include "engine/renderer/Buffer.h"
+#include "engine/Log.h"
+
+namespace se {
+
+std::unordered_map<PrimitiveMeshType, std::shared_ptr<VertexArray>> MeshManager::primitiveCache_;
+bool MeshManager::initialized_ = false;
+
+void MeshManager::Init() {
+    if (initialized_) {
+        SE_LOG_WARN("MeshManager already initialized");
+        return;
+    }
+
+    SE_LOG_INFO("Initializing MeshManager");
+    primitiveCache_.clear();
+    initialized_ = true;
+}
+
+void MeshManager::Shutdown() {
+    if (!initialized_)
+        return;
+
+    SE_LOG_INFO("Shutting down MeshManager");
+    ClearCache();
+    initialized_ = false;
+}
+
+std::shared_ptr<VertexArray> MeshManager::CreateVertexArrayFromMesh(const Mesh& mesh) {
+    const auto& vertices = mesh.getVertices();
+    const auto& indices = mesh.getIndices();
+
+    // Log vertex and index counts using the mesh's vertex count (9 floats per vertex)
+    SE_LOG_INFO("Creating VertexArray from mesh: {} vertices, {} indices",
+                mesh.getVertexCount(), indices.size());
+
+    // Create vertex buffer from raw float data
+    auto vertexBuffer = std::make_shared<VertexBuffer>(
+        vertices.data(),
+        static_cast<uint32_t>(vertices.size() * sizeof(float))
+    );
+
+    // Updated layout: position (3 floats), color (3 floats), normal (3 floats)
+    vertexBuffer->SetLayout(BufferLayout({
+        {ShaderDataType::Float3, "a_Position"},
+        {ShaderDataType::Float3, "a_Color"},
+        {ShaderDataType::Float3, "a_Normal"}
+    }));
+
+    // Create index buffer
+    auto indexBuffer = std::make_shared<IndexBuffer>(
+        indices.data(),
+        static_cast<uint32_t>(indices.size())
+    );
+
+    // Create and set up vertex array
+    auto vertexArray = std::make_shared<VertexArray>();
+    vertexArray->AddVertexBuffer(vertexBuffer);
+    vertexArray->SetIndexBuffer(indexBuffer);
+
+    SE_LOG_INFO("VertexArray created successfully");
+    return vertexArray;
+}
+
+std::shared_ptr<VertexArray> MeshManager::GetPrimitive(PrimitiveMeshType type) {
+    if (!initialized_) {
+        SE_LOG_ERROR("MeshManager not initialized!");
+        return nullptr;
+    }
+
+    // Check cache
+    auto it = primitiveCache_.find(type);
+    if (it != primitiveCache_.end()) {
+        SE_LOG_INFO("Primitive mesh found in cache");
+        return it->second;
+    }
+
+    // Create and cache
+    SE_LOG_INFO("Creating new primitive mesh");
+    auto primitive = CreatePrimitive(type);
+
+    if (!primitive) {
+        SE_LOG_ERROR("Failed to create primitive mesh!");
+        return nullptr;
+    }
+
+    primitiveCache_[type] = primitive;
+
+    SE_LOG_INFO("Created and cached primitive mesh");
+    return primitive;
+}
+
+std::shared_ptr<VertexArray> MeshManager::CreatePrimitive(PrimitiveMeshType type) {
+    Mesh mesh;
+
+    switch (type) {
+        case PrimitiveMeshType::Triangle:
+            SE_LOG_INFO("Creating Triangle mesh");
+            mesh = MeshFactory::CreateTriangle();
+            break;
+        case PrimitiveMeshType::Quad:
+            SE_LOG_INFO("Creating Quad mesh");
+            mesh = MeshFactory::CreateQuad();
+            break;
+        case PrimitiveMeshType::Cube:
+            SE_LOG_INFO("Creating Cube mesh");
+            mesh = MeshFactory::CreateCube();
+            break;
+        case PrimitiveMeshType::Sphere:
+            SE_LOG_INFO("Creating Sphere mesh");
+            mesh = MeshFactory::CreateSphere(32, 16);
+            break;
+        case PrimitiveMeshType::Capsule:
+            SE_LOG_INFO("Creating Capsule mesh");
+            mesh = MeshFactory::CreateCapsule(0.5f, 1.0f, 16);
+            break;
+        case PrimitiveMeshType::Cylinder:
+            SE_LOG_INFO("Creating Cylinder mesh");
+            mesh = MeshFactory::CreateCylinder(0.5f, 1.0f, 16);
+            break;
+        default:
+            SE_LOG_ERROR("Unknown primitive mesh type");
+            mesh = MeshFactory::CreateCube();
+            break;
+    }
+
+    return CreateVertexArrayFromMesh(mesh);
+}
+
+void MeshManager::ClearCache() {
+    primitiveCache_.clear();
+    SE_LOG_INFO("MeshManager cache cleared");
+}
+
+} // namespace se
+
