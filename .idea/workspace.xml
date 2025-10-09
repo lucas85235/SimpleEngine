@@ -58,21 +58,7 @@
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.frag" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/shaders/basic.vert" beforeDir="false" afterPath="$PROJECT_DIR$/assets/shaders/basic.vert" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Camera.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Camera.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Input.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Input.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/Shader.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/Shader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/ecs/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/ecs/Components.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/Material.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/Material.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/renderer/SceneRenderer.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/renderer/SceneRenderer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Camera.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Camera.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Mesh.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Mesh.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Renderer/Material.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/Material.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/engine/src/Renderer/SceneRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/SceneRenderer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Shader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/ecs/RenderSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/ecs/RenderSystem.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,7 +205,7 @@
     &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;improvement/rendering-light&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/rapha/_PROJECTS/SimpleEngine&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -252,6 +238,11 @@
       </method>
     </configuration>
     <configuration name="ImGuizmo" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGuizmo" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -331,7 +322,8 @@
       <workItem from="1759898198852" duration="31000" />
       <workItem from="1759898242540" duration="771000" />
       <workItem from="1759954913187" duration="7182000" />
-      <workItem from="1759969134575" duration="2635000" />
+      <workItem from="1759969134575" duration="4347000" />
+      <workItem from="1760050753861" duration="1311000" />
     </task>
     <servers />
   </component>

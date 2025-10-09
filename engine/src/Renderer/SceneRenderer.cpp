@@ -12,7 +12,8 @@ uniform mat4 uLightSpaceMatrix;
 uniform mat4 uModel;
 
 void main() {
-    gl_Position = uLightSpaceMatrix * uModel * vec4(a_Position, 1.0);
+    vec4 new_pos = uLightSpaceMatrix * uModel * vec4(a_Position, 1.0);
+    gl_Position = new_pos;
 }
 )";
 
@@ -253,7 +254,7 @@ namespace se {
             shader->setMat4("uView", sceneData_->ViewMatrix);
             shader->setMat4("uProj", sceneData_->ProjectionMatrix);
             shader->setMat4("uModel", submission.Transform);
-            shader->setVec3("uLightDirection", sceneData_->DirectionalLight.Direction);
+            shader->setVec3("uLightDirection", -sceneData_->DirectionalLight.Direction);
             shader->setVec3("uLightColor", sceneData_->DirectionalLight.Color);
             shader->setFloat("uLightIntensity",
                              sceneData_->DirectionalLight.Active ? sceneData_->DirectionalLight.Intensity : 0.0f);

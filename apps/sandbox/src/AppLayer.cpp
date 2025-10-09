@@ -279,6 +279,10 @@ void AppLayer::AddDirectionalLight() {
     sunTransform.SetPosition({0.0f, 5.0f, 5.0f});
     sunTransform.SetRotation({-45.0f, -45.0f, 0.0f});
 
+    auto mesh = se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Cube);
+
+    auto &sunMesh = sunEntity.AddComponent<se::MeshRenderComponent>(mesh, material_);
+
     auto &sunLight = sunEntity.AddComponent<se::DirectionalLightComponent>();
     sunLight.Color = {1.0f, 0.98f, 0.9f};
     sunLight.Intensity = 1.5f;
