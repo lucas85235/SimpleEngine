@@ -16,6 +16,7 @@ class Material {
     void Unbind() const;
 
     void SetFloat(const std::string& name, float value);
+    void SetInt(const std::string& name, int value);
     void SetVector3(const std::string& name, const glm::vec3& value);
     void SetVector4(const std::string& name, const glm::vec4& value);
     void SetMatrix4(const std::string& name, const glm::mat4& value);
@@ -27,6 +28,7 @@ class Material {
   private:
     std::shared_ptr<Shader> shader_;
     std::unordered_map<std::string, float> floatUniforms_;
+    std::unordered_map<std::string, int> intUniforms_;
     std::unordered_map<std::string, glm::vec3> vec3Uniforms_;
     std::unordered_map<std::string, glm::vec4> vec4Uniforms_;
     std::unordered_map<std::string, glm::mat4> mat4Uniforms_;

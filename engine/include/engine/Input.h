@@ -5,24 +5,31 @@
 struct GLFWwindow;
 
 namespace se {
-class Input {
-  public:
-    static bool IsKeyPressed(int keycode);
+    class Input {
+    public:
+        static bool IsKeyPressed(int keycode);
 
-    static bool IsMouseButtonPressed(int button);
+        static bool IsKeyDown(int keycode);
 
-    static glm::vec2 GetMousePosition();
+        bool IsKeyReleased(int keycode);
 
-    static float GetMouseX();
+        static bool IsMouseButtonPressed(int button);
 
-    static float GetMouseY();
+        static glm::vec2 GetMousePosition();
 
-    // Internal: Used by Window to set the context
-    static void SetWindow(GLFWwindow* window);
+        static float GetMouseX();
 
-  private:
-    Input() = delete;
+        static float GetMouseY();
 
-    static GLFWwindow* window_;
-};
+        // Internal: Used by Window to set the context
+        static void SetWindow(GLFWwindow *window);
+
+    private:
+        Input() = delete;
+
+        static GLFWwindow *window_;
+
+        static std::unordered_map<int, bool> current_key_states_;
+        static std::unordered_map<int, bool> last_key_states_;
+    };
 } // namespace se

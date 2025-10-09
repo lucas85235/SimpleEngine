@@ -34,6 +34,8 @@ void Camera::processKeyboard(float deltaTime, bool forward, bool back, bool left
 }
 
 void Camera::processMouseMovement(float xoffset, float yoffset, bool constrainPitch) {
+
+    if (!active_) return;
     xoffset *= mouse_sensitivity_;
     yoffset *= mouse_sensitivity_;
 
