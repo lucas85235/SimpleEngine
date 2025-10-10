@@ -66,6 +66,10 @@ class Camera {
         fov_ = glm::clamp(zoom, 1.0f, 90.0f);
     }
 
+    void SetActive(bool active) {
+        active_ = active;
+    }
+
   private:
     // Calculates the front vector from the Camera's (updated) Euler Angles
     void updateCameraVectors();
@@ -82,8 +86,10 @@ class Camera {
     float yaw_;
     float pitch_;
 
+    bool active_ = true;
+
     // Camera options
     float movement_speed_ = 5.0f;
     float mouse_sensitivity_ = 0.1f;
-    float fov_ = 45.0f;
+    float fov_ = 60.0f;
 };
