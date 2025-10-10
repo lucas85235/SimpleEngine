@@ -4,7 +4,10 @@
 #include "engine/Camera.h"
 #include "engine/Log.h"
 #include "engine/ecs/Entity.h"
+#include <engine/resources/MaterialManager.h>
+#include <engine/resources/MeshManager.h>
 #include <entt.hpp>
+#include <json.hpp>
 #include <string>
 
 namespace se {
@@ -14,34 +17,29 @@ class Scene {
     Scene(const std::string& name = "Untitled Scene");
     ~Scene();
 
-    // Create a new entity
-    Entity CreateEntity(const std::string& name = "Entity");
+    void OnUpdate(float deltaTime);
+    void OnRender(const Camera& camera, float aspectRatio);
+    void Clear();
 
-    // Destroy an entity
-    void DestroyEntity(Entity entity);
-
-    // Get all entities with specific components
-    template <typename... Components>
-    auto GetAllEntitiesWith() {
-        return registry_.view<Components...>();
-    }
-
-    // Find entity by name
-    Entity FindEntityByName(const std::string& name);
+    void LoadSceneFromFile(const std::string& filepath);
+    void SaveSceneToFile(const std::string& filepath);
 
     // Get scene name
     const std::string& GetName() const {
         return name_;
     }
 
-    // Update scene (can be used for systems)
-    void OnUpdate(float deltaTime);
+    Entity CreateEntity(const std::string& name = "Entity");
+    void DestroyEntity(Entity entity);
 
-    // Render scene (automatically renders all MeshRenderComponents)
-    void OnRender(const Camera& camera, float aspectRatio);
+    // Find entity by name
+    Entity FindEntityByName(const std::string& name);
 
-    // Clear all entities
-    void Clear();
+    // Get all entities with specific components
+    template <typename... Components>
+    auto GetAllEntitiesWith() {
+        return registry_.view<Components...>();
+    }
 
     // Get entity count (number of alive entities)
     size_t GetEntityCount() const {
@@ -51,6 +49,9 @@ class Scene {
   private:
     std::string name_;
     entt::registry registry_;
+    std::shared_ptr<se::Material> global_material_;
+
+    void LoadMaterial();
 
     friend class Entity;
     friend class RenderSystem;

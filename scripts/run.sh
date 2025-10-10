@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 # Diretório de build
 BUILD_DIR="build"
 

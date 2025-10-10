@@ -2,8 +2,6 @@
 #include <engine/Application.h>
 #include <engine/Log.h>
 
-using namespace std;
-
 int main() {
     se::ApplicationSpec appSpec;
     appSpec.Name = "Simple engine";

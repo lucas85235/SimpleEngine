@@ -1,0 +1,44 @@
+{
+  "scene_name": "Level 1 - Forest",
+  "game_objects": [
+    {
+      "id": 101,
+      "name": "Player",
+      "active": true,
+      "transform": {
+        "position": { "x": 10.5, "y": 2.0, "z": 5.2 },
+        "rotation": { "x": 0.0, "y": 90.0, "z": 0.0 }
+      },
+      "renderer": {
+        "mesh": "models/player.obj",
+        "material": "materials/player.mat"
+      }
+    },
+    {
+      "id": 202,
+      "name": "Enemy_Grunt",
+      "active": true,
+      "transform": {
+        "position": { "x": -5.0, "y": 2.0, "z": 15.8 },
+        "rotation": { "x": 0.0, "y": -45.0, "z": 0.0 }
+      },
+      "renderer": {
+        "mesh": "models/enemy.obj",
+        "material": "materials/enemy.mat"
+      }
+    },
+    {
+      "id": 301,
+      "name": "DirectionalLight",
+      "active": true,
+      "transform": {
+        "position": { "x": 0.0, "y": 50.0, "z": 0.0 },
+        "rotation": { "x": -90.0, "y": 0.0, "z": 0.0 }
+      },
+      "renderer": {
+        "mesh": "",
+        "material": ""
+      }
+    }
+  ]
+}

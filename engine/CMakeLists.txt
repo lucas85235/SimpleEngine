@@ -34,6 +34,7 @@ set(glad_DIR ${third_party_dir}/glad)
 set(glm_DIR ${third_party_dir}/glm)
 set(entt_DIR ${third_party_dir}/entt)
 set(stb_DIR ${third_party_dir}/stb)
+set(json_DIR ${third_party_dir}/nlohmann)
 
 add_library(stb STATIC
         ${stb_DIR}/stb_image.cpp
@@ -73,6 +74,7 @@ target_include_directories(simple_engine PUBLIC
         ${glm_DIR}
         ${stb_DIR}
         ${entt_DIR}
+        ${json_DIR}
 )
 
 # --- LIGAÇÃO DAS DEPENDÊNCIAS DA ENGINE ---
