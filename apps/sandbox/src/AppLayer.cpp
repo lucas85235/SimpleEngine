@@ -54,6 +54,7 @@ void AppLayer::LoadMaterial() {
         "DefaultShader", vertex_shader_location, fragment_shader_location);
 
     material_ = se::MaterialManager::CreateMaterial(shader);
+    material_->SetFloat("uSpecularStrength", 0.5f);
 }
 
 void AppLayer::OnDetach() {

@@ -258,6 +258,7 @@ namespace se {
             shader->setVec3("uLightColor", sceneData_->DirectionalLight.Color);
             shader->setFloat("uLightIntensity",
                              sceneData_->DirectionalLight.Active ? sceneData_->DirectionalLight.Intensity : 0.0f);
+            shader->setFloat("uAmbientStrength", sceneData_->AmbientStrength);
             shader->setMat4("uLightSpaceMatrix", sceneData_->LightSpaceMatrix);
             shader->setInt("uShadowMap", 0);
             shader->setFloat("uReceiveShadows", submission.ReceiveShadows ? 1.0f : 0.0f);

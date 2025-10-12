@@ -72,12 +72,13 @@ namespace se {
             glm::mat4 ViewProjectionMatrix;
             DirectionalLightData DirectionalLight;
             glm::mat4 LightSpaceMatrix{1.0f};
-            glm::ivec2 ShadowMapSize{128, 128};
+            glm::ivec2 ShadowMapSize{1024, 1024};
             unsigned int ShadowFramebuffer = 0;
             unsigned int ShadowDepthTexture = 0;
             std::shared_ptr<Shader> ShadowShader;
             float ShadowDistance = 100.0f;
-            float ShadowOrthoSize = 5.0f;
+            float ShadowOrthoSize = 10.0f;
+            float AmbientStrength = 0.2f;
             bool ShadowsEnabled = true;
             std::vector<Submission> Submissions;
         };
