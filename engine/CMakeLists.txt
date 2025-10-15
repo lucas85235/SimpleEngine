@@ -4,11 +4,13 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 set(IMNODES_IMGUI_TARGET_NAME ImGui)
 
+set(SKIP_INSTALL_HEADERS ON CACHE BOOL "" FORCE)
+set(SKIP_INSTALL_LIBRARIES ON CACHE BOOL "" FORCE)
+
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                   COMPILATION RELATED                   ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 set(CMAKE_UNITY_BUILD OFF)
-
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                   PLATFORM DETECTION                    ┃
@@ -24,7 +26,7 @@ endif ()
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃                 DEPENDENCY DIRECTORY SETUP              ┃
 # ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-set(third_party_dir third_party)
+set(third_party_dir ${CMAKE_CURRENT_SOURCE_DIR}/third_party)
 set(spdlog_DIR ${third_party_dir}/spdlog)
 set(imgui_DIR ${third_party_dir}/imgui)
 set(imnodes_DIR ${third_party_dir}/imnodes)
@@ -34,6 +36,13 @@ set(glad_DIR ${third_party_dir}/glad)
 set(glm_DIR ${third_party_dir}/glm)
 set(entt_DIR ${third_party_dir}/entt)
 set(stb_DIR ${third_party_dir}/stb)
+set(rml_DIR ${third_party_dir}/RmlUi)
+set(freetype_DIR ${third_party_dir}/freetype)
+
+# this is for the rml lib (ui lib)
+set(FREETYPE_LIBRARY ${CMAKE_BINARY_DIR}/engine/third_party/freetype/freetyped.lib)
+set(Freetype_ROOT ${freetype_DIR})
+set(FREETYPE_INCLUDE_DIRS ${freetype_DIR})
 
 add_library(stb STATIC
         ${stb_DIR}/stb_image.cpp
@@ -51,6 +60,8 @@ add_subdirectory(${glfw_DIR})
 add_subdirectory(${glad_DIR})
 add_subdirectory(${glm_DIR})
 add_subdirectory(${entt_DIR})
+add_subdirectory(${freetype_DIR})
+add_subdirectory(${rml_DIR})
 
 find_package(OpenGL REQUIRED)
 
@@ -73,6 +84,8 @@ target_include_directories(simple_engine PUBLIC
         ${glm_DIR}
         ${stb_DIR}
         ${entt_DIR}
+        ${rml_DIR}
+        ${freetype_DIR}/include
 )
 
 # --- LIGAÇÃO DAS DEPENDÊNCIAS DA ENGINE ---
@@ -88,6 +101,8 @@ target_link_libraries(simple_engine PUBLIC
         spdlog
         stb
         Entt
+        rmlui
+        freetype
 )
 
 # Adiciona definições de compilação necessárias
