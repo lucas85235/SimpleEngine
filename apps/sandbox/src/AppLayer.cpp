@@ -4,6 +4,10 @@
 #include <engine/Input.h>
 #include <engine/Log.h>
 #include <engine/ecs/Components.h>
+#include <engine/audio/Audio.h>
+#include <engine/audio/AudioEmitter.h>
+#include <engine/audio/AudioManager.h>
+#include <engine/audio/AudioSystem.h>
 #include <gtc/type_ptr.hpp>
 #include <imgui.h>
 
@@ -25,23 +29,8 @@ void AppLayer::OnAttach() {
 
     AddDirectionalLight();
 
-    // TEST: Create a simple triangle closer to camera
-    auto testEntity = scene_->CreateEntity("TestTriangle");
-    auto testMesh = se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Triangle);
-    auto testMaterial = se::MaterialManager::GetDefaultMaterial();
-
-    if (testMesh && testMaterial) {
-        testEntity.AddComponent<se::MeshRenderComponent>(testMesh, testMaterial);
-        auto &transform = testEntity.GetComponent<se::TransformComponent>();
-        transform.SetPosition({0.0f, 0.0f, -2.0f}); // Right in front of camera
-        transform.SetScale({2.0f, 2.0f, 2.0f}); // Make it big
-        SE_LOG_INFO("Test triangle created at z = -2.0");
-    } else {
-        SE_LOG_ERROR("Failed to create test triangle!");
-    }
-
     // Create original entities
-    CreateCubeEntity("Cube", {0.0f, 0.0f, -2.0f});
+    CreateCubeEntity("Cube", {0.0f, -2.0f, 0.0f},{50.0f, 1.0f, 50.0f});
     CreateCubeEntity("Rotating Cube", {3.0f, 0.0f, -2.0f});
     CreateSphereEntity("Sphere", {-3.0f, 0.0f, -2.0f});
     CreateCapsuleEntity("Capsule", {0.0f, 2.5f, -2.0f});
@@ -58,6 +47,9 @@ void AppLayer::OnAttach() {
     InputHandler::setCursorModeFromString(window, "normal");
 
     se::RenderCommand::SetClearColor({0.3f, 0.3f, 0.3f, 1.0f});
+
+    // Audio test
+    CreateAudioEntity("Audio", {0.0f, 0.0f, 0.0f});
 }
 
 void AppLayer::LoadMaterial() {
@@ -69,6 +61,7 @@ void AppLayer::LoadMaterial() {
         "DefaultShader", vertex_shader_location, fragment_shader_location);
 
     material_ = se::MaterialManager::CreateMaterial(shader);
+    material_->SetFloat("uSpecularStrength", 0.5f);
 }
 
 void AppLayer::OnDetach() {
@@ -250,7 +243,7 @@ void AppLayer::HandleInput(float deltaTime) {
 
 // ==================== Entity Creation Helpers ====================
 
-void AppLayer::CreateCubeEntity(const std::string &name, const glm::vec3 &position) {
+void AppLayer::CreateCubeEntity(const std::string &name, const glm::vec3 &position, const glm::vec3 &scale) {
     SE_LOG_INFO("Creating cube entity: {}", name);
 
     auto entity = scene_->CreateEntity(name);
@@ -268,6 +261,7 @@ void AppLayer::CreateCubeEntity(const std::string &name, const glm::vec3 &positi
     // Set position
     auto &transform = entity.GetComponent<se::TransformComponent>();
     transform.SetPosition(position);
+    transform.SetScale(scale);
 
     SE_LOG_INFO("Cube entity created successfully at ({}, {}, {})", position.x, position.y,
                 position.z);
@@ -277,7 +271,7 @@ void AppLayer::AddDirectionalLight() {
     auto sunEntity = scene_->CreateEntity("Sun Light");
     auto &sunTransform = sunEntity.GetComponent<se::TransformComponent>();
     sunTransform.SetPosition({0.0f, 5.0f, 5.0f});
-    sunTransform.SetRotation({-45.0f, -45.0f, 0.0f});
+    sunTransform.SetRotation({100.0f, 0.0f, 0.0f});
 
     auto mesh = se::MeshManager::GetPrimitive(se::PrimitiveMeshType::Cube);
 
@@ -319,4 +313,32 @@ void AppLayer::CreateCapsuleEntity(const std::string &name, const glm::vec3 &pos
     transform.SetScale({0.5f, 0.5f, 0.5f});
 
     SE_LOG_INFO("Capsule entity created successfully");
+}
+
+
+void AppLayer::CreateAudioEntity(const std::string &name, const glm::vec3 &position) {
+    SE_LOG_INFO("OpenAL: Set listener position");
+    AudioSystem::GetAudioSystem()->SetListenerTransform(camera_.GetPosition());
+
+    SE_LOG_INFO("OpenAL: Creating audio entity: {}", name);
+    auto entity = scene_->CreateEntity(name);
+
+    // Set position and scale
+    auto &transform = entity.GetComponent<se::TransformComponent>();
+    transform.SetPosition(position);
+
+    SE_LOG_INFO("OpenAL: Audio entity created successfully");
+
+    AudioManager::AddAudio("voice.wav");
+    Audio* audio = AudioManager::GetAudio("voice.wav");
+    
+    AudioEmitter* emitter = new AudioEmitter(audio);
+    emitter->SetTarget(&entity);
+    emitter->SetVolume(0.5f);
+    emitter->SetRadius(500.0f);
+    emitter->SetLooping(true);
+    emitter->SetPriority(AUDIOPRIORITY_MEDIUM);
+    emitter->SetPosition(glm::vec3{0.0f, 0.0f, 8.0f});
+
+    AudioSystem::GetAudioSystem()->AddAudioEmitter(emitter);
 }

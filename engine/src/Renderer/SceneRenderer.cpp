@@ -105,8 +105,8 @@ namespace se {
             return;
 
         Submission submission;
-        submission.VertexArray = vertexArray;
-        submission.Material = material;
+        submission.vertexArray = vertexArray;
+        submission.material = material;
         submission.Transform = transform;
         submission.CastsShadows = castsShadows;
         submission.ReceiveShadows = receiveShadows;
@@ -217,11 +217,11 @@ namespace se {
             if (!submission.CastsShadows)
                 continue;
 
-            if (!submission.VertexArray)
+            if (!submission.vertexArray)
                 continue;
 
             sceneData_->ShadowShader->setMat4("uModel", submission.Transform);
-            RenderCommand::DrawIndexed(submission.VertexArray.get());
+            RenderCommand::DrawIndexed(submission.vertexArray.get());
         }
 
         glCullFace(previousCullFaceMode);
@@ -243,11 +243,11 @@ namespace se {
             glBindTexture(GL_TEXTURE_2D, 0);
 
         for (const auto &submission: sceneData_->Submissions) {
-            if (!submission.VertexArray || !submission.Material)
+            if (!submission.vertexArray || !submission.material)
                 continue;
 
-            submission.Material->Bind();
-            auto shader = submission.Material->GetShader();
+            submission.material->Bind();
+            auto shader = submission.material->GetShader();
             if (!shader)
                 continue;
 
@@ -258,16 +258,17 @@ namespace se {
             shader->setVec3("uLightColor", sceneData_->DirectionalLight.Color);
             shader->setFloat("uLightIntensity",
                              sceneData_->DirectionalLight.Active ? sceneData_->DirectionalLight.Intensity : 0.0f);
+            shader->setFloat("uAmbientStrength", sceneData_->AmbientStrength);
             shader->setMat4("uLightSpaceMatrix", sceneData_->LightSpaceMatrix);
             shader->setInt("uShadowMap", 0);
             shader->setFloat("uReceiveShadows", submission.ReceiveShadows ? 1.0f : 0.0f);
             shader->setFloat("uShadowsEnabled",
                              sceneData_->ShadowsEnabled && sceneData_->DirectionalLight.Active ? 1.0f : 0.0f);
 
-            RenderCommand::DrawIndexed(submission.VertexArray.get());
+            RenderCommand::DrawIndexed(submission.vertexArray.get());
 
             stats_.DrawCalls++;
-            stats_.TriangleCount += submission.VertexArray->GetIndexBuffer()->GetCount() / 3;
+            stats_.TriangleCount += submission.vertexArray->GetIndexBuffer()->GetCount() / 3;
         }
 
         glBindTexture(GL_TEXTURE_2D, 0);

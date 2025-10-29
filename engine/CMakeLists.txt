@@ -34,6 +34,7 @@ set(glad_DIR ${third_party_dir}/glad)
 set(glm_DIR ${third_party_dir}/glm)
 set(entt_DIR ${third_party_dir}/entt)
 set(stb_DIR ${third_party_dir}/stb)
+set(openal_DIR ${third_party_dir}/openal)
 
 add_library(stb STATIC
         ${stb_DIR}/stb_image.cpp
@@ -51,6 +52,7 @@ add_subdirectory(${glfw_DIR})
 add_subdirectory(${glad_DIR})
 add_subdirectory(${glm_DIR})
 add_subdirectory(${entt_DIR})
+add_subdirectory(${openal_DIR})
 
 find_package(OpenGL REQUIRED)
 
@@ -73,6 +75,7 @@ target_include_directories(simple_engine PUBLIC
         ${glm_DIR}
         ${stb_DIR}
         ${entt_DIR}
+        ${openal_DIR}/include/AL
 )
 
 # --- LIGAÇÃO DAS DEPENDÊNCIAS DA ENGINE ---
@@ -88,6 +91,7 @@ target_link_libraries(simple_engine PUBLIC
         spdlog
         stb
         Entt
+        OpenAL
 )
 
 # Adiciona definições de compilação necessárias

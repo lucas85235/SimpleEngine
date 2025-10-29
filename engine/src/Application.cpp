@@ -33,6 +33,9 @@ Application::Application(const ApplicationSpec& specification) {
     imguiLayer_ = std::make_shared<ImGuiLayer>();
     imguiLayer_->SetWindow(window_->GetNativeWindow());
     imguiLayer_->OnAttach();
+
+    // Initialize audio system (it's a singleton for now)
+    AudioSystem::Initialise();
 }
 
 Application::~Application() {
@@ -53,6 +56,8 @@ Application::~Application() {
     renderer_.reset();
     window_.reset();
     glfwTerminate();
+
+    AudioSystem::Destroy();
 
     s_Instance = nullptr;
 }
@@ -119,6 +124,9 @@ int Application::Run() {
         // Swap buffers and poll events
         window_->SwapBuffers();
         window_->OnUpdate();
+
+        // Update audio system
+        AudioSystem::GetAudioSystem()->Update(currentTime);
     }
 
     SE_LOG_INFO("Application main loop ended");

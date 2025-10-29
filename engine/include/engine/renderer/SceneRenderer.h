@@ -59,8 +59,8 @@ namespace se {
 
     private:
         struct Submission {
-            std::shared_ptr<VertexArray> VertexArray;
-            std::shared_ptr<Material> Material;
+            std::shared_ptr<VertexArray> vertexArray;
+            std::shared_ptr<Material> material;
             glm::mat4 Transform{1.0f};
             bool CastsShadows = true;
             bool ReceiveShadows = true;
@@ -72,12 +72,13 @@ namespace se {
             glm::mat4 ViewProjectionMatrix;
             DirectionalLightData DirectionalLight;
             glm::mat4 LightSpaceMatrix{1.0f};
-            glm::ivec2 ShadowMapSize{2048, 2048};
+            glm::ivec2 ShadowMapSize{1024, 1024};
             unsigned int ShadowFramebuffer = 0;
             unsigned int ShadowDepthTexture = 0;
             std::shared_ptr<Shader> ShadowShader;
-            float ShadowDistance = 20.0f;
+            float ShadowDistance = 100.0f;
             float ShadowOrthoSize = 10.0f;
+            float AmbientStrength = 0.2f;
             bool ShadowsEnabled = true;
             std::vector<Submission> Submissions;
         };

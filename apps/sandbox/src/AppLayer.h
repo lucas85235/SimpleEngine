@@ -36,11 +36,13 @@ private:
     // Helper methods for creating entities
     void AddDirectionalLight();
 
-    void CreateCubeEntity(const std::string &name, const glm::vec3 &position);
+    void CreateCubeEntity(const std::string &name, const glm::vec3 &position, const glm::vec3 &scale = glm::vec3(1.0f));
 
     void CreateSphereEntity(const std::string &name, const glm::vec3 &position);
 
     void CreateCapsuleEntity(const std::string &name, const glm::vec3 &position);
+
+    void CreateAudioEntity(const std::string &name, const glm::vec3 &position);
 
 private:
     // Scene

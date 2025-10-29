@@ -4,6 +4,7 @@
 #include "engine/Layer.h"
 #include "engine/Renderer.h"
 #include "engine/Window.h"
+#include "engine/audio/AudioSystem.h"
 #include <memory>
 #include <vector>
 

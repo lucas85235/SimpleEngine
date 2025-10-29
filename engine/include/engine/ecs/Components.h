@@ -100,8 +100,8 @@ namespace se {
     // ==================== Mesh Render Component ====================
     // Handles mesh rendering for an entity
     struct MeshRenderComponent {
-        std::shared_ptr<VertexArray> VertexArray;
-        std::shared_ptr<Material> Material;
+        std::shared_ptr<VertexArray> vertexArray;
+        std::shared_ptr<Material> mat;
         bool IsVisible = true;
         bool CastShadows = true;
         bool ReceiveShadows = true;
@@ -111,7 +111,7 @@ namespace se {
         MeshRenderComponent(const MeshRenderComponent &) = default;
 
         MeshRenderComponent(std::shared_ptr<se::VertexArray> va, std::shared_ptr<se::Material> mat)
-            : VertexArray(va), Material(mat) {
+            : vertexArray(va), mat(mat) {
         }
     };
 

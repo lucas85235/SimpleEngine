@@ -79,7 +79,7 @@ namespace se {
             }
 
             // Skip if missing vertex array or material
-            if (!meshRender.VertexArray || !meshRender.Material) {
+            if (!meshRender.vertexArray || !meshRender.mat) {
                 SE_LOG_WARN("Entity missing VertexArray or Material!");
                 skippedCount++;
                 continue;
@@ -97,7 +97,7 @@ namespace se {
             }
 
             // Submit to renderer
-            SceneRenderer::Submit(meshRender.VertexArray, meshRender.Material,
+            SceneRenderer::Submit(meshRender.vertexArray, meshRender.mat,
                                   transform.GetTransform(), meshRender.CastShadows,
                                   meshRender.ReceiveShadows);
             renderedCount++;
