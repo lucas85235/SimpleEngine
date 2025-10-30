@@ -79,10 +79,6 @@
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/audio/AudioEmitter.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/audio/AudioEmitter.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/include/engine/audio/AudioSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/audio/AudioSystem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/audio/AudioEmitter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/audio/AudioEmitter.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/audio/AudioSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/audio/AudioSystem.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -477,7 +473,7 @@
       <workItem from="1759954913187" duration="7182000" />
       <workItem from="1759969134575" duration="4347000" />
       <workItem from="1760050753861" duration="1311000" />
-      <workItem from="1761783909714" duration="3944000" />
+      <workItem from="1761783909714" duration="6123000" />
     </task>
     <servers />
   </component>

@@ -330,8 +330,8 @@ void AppLayer::CreateAudioEntity(const std::string& name, const glm::vec3& posit
 
     SE_LOG_INFO("OpenAL: Audio entity created successfully");
 
-    AudioManager::AddAudio("voice.wav");
-    Audio* audio = AudioManager::GetAudio("voice.wav");
+    AudioManager::AddAudio("music.wav");
+    Audio* audio = AudioManager::GetAudio("music.wav");
 
     AudioEmitter* emitter = new AudioEmitter(audio);
     emitter->SetTarget(entity);
