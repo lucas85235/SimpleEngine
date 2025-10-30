@@ -1,16 +1,21 @@
 #include "engine/audio/AudioManager.h"
+
+#include "alc.h"
 #include "engine/Log.h"
+#include "engine/audio/AudioSystem.h"
 
 map<string, Audio*> AudioManager::audios;
 
-void AudioManager::AddAudio(string name) {
-
-    if (!GetAudio(name)) {
+void AudioManager::AddAudio(string name)
+{
+    if (!GetAudio(name))
+    {
         Audio* s = new Audio();
 
         string extension = name.substr(name.length() - 3, 3);
 
-        if (extension == "wav") {
+        if (extension == "wav")
+        {
             s->LoadFromWAV(name);
             alGenBuffers(1, &s->buffer);
 
@@ -22,7 +27,7 @@ void AudioManager::AddAudio(string name) {
             ALenum fmt = s->GetOALFormat();
             const void* dataptr = s->GetData();
             uint64_t usize = s->GetSize();
-            unsigned int freq_u = s->GetFrequency();
+
             int channels = s->GetChannels();
 
             // Safety casts and checks
@@ -30,10 +35,15 @@ void AudioManager::AddAudio(string name) {
                 (usize > static_cast<uint64_t>(std::numeric_limits<ALsizei>::max()))
                     ? -1
                     : static_cast<ALsizei>(usize);
-            const ALsizei freq_si =
-                (freq_u > static_cast<unsigned int>(std::numeric_limits<ALsizei>::max()))
-                    ? -1
-                    : static_cast<ALsizei>(freq_u);
+
+            auto device = AudioSystem::GetAudioSystem()->GetDevice();
+
+            ALCint srate;
+            alcGetIntegerv(device, ALC_FREQUENCY, 1, &srate);
+
+            unsigned int freq_u = s->GetFrequency();
+            const ALsizei freq_si = srate;
+
 
             std::cerr << "[DEBUG] alBufferData about to be called:\n";
             std::cerr << "  buffer = " << s->buffer << "\n";
@@ -43,21 +53,33 @@ void AudioManager::AddAudio(string name) {
             std::cerr << "  freq = " << freq_u << " (ALsizei_cast=" << freq_si << ")\n";
 
             // basic validation
-            if (!dataptr) {
+            if (!dataptr)
+            {
                 std::cerr << "[ERROR] dataptr is NULL - cannot call alBufferData\n";
-            } else if (size_si <= 0) {
+            }
+            else if (size_si <= 0)
+            {
                 std::cerr << "[ERROR] size is <= 0 or overflowed when cast to ALsizei\n";
-            } else if (!(fmt == AL_FORMAT_MONO8 || fmt == AL_FORMAT_MONO16 ||
-                         fmt == AL_FORMAT_STEREO8 || fmt == AL_FORMAT_STEREO16)) {
+            }
+            else if (!(fmt == AL_FORMAT_MONO8 || fmt == AL_FORMAT_MONO16 ||
+                fmt == AL_FORMAT_STEREO8 || fmt == AL_FORMAT_STEREO16))
+            {
                 std::cerr << "[ERROR] invalid AL format: " << fmt << "\n";
-            } else if (freq_si <= 0) {
+            }
+            else if (freq_si <= 0)
+            {
                 std::cerr << "[ERROR] invalid sample rate: " << freq_u << "\n";
-            } else {
+            }
+            else
+            {
                 alBufferData(s->buffer, fmt, dataptr, size_si, freq_si);
                 ALenum err = alGetError();
-                if (err != AL_NO_ERROR) {
+                if (err != AL_NO_ERROR)
+                {
                     std::cerr << "[ERROR] alBufferData returned: " << err << "\n";
-                } else {
+                }
+                else
+                {
                     std::cerr << "[OK] alBufferData success\n";
                 }
             }
@@ -68,20 +90,25 @@ void AudioManager::AddAudio(string name) {
             err = alGetError();
             if (err != AL_NO_ERROR)
                 SE_LOG_ERROR("alBufferData error: {} (file={})", err, name);
-        } else {
+        }
+        else
+        {
             SE_LOG_WARN("OpenAL: Invalid extension!");
         }
         audios.insert(make_pair(name, s));
     }
 }
 
-Audio* AudioManager::GetAudio(string name) {
+Audio* AudioManager::GetAudio(string name)
+{
     map<string, Audio*>::iterator s = audios.find(name);
     return (s != audios.end() ? s->second : NULL);
 }
 
-void AudioManager::DeleteAudio() {
-    for (map<string, Audio*>::iterator i = audios.begin(); i != audios.end(); ++i) {
+void AudioManager::DeleteAudio()
+{
+    for (map<string, Audio*>::iterator i = audios.begin(); i != audios.end(); ++i)
+    {
         delete i->second;
     }
 }

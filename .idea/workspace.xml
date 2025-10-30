@@ -18,7 +18,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="8" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="13" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
@@ -38,17 +38,38 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="SimpleEngineProject" targetName="copy_assets" />
       <config projectName="SimpleEngineProject" targetName="glfw" />
-      <config projectName="SimpleEngineProject" targetName="sandbox" />
+      <config projectName="SimpleEngineProject" targetName="allatency" />
+      <config projectName="SimpleEngineProject" targetName="alsoft.common" />
+      <config projectName="SimpleEngineProject" targetName="alhrtf" />
+      <config projectName="SimpleEngineProject" targetName="uhjencoder" />
+      <config projectName="SimpleEngineProject" targetName="alrecord" />
       <config projectName="SimpleEngineProject" targetName="simple_engine" />
+      <config projectName="SimpleEngineProject" targetName="allafplay" />
+      <config projectName="SimpleEngineProject" targetName="almultireverb" />
+      <config projectName="SimpleEngineProject" targetName="alsoft.excommon" />
+      <config projectName="SimpleEngineProject" targetName="aldirect" />
+      <config projectName="SimpleEngineProject" targetName="alsoft.fmt" />
+      <config projectName="SimpleEngineProject" targetName="stb" />
+      <config projectName="SimpleEngineProject" targetName="copy_assets" />
+      <config projectName="SimpleEngineProject" targetName="uhjdecoder" />
+      <config projectName="SimpleEngineProject" targetName="ImGui" />
+      <config projectName="SimpleEngineProject" targetName="alconvolve" />
+      <config projectName="SimpleEngineProject" targetName="ImGuizmo" />
+      <config projectName="SimpleEngineProject" targetName="altonegen" />
+      <config projectName="SimpleEngineProject" targetName="alstream" />
+      <config projectName="SimpleEngineProject" targetName="spdlog" />
+      <config projectName="SimpleEngineProject" targetName="sandbox" />
       <config projectName="SimpleEngineProject" targetName="glad" />
       <config projectName="SimpleEngineProject" targetName="update_mappings" />
-      <config projectName="SimpleEngineProject" targetName="ImGui" />
-      <config projectName="SimpleEngineProject" targetName="ImGuizmo" />
+      <config projectName="SimpleEngineProject" targetName="alplay" />
+      <config projectName="SimpleEngineProject" targetName="alstreamcb" />
+      <config projectName="SimpleEngineProject" targetName="clang-tidy-check" />
       <config projectName="SimpleEngineProject" targetName="imnodes" />
-      <config projectName="SimpleEngineProject" targetName="stb" />
-      <config projectName="SimpleEngineProject" targetName="spdlog" />
+      <config projectName="SimpleEngineProject" targetName="OpenAL" />
+      <config projectName="SimpleEngineProject" targetName="alreverb" />
+      <config projectName="SimpleEngineProject" targetName="aldebug" />
+      <config projectName="SimpleEngineProject" targetName="openal-info" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -56,9 +77,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc4d4ec5-2bea-462c-bf33-046722bdea3f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/apps/sandbox/src/AppLayer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/engine/src/Renderer/SceneRenderer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/Renderer/SceneRenderer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/include/engine/audio/AudioSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/engine/include/engine/audio/AudioSystem.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/audio/Audio.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/audio/Audio.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/audio/AudioManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/audio/AudioManager.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/src/audio/AudioSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/engine/src/audio/AudioSystem.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,35 +215,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;CMake Application.sandbox.executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
-    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;improvement/rendering-light&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/rapha/_PROJECTS/SimpleEngine&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.LLMConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "CMake Application.sandbox.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "cf.advertisement.text.has.clang-format": "true",
+    "cf.advertisement.text.overridden": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "feature/audio",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "/Users/rafaelaragaomorais/Documents/_PROJECTS/Monster-Engine/build/apps/sandbox",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "ml.llm.LLMConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/build/apps/sandbox" />
       <recent name="C:\Users\rapha\_PROJECTS\SimpleEngine\engine\include\engine" />
       <recent name="C:\Users\rapha\_PROJECTS\SimpleEngine\engine\third_party" />
     </key>
@@ -232,6 +258,11 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.sandbox">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ImGui" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="ImGui" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -242,7 +273,92 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="OpenAL" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="OpenAL" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alconvolve" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alconvolve" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alconvolve">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="aldebug" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="aldebug" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="aldebug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="aldirect" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="aldirect" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="aldirect">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alhrtf" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alhrtf" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alhrtf">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="allafplay" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="allafplay" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="allafplay">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="allatency" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="allatency" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="allatency">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="almultireverb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="almultireverb" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="almultireverb">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alplay" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alplay" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alplay">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alrecord" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alrecord" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alrecord">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alreverb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alreverb" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alreverb">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alsoft.common" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alsoft.common" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alsoft.excommon" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alsoft.excommon" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alsoft.fmt" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alsoft.fmt" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alstream" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alstream" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alstream">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="alstreamcb" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="alstreamcb" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="alstreamcb">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="altonegen" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="altonegen" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="altonegen">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="clang-tidy-check" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="clang-tidy-check" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -267,6 +383,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="openal-info" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="openal-info" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="openal-info">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="sandbox" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="sandbox" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="sandbox">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -287,6 +408,16 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="uhjdecoder" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="uhjdecoder" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="uhjdecoder">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="uhjencoder" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="uhjencoder" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SimpleEngineProject" RUN_TARGET_NAME="uhjencoder">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="update_mappings" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SimpleEngineProject" TARGET_NAME="update_mappings" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -303,6 +434,27 @@
       <item itemvalue="CMake Application.ImGui" />
       <item itemvalue="CMake Application.ImGuizmo" />
       <item itemvalue="CMake Application.imnodes" />
+      <item itemvalue="CMake Application.alconvolve" />
+      <item itemvalue="CMake Application.aldebug" />
+      <item itemvalue="CMake Application.aldirect" />
+      <item itemvalue="CMake Application.alhrtf" />
+      <item itemvalue="CMake Application.allafplay" />
+      <item itemvalue="CMake Application.allatency" />
+      <item itemvalue="CMake Application.almultireverb" />
+      <item itemvalue="CMake Application.alplay" />
+      <item itemvalue="CMake Application.alrecord" />
+      <item itemvalue="CMake Application.alreverb" />
+      <item itemvalue="CMake Application.alsoft.common" />
+      <item itemvalue="CMake Application.alsoft.excommon" />
+      <item itemvalue="CMake Application.alstream" />
+      <item itemvalue="CMake Application.alstreamcb" />
+      <item itemvalue="CMake Application.altonegen" />
+      <item itemvalue="CMake Application.clang-tidy-check" />
+      <item itemvalue="CMake Application.OpenAL" />
+      <item itemvalue="CMake Application.openal-info" />
+      <item itemvalue="CMake Application.uhjdecoder" />
+      <item itemvalue="CMake Application.uhjencoder" />
+      <item itemvalue="CMake Application.alsoft.fmt" />
       <item itemvalue="CMake Application.spdlog" />
     </list>
   </component>
@@ -324,6 +476,7 @@
       <workItem from="1759954913187" duration="7182000" />
       <workItem from="1759969134575" duration="4347000" />
       <workItem from="1760050753861" duration="1311000" />
+      <workItem from="1761783909714" duration="1777000" />
     </task>
     <servers />
   </component>

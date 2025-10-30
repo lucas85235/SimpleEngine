@@ -1,4 +1,6 @@
 #include "engine/audio/Audio.h"
+
+#include "alc.h"
 #include "engine/Log.h"
 
 Audio::Audio() {
@@ -48,6 +50,7 @@ void Audio::LoadFromWAV(string filename) {
 
             bitRate = fmt.samp;
             freqRate = (float)fmt.srate;
+
             channels = fmt.channels;
         } else if (chunkName == "data") {
             size = chunkSize;

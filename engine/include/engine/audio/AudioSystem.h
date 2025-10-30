@@ -51,6 +51,8 @@ public :
 
   void SetMasterVolume(float value);
 
+  ALCdevice* GetDevice();
+
 protected:
 
   AudioSystem(unsigned int channels = 32);
