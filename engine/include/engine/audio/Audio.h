@@ -19,7 +19,7 @@ struct FMTCHUNK {
 class Audio {
     friend class AudioManager;
 
-  public:
+public:
     char* GetData() {
         return data;
     }
@@ -42,7 +42,7 @@ class Audio {
     ALenum GetOALFormat();
     float GetLength();
 
-  protected:
+protected:
     Audio();
     ~Audio(void);
 

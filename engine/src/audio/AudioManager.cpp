@@ -21,80 +21,84 @@ void AudioManager::AddAudio(string name)
 
             ALenum err = alGetError();
             if (err != AL_NO_ERROR)
+            {
                 SE_LOG_ERROR("alGenBuffers error: {}", err);
+                delete s;
+                return;
+            }
 
-            // debug guard before alBufferData
+            // Obter informações do arquivo WAV carregado
             ALenum fmt = s->GetOALFormat();
             const void* dataptr = s->GetData();
-            uint64_t usize = s->GetSize();
-
+            int size = s->GetSize();
+            int freq = (int)s->GetFrequency();
             int channels = s->GetChannels();
+            int bitrate = s->GetBitRate();
 
-            // Safety casts and checks
-            const ALsizei size_si =
-                (usize > static_cast<uint64_t>(std::numeric_limits<ALsizei>::max()))
-                    ? -1
-                    : static_cast<ALsizei>(usize);
+            SE_LOG_INFO("Loading WAV file: {}", name);
+            SE_LOG_INFO("  Format: {}", fmt);
+            SE_LOG_INFO("  Size: {} bytes", size);
+            SE_LOG_INFO("  Frequency: {} Hz", freq);
+            SE_LOG_INFO("  Channels: {}", channels);
+            SE_LOG_INFO("  Bit Rate: {} bits", bitrate);
 
-            auto device = AudioSystem::GetAudioSystem()->GetDevice();
-
-            ALCint srate;
-            alcGetIntegerv(device, ALC_FREQUENCY, 1, &srate);
-
-            unsigned int freq_u = s->GetFrequency();
-            const ALsizei freq_si = srate;
-
-
-            std::cerr << "[DEBUG] alBufferData about to be called:\n";
-            std::cerr << "  buffer = " << s->buffer << "\n";
-            std::cerr << "  format = " << fmt << "\n";
-            std::cerr << "  data ptr = " << dataptr << "\n";
-            std::cerr << "  size (bytes) = " << usize << " (ALsizei_cast=" << size_si << ")\n";
-            std::cerr << "  freq = " << freq_u << " (ALsizei_cast=" << freq_si << ")\n";
-
-            // basic validation
+            // Validações básicas
             if (!dataptr)
             {
-                std::cerr << "[ERROR] dataptr is NULL - cannot call alBufferData\n";
-            }
-            else if (size_si <= 0)
-            {
-                std::cerr << "[ERROR] size is <= 0 or overflowed when cast to ALsizei\n";
-            }
-            else if (!(fmt == AL_FORMAT_MONO8 || fmt == AL_FORMAT_MONO16 ||
-                fmt == AL_FORMAT_STEREO8 || fmt == AL_FORMAT_STEREO16))
-            {
-                std::cerr << "[ERROR] invalid AL format: " << fmt << "\n";
-            }
-            else if (freq_si <= 0)
-            {
-                std::cerr << "[ERROR] invalid sample rate: " << freq_u << "\n";
-            }
-            else
-            {
-                alBufferData(s->buffer, fmt, dataptr, size_si, freq_si);
-                ALenum err = alGetError();
-                if (err != AL_NO_ERROR)
-                {
-                    std::cerr << "[ERROR] alBufferData returned: " << err << "\n";
-                }
-                else
-                {
-                    std::cerr << "[OK] alBufferData success\n";
-                }
+                SE_LOG_ERROR("WAV data is NULL for file: {}", name);
+                alDeleteBuffers(1, &s->buffer);
+                delete s;
+                return;
             }
 
-            alBufferData(s->buffer, s->GetOALFormat(), s->GetData(), (ALsizei)s->GetSize(),
-                         (ALsizei)s->GetFrequency());
+            if (size <= 0)
+            {
+                SE_LOG_ERROR("Invalid WAV size: {} for file: {}", size, name);
+                alDeleteBuffers(1, &s->buffer);
+                delete s;
+                return;
+            }
+
+            if (freq <= 0)
+            {
+                SE_LOG_ERROR("Invalid sample rate: {} for file: {}", freq, name);
+                alDeleteBuffers(1, &s->buffer);
+                delete s;
+                return;
+            }
+
+            if (!(fmt == AL_FORMAT_MONO8 || fmt == AL_FORMAT_MONO16 ||
+                  fmt == AL_FORMAT_STEREO8 || fmt == AL_FORMAT_STEREO16))
+            {
+                SE_LOG_ERROR("Invalid AL format: {} for file: {}", fmt, name);
+                alDeleteBuffers(1, &s->buffer);
+                delete s;
+                return;
+            }
+
+            // Chamar alBufferData UMA ÚNICA VEZ com os valores corretos do arquivo WAV
+            alBufferData(s->buffer, fmt, dataptr, (ALsizei)size, (ALsizei)freq);
 
             err = alGetError();
             if (err != AL_NO_ERROR)
+            {
                 SE_LOG_ERROR("alBufferData error: {} (file={})", err, name);
+                alDeleteBuffers(1, &s->buffer);
+                delete s;
+                return;
+            }
+            else
+            {
+                SE_LOG_INFO("Audio loaded successfully: {}", name);
+            }
         }
         else
         {
-            SE_LOG_WARN("OpenAL: Invalid extension!");
+            SE_LOG_WARN("OpenAL: Invalid extension for file: {}", name);
+            delete s;
+            return;
         }
+
         audios.insert(make_pair(name, s));
     }
 }
@@ -109,6 +113,11 @@ void AudioManager::DeleteAudio()
 {
     for (map<string, Audio*>::iterator i = audios.begin(); i != audios.end(); ++i)
     {
-        delete i->second;
+        if (i->second)
+        {
+            alDeleteBuffers(1, &i->second->buffer);
+            delete i->second;
+        }
     }
+    audios.clear();
 }

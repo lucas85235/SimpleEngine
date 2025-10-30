@@ -1,4 +1,4 @@
-# pragma once
+#pragma once
 
 #include <vector>
 #include <algorithm>
@@ -9,7 +9,7 @@
 
 #include "al.h"
 #include "alc.h"
- 
+
 using std::vector;
 
 class AudioEmitter;
@@ -17,7 +17,7 @@ class AudioEmitter;
 struct OALSource {
   ALuint source;
   bool inUse;
-    
+
   OALSource(ALuint src) {
     source = src;
     inUse = false;
@@ -25,7 +25,7 @@ struct OALSource {
 };
 
 class AudioSystem {
-public :
+public:
   static void Initialise(unsigned int channels = 32) {
     if (!instance) {
       instance = new AudioSystem(channels);
@@ -35,7 +35,7 @@ public :
   static void Destroy() { delete instance; }
 
   inline static AudioSystem* GetAudioSystem() { return instance; }
-  
+
   void SetListenerTransform(const glm::vec3 &position) {
     listenerPosition = position;
   }
@@ -43,7 +43,7 @@ public :
   glm::vec3 GetListenerTransform() {
     return listenerPosition;
   }
-  
+
   void AddAudioEmitter(AudioEmitter* s) { emitters.push_back(s); }
   void RemoveAudioEmitter(AudioEmitter* s);
 
@@ -61,11 +61,12 @@ protected:
   void UpdateListener();
   void UpdateTemporaryEmitters(float msec);
 
-  void DetachSources(vector <AudioEmitter*>:: iterator from, vector<AudioEmitter*>::iterator to);
-  void AttachSources(vector <AudioEmitter*>:: iterator from, vector<AudioEmitter*>::iterator to);
+  void DetachSources(vector<AudioEmitter*>::iterator from, vector<AudioEmitter*>::iterator to);
+  void AttachSources(vector<AudioEmitter*>::iterator from, vector<AudioEmitter*>::iterator to);
 
   void CullNodes();
   OALSource* GetSource();
+
   glm::vec3 listenerPosition;
   float masterVolume;
   ALCcontext* context;

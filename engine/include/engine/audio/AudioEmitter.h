@@ -26,8 +26,8 @@ public:
   inline Audio* GetAudio() { return audio; }
   inline void SetPriority(AudioPriority p) { priority = p; }
   inline AudioPriority GetPriority() { return priority; }
-  inline void SetVolume(float volume) {
-    volume = min(1.0f, max(0.0f, volume));
+  inline void SetVolume(float vol) {
+    volume = min(1.0f, max(0.0f, vol));
   }
   inline float GetVolume() { return volume; }
   inline void SetLooping(bool state) { isLooping = state; }

@@ -10,11 +10,11 @@ AudioSystem::AudioSystem(unsigned int channels)
 {
     listener = NULL;
     masterVolume = 1.0f;
+    listenerPosition = glm::vec3(0.0f);
 
     SE_LOG_INFO("OpenAL: Creating AudioSystem");
 
     device = alcOpenDevice(NULL);
-    const ALCchar* devices = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
 
     if (!device)
     {
@@ -27,19 +27,29 @@ AudioSystem::AudioSystem(unsigned int channels)
 
     if (enumeration == AL_FALSE)
     {
-        SE_LOG_ERROR("OpenAL: AudioSystem creation failed! No valid device!");
-        return;
+        SE_LOG_ERROR("OpenAL: Enumeration extension not available!");
     }
     else if (enumeration == AL_TRUE)
     {
-        const ALCchar* deviceList = alcGetString(nullptr, ALC_ALL_DEVICES_SPECIFIER);
-        SE_LOG_INFO("OpenAL: device list: {}", deviceList);
+        const ALCchar* deviceList = alcGetString(NULL, ALC_ALL_DEVICES_SPECIFIER);
+        if (deviceList)
+        {
+            SE_LOG_INFO("OpenAL: Available devices: {}", deviceList);
+        }
     }
 
     context = alcCreateContext(device, NULL);
+    if (!context)
+    {
+        SE_LOG_ERROR("OpenAL: Failed to create context!");
+        alcCloseDevice(device);
+        return;
+    }
+
     alcMakeContextCurrent(context);
 
     alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
+
     for (unsigned int i = 0; i < channels; ++i)
     {
         ALuint source;
@@ -53,23 +63,34 @@ AudioSystem::AudioSystem(unsigned int channels)
         }
         else
         {
+            SE_LOG_WARN("OpenAL: Could not create source {}, error: {}", i, error);
             break;
         }
     }
 
-    SE_LOG_INFO("OpenAL: AudioSystem has: {} channels available!", sources.size());
+    SE_LOG_INFO("OpenAL: AudioSystem has {} channels available!", sources.size());
 }
 
 AudioSystem::~AudioSystem(void)
 {
-    alcMakeContextCurrent(NULL);
     for (vector<OALSource*>::iterator i = sources.begin(); i != sources.end(); ++i)
     {
         alDeleteSources(1, &(*i)->source);
         delete(*i);
     }
-    alcDestroyContext(context);
-    alcCloseDevice(device);
+    sources.clear();
+
+    alcMakeContextCurrent(NULL);
+
+    if (context)
+    {
+        alcDestroyContext(context);
+    }
+
+    if (device)
+    {
+        alcCloseDevice(device);
+    }
 }
 
 void AudioSystem::SetMasterVolume(float value)
@@ -85,50 +106,58 @@ ALCdevice* AudioSystem::GetDevice()
     return device;
 }
 
+void AudioSystem::RemoveAudioEmitter(AudioEmitter* s)
+{
+    for (vector<AudioEmitter*>::iterator i = emitters.begin(); i != emitters.end(); ++i)
+    {
+        if ((*i) == s)
+        {
+            (*i)->DetachSource();
+            emitters.erase(i);
+            return;
+        }
+    }
+}
+
 void AudioSystem::UpdateListener()
 {
-    if (listener)
-    {
-        glm::vec3 worldPos = listenerPosition;
+    glm::vec3 worldPos = listenerPosition;
 
-        glm::vec3 dirup[2];
-        // forward
-        dirup[0].x = -listenerPosition.x;
-        dirup[0].y = -listenerPosition.y;
-        dirup[0].z = -listenerPosition.z;
-        // Up
-        dirup[1].x = listenerPosition.x;
-        dirup[1].y = listenerPosition.y;
-        dirup[1].z = listenerPosition.z;
+    glm::vec3 dirup[2];
+    // Forward direction (assuming looking down negative Z)
+    dirup[0] = glm::vec3(0.0f, 0.0f, -1.0f);
+    // Up direction
+    dirup[1] = glm::vec3(0.0f, 1.0f, 0.0f);
 
-        alListenerfv(AL_POSITION, (float*)&worldPos);
-        alListenerfv(AL_ORIENTATION, (float*)&dirup);
-    }
+    alListenerfv(AL_POSITION, (float*)&worldPos);
+    alListenerfv(AL_ORIENTATION, (float*)&dirup);
 }
 
 void AudioSystem::Update(float msec)
 {
+    frameEmitters.clear();
+
     for (vector<AudioEmitter*>::iterator i = emitters.begin(); i != emitters.end(); ++i)
     {
-        frameEmitters.push_back((*i));
         (*i)->Update(msec);
+        frameEmitters.push_back((*i));
     }
+
     UpdateListener();
 
-    // CullNodes();
+    CullNodes();
+
     if (frameEmitters.size() > sources.size())
     {
         std::sort(frameEmitters.begin(), frameEmitters.end(), AudioEmitter::CompareNodesByPriority);
 
-        DetachSources(frameEmitters.begin() + (sources.size() + 1), frameEmitters.end());
+        DetachSources(frameEmitters.begin() + sources.size(), frameEmitters.end());
         AttachSources(frameEmitters.begin(), frameEmitters.begin() + sources.size());
     }
     else
     {
+        AttachSources(frameEmitters.begin(), frameEmitters.end());
     }
-    AttachSources(frameEmitters.begin(), frameEmitters.end());
-
-    frameEmitters.clear();
 }
 
 void AudioSystem::CullNodes()
@@ -137,9 +166,21 @@ void AudioSystem::CullNodes()
     {
         AudioEmitter* e = (*i);
 
+        if (!e->GetAudio())
+        {
+            e->DetachSource();
+            i = frameEmitters.erase(i);
+            continue;
+        }
+
         float distance = glm::distance(listenerPosition, e->position);
 
-        if (distance > e->GetRadius() || !e->GetAudio() || e->GetTimeLeft() < 0)
+        if (distance > e->GetRadius())
+        {
+            e->DetachSource();
+            i = frameEmitters.erase(i);
+        }
+        else if (!e->GetLooping() && e->GetTimeLeft() <= 0.0f)
         {
             e->DetachSource();
             i = frameEmitters.erase(i);
