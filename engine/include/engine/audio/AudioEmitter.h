@@ -38,14 +38,14 @@ public:
   inline float GetRadius() { return radius; }
   inline float GetTimeLeft() { return timeLeft; }
   inline OALSource* GetSource() { return currentSource; }
-  void SetTarget(se::Entity* e) { target = e; }
+  void SetTarget(const se::Entity& e) { target = e; }
   void SetPosition(glm::vec3 p) { position = p;}
   void AttachSource(OALSource* s);
   void DetachSource();
   static bool CompareNodesByPriority(AudioEmitter* a, AudioEmitter* b);
   virtual void Update(float msec);
 
-  se::Entity* target;
+  se::Entity target;
   glm::vec3 position;
 
 protected:

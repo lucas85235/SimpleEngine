@@ -40,6 +40,16 @@ public:
     listenerPosition = position;
   }
 
+  void SetListenerForward(const glm::vec3 &forward)
+  {
+    listenerForward = forward;
+  }
+
+  void SetListenerUp(const glm::vec3 &up)
+  {
+    listenerUp = up;
+  }
+
   glm::vec3 GetListenerTransform() {
     return listenerPosition;
   }
@@ -68,6 +78,8 @@ protected:
   OALSource* GetSource();
 
   glm::vec3 listenerPosition;
+  glm::vec3 listenerForward;
+  glm::vec3 listenerUp;
   float masterVolume;
   ALCcontext* context;
   ALCdevice* device;

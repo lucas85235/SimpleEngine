@@ -104,6 +104,10 @@ void AppLayer::OnUpdate(float ts) {
 
     // Handle input
     HandleInput(ts);
+
+    AudioSystem::GetAudioSystem()->SetListenerTransform(camera_.GetPosition());
+    AudioSystem::GetAudioSystem()->SetListenerForward(camera_.GetFront());
+    AudioSystem::GetAudioSystem()->SetListenerUp(camera_.GetUp());
 }
 
 void AppLayer::OnRender() {
@@ -330,12 +334,12 @@ void AppLayer::CreateAudioEntity(const std::string& name, const glm::vec3& posit
     Audio* audio = AudioManager::GetAudio("voice.wav");
 
     AudioEmitter* emitter = new AudioEmitter(audio);
-    emitter->SetTarget(&entity);
+    emitter->SetTarget(entity);
     emitter->SetVolume(0.5f);
     emitter->SetRadius(500.0f);
     emitter->SetLooping(true);
     emitter->SetPriority(AUDIOPRIORITY_MEDIUM);
-    emitter->SetPosition(glm::vec3{0.0f, 0.0f, 8.0f});
+    emitter->SetPosition(glm::vec3{0.0f, 0.0f, 0.0f});
 
     AudioSystem::GetAudioSystem()->AddAudioEmitter(emitter);
 }

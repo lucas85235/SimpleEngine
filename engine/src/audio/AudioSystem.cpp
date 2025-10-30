@@ -1,6 +1,8 @@
 #include <glm.hpp>
 
 #include "engine/audio/AudioSystem.h"
+
+#include "engine/Application.h"
 #include "engine/ecs/Components.h"
 #include "engine/Log.h"
 
@@ -125,9 +127,9 @@ void AudioSystem::UpdateListener()
 
     glm::vec3 dirup[2];
     // Forward direction (assuming looking down negative Z)
-    dirup[0] = glm::vec3(0.0f, 0.0f, -1.0f);
+    dirup[0] = listenerForward;
     // Up direction
-    dirup[1] = glm::vec3(0.0f, 1.0f, 0.0f);
+    dirup[1] = listenerUp;
 
     alListenerfv(AL_POSITION, (float*)&worldPos);
     alListenerfv(AL_ORIENTATION, (float*)&dirup);

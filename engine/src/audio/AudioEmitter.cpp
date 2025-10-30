@@ -19,7 +19,6 @@ void AudioEmitter::Reset() {
   isLooping = true;
   currentSource = NULL;
   audio = NULL;
-  target = NULL;
   position = glm::vec3(0.0f);
 }
 
@@ -80,7 +79,13 @@ void AudioEmitter::Update(float msec) {
   }
 
   if (currentSource) {
-    glm::vec3 pos = this->position;
+    glm::vec3 position{0.0f,0.0f,0.0f};
+    if (target)
+    {
+      position = target.GetComponent<se::TransformComponent>().Position;
+
+    }
+    glm::vec3 pos = position;
 
     alSourcefv(currentSource->source, AL_POSITION, (float*)&pos);
     alSourcef(currentSource->source, AL_GAIN, volume);
