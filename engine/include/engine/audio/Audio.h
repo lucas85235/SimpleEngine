@@ -1,48 +1,61 @@
 #pragma once
 
-#include <string>
-#include <iostream>
-#include <fstream>
 #include <al.h>
+#include <fstream>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
 struct FMTCHUNK {
-  short format;
-  short channels;
-  unsigned long srate;
-  unsigned long bps;
-  short balign;
-  short samp;
+    short format;
+    short channels;
+    unsigned long srate;
+    unsigned long bps;
+    short balign;
+    short samp;
 };
 
 class Audio {
-  friend class AudioManager ;
-public :
-  char* GetData () { return data; }
-  int GetBitRate () { return bitRate; }
-  float GetFrequency () { return freqRate; }
-  int GetChannels () { return channels; }
-  int GetSize () { return size; }
-  ALuint GetBuffer () { return buffer; }
+    friend class AudioManager;
 
-  ALenum GetOALFormat ();
-  float GetLength ();
+  public:
+    char* GetData() {
+        return data;
+    }
+    int GetBitRate() {
+        return bitRate;
+    }
+    float GetFrequency() {
+        return freqRate;
+    }
+    int GetChannels() {
+        return channels;
+    }
+    int GetSize() {
+        return size;
+    }
+    ALuint GetBuffer() {
+        return buffer;
+    }
 
-protected :
-  Audio ();
-  ~Audio (void);
+    ALenum GetOALFormat();
+    float GetLength();
 
-  void LoadFromWAV (string filename);
-  void LoadWAVChunkInfo (ifstream &file, string &name, unsigned int &size);
+  protected:
+    Audio();
+    ~Audio(void);
 
-  char* data;
+    void LoadFromWAV(string filename);
+    void LoadWAVChunkInfo(ifstream& file, string& name, unsigned int& size);
 
-  float length;
-  int bitRate;
-  float freqRate;
-  int size;
-  int channels;
+    char* data;
 
-  ALuint buffer;
+    float length;
+    int bitRate;
+    float freqRate;
+    int size;
+    int channels;
+
+    ALuint buffer;
 };
