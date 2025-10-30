@@ -31,13 +31,13 @@ float CalculateShadow(vec4 lightSpacePos, vec3 normal, vec3 lightDir) {
     return 0.0;
 
     float ndotl = max(dot(normal, lightDir), 0.0);
-    float bias = max(0.0025, 0.05 * (1.0 - ndotl));
+    float bias = max(0.00025, 0.0005 * (1.0 - ndotl));
     float shadow = 0.0;
     vec2 texelSize = 1.0 / textureSize(uShadowMap, 0);
     for (int x = -1; x <= 1; ++x) {
         for (int y = -1; y <= 1; ++y) {
             float pcfDepth = texture(uShadowMap, projCoords.xy + vec2(x, y) * texelSize).r;
-            shadow += projCoords.z - bias > pcfDepth ? 1.0 : 0.0;
+            shadow += projCoords.z + bias > pcfDepth ? 1.0 : 0.0;
         }
     }
     shadow /= 9.0;
