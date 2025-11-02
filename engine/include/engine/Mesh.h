@@ -4,7 +4,7 @@
 #include <vector>
 
 class Mesh {
-public:
+  public:
     Mesh() = default;
     Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices);
     Mesh(const Mesh&) = delete;
@@ -17,20 +17,34 @@ public:
     void draw() const;
 
     // Getters for new renderer architecture
-    const std::vector<float>& getVertices() const { return vertices_; }
-    const std::vector<unsigned int>& getIndices() const { return indices_; }
+    const std::vector<float>& getVertices() const {
+        return vertices_;
+    }
+    const std::vector<unsigned int>& getIndices() const {
+        return indices_;
+    }
 
     // Legacy OpenGL getters (if needed)
-    GLuint getVAO() const { return vao_; }
-    GLuint getVBO() const { return vbo_; }
-    GLuint getEBO() const { return ebo_; }
+    GLuint getVAO() const {
+        return vao_;
+    }
+    GLuint getVBO() const {
+        return vbo_;
+    }
+    GLuint getEBO() const {
+        return ebo_;
+    }
 
     // Get vertex count
     // 9 = 3 position + 3 color + 3 normal per vertex
-    size_t getVertexCount() const { return vertices_.size() / 9; }
-    size_t getIndexCount() const { return indices_.size(); }
+    size_t getVertexCount() const {
+        return vertices_.size() / 9;
+    }
+    size_t getIndexCount() const {
+        return indices_.size();
+    }
 
-private:
+  private:
     void setupMesh();
 
     std::vector<float> vertices_;

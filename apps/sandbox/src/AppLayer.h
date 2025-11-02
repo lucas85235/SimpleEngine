@@ -11,7 +11,7 @@
 #include <string>
 
 class AppLayer : public se::Layer {
-public:
+  public:
     AppLayer();
 
     ~AppLayer() override;
@@ -20,7 +20,7 @@ public:
 
     void OnDetach() override;
 
-    void OnEvent(se::Event &event) override;
+    void OnEvent(se::Event& event) override;
 
     void OnUpdate(float ts) override;
 
@@ -28,7 +28,7 @@ public:
 
     void OnImGuiRender() override;
 
-private:
+  private:
     void HandleInput(float deltaTime);
 
     void LoadMaterial();
@@ -36,13 +36,14 @@ private:
     // Helper methods for creating entities
     void AddDirectionalLight();
 
-    void CreateCubeEntity(const std::string &name, const glm::vec3 &position, const glm::vec3 &scale = glm::vec3(1.0f));
+    void CreateCubeEntity(const std::string& name, const glm::vec3& position,
+                          const glm::vec3& scale = glm::vec3(1.0f));
 
-    void CreateSphereEntity(const std::string &name, const glm::vec3 &position);
+    void CreateSphereEntity(const std::string& name, const glm::vec3& position);
 
-    void CreateCapsuleEntity(const std::string &name, const glm::vec3 &position);
+    void CreateCapsuleEntity(const std::string& name, const glm::vec3& position);
 
-private:
+  private:
     // Scene
     std::unique_ptr<se::Scene> scene_;
 

@@ -1,12 +1,12 @@
 #include "engine/MeshFactory.h"
-#include <cmath>
 #include <array>
+#include <cmath>
 
 // Anonymous namespace to hold helper for computing normals
 namespace {
 static void addNormals(std::vector<float>& vertices, const std::vector<unsigned int>& indices) {
     const size_t vertexCount = vertices.size() / 6; // pos+color per vertex
-    std::vector<std::array<float,3>> normals(vertexCount, {0.f, 0.f, 0.f});
+    std::vector<std::array<float, 3>> normals(vertexCount, {0.f, 0.f, 0.f});
 
     // accumulate face normals
     for (size_t i = 0; i + 2 < indices.size(); i += 3) {
@@ -15,9 +15,9 @@ static void addNormals(std::vector<float>& vertices, const std::vector<unsigned 
         unsigned int i2 = indices[i + 2];
 
         // positions of triangle vertices
-        float x0 = vertices[i0*6], y0 = vertices[i0*6 + 1], z0 = vertices[i0*6 + 2];
-        float x1 = vertices[i1*6], y1 = vertices[i1*6 + 1], z1 = vertices[i1*6 + 2];
-        float x2 = vertices[i2*6], y2 = vertices[i2*6 + 1], z2 = vertices[i2*6 + 2];
+        float x0 = vertices[i0 * 6], y0 = vertices[i0 * 6 + 1], z0 = vertices[i0 * 6 + 2];
+        float x1 = vertices[i1 * 6], y1 = vertices[i1 * 6 + 1], z1 = vertices[i1 * 6 + 2];
+        float x2 = vertices[i2 * 6], y2 = vertices[i2 * 6 + 1], z2 = vertices[i2 * 6 + 2];
 
         // edges
         float ax = x1 - x0;
@@ -33,9 +33,15 @@ static void addNormals(std::vector<float>& vertices, const std::vector<unsigned 
         float nz = ax * by - ay * bx;
 
         // accumulate normals for each vertex of triangle
-        normals[i0][0] += nx; normals[i0][1] += ny; normals[i0][2] += nz;
-        normals[i1][0] += nx; normals[i1][1] += ny; normals[i1][2] += nz;
-        normals[i2][0] += nx; normals[i2][1] += ny; normals[i2][2] += nz;
+        normals[i0][0] += nx;
+        normals[i0][1] += ny;
+        normals[i0][2] += nz;
+        normals[i1][0] += nx;
+        normals[i1][1] += ny;
+        normals[i1][2] += nz;
+        normals[i2][0] += nx;
+        normals[i2][1] += ny;
+        normals[i2][2] += nz;
     }
 
     // create new interleaved vertex array with normals
@@ -43,18 +49,18 @@ static void addNormals(std::vector<float>& vertices, const std::vector<unsigned 
     newVerts.reserve(vertexCount * 9);
     for (size_t i = 0; i < vertexCount; ++i) {
         // copy position and color
-        newVerts.push_back(vertices[i*6]);
-        newVerts.push_back(vertices[i*6 + 1]);
-        newVerts.push_back(vertices[i*6 + 2]);
-        newVerts.push_back(vertices[i*6 + 3]);
-        newVerts.push_back(vertices[i*6 + 4]);
-        newVerts.push_back(vertices[i*6 + 5]);
+        newVerts.push_back(vertices[i * 6]);
+        newVerts.push_back(vertices[i * 6 + 1]);
+        newVerts.push_back(vertices[i * 6 + 2]);
+        newVerts.push_back(vertices[i * 6 + 3]);
+        newVerts.push_back(vertices[i * 6 + 4]);
+        newVerts.push_back(vertices[i * 6 + 5]);
 
         // normalize normal
         float nx = normals[i][0];
         float ny = normals[i][1];
         float nz = normals[i][2];
-        float length = std::sqrt(nx*nx + ny*ny + nz*nz);
+        float length = std::sqrt(nx * nx + ny * ny + nz * nz);
         if (length > 0.f) {
             nx /= length;
             ny /= length;
@@ -338,5 +344,3 @@ Mesh MeshFactory::CreateCylinder(float radius, float height, int segments) {
 
     return Mesh(vertices, indices);
 }
-
-

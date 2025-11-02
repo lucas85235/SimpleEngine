@@ -1,11 +1,11 @@
 #include "engine/Mesh.h"
 
-Mesh::Mesh(const std::vector<float> &vertices, const std::vector<unsigned int> &indices)
+Mesh::Mesh(const std::vector<float>& vertices, const std::vector<unsigned int>& indices)
     : vertices_(vertices), indices_(indices) {
     setupMesh();
 }
 
-Mesh::Mesh(Mesh &&other) noexcept
+Mesh::Mesh(Mesh&& other) noexcept
     : vertices_(std::move(other.vertices_)), indices_(std::move(other.indices_)), vao_(other.vao_),
       vbo_(other.vbo_), ebo_(other.ebo_) {
     other.vao_ = 0;
@@ -13,7 +13,7 @@ Mesh::Mesh(Mesh &&other) noexcept
     other.ebo_ = 0;
 }
 
-Mesh &Mesh::operator=(Mesh &&other) noexcept {
+Mesh& Mesh::operator=(Mesh&& other) noexcept {
     if (this == &other)
         return *this;
 
@@ -62,22 +62,20 @@ void Mesh::setupMesh() {
 
     // Bind and set EBO
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_.size() * sizeof(unsigned int),
-                 indices_.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices_.size() * sizeof(unsigned int), indices_.data(),
+                 GL_STATIC_DRAW);
 
     // Vertex attributes
     // Position attribute (location = 0, 3 floats)
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void *) 0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // Color attribute (location = 1, 3 floats)
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float),
-                          (void *) (3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     // Normal attribute (location = 2, 3 floats)
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float),
-                          (void *) (6 * sizeof(float)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 9 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
     // Unbind VAO
